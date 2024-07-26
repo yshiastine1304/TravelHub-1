@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TravelHub</string>
+    <string name="registrationForm_fullname_label">Enter your full name</string>
+    <string name="registrationForm_email_label">Enter your email</string>
+</resources>
