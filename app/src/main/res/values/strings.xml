@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">TravelHub</string>
-    <string name="registrationForm_fullname_label">Enter your full name</string>
-    <string name="registrationForm_email_label">Enter your email</string>
+    <string name="registrationForm_fullname_hint">Enter your full name</string>
+    <string name="registrationForm_email_hint">Enter your email</string>
+    <string name="registrationForm_password_hint">Enter password</string>
+    <string name="registrationForm_contactNumber_hint">Enter Contact Number</string>
+    <string name="registrationForm_travelInterest_hint">Enter your interests</string>
+    <string name="registrationForm_travelStyle_hint">Enter your Travel Style</string>
+    <string name="registrationForm_Register">Register</string>
 </resources>
