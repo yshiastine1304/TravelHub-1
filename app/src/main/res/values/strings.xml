@@ -7,4 +7,6 @@
     <string name="registrationForm_travelInterest_hint">Enter your interests</string>
     <string name="registrationForm_travelStyle_hint">Enter your Travel Style</string>
     <string name="registrationForm_Register">Register</string>
+    <string name="AlreadyHaveAccnt">Already have an account?</string>
+    <string name="linkToLogin">Log In</string>
 </resources>
