@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "200327446600",
+    "project_id": "travelhub-2b3f4",
+    "storage_bucket": "travelhub-2b3f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200327446600:android:0dea57691ea82e847f187d",
+        "android_client_info": {
+          "package_name": "com.personal.development.travelhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVc0MW5xorCsnvflUAyZh3605dvas6Tbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,15 +9,16 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="407dp"
-        android:layout_height="217dp"
+        android:layout_width="410dp"
+        android:layout_height="224dp"
         android:layout_marginTop="4dp"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/travelhub_registerdesign" />
+
     <EditText
         android:id="@+id/fullname_edittext"
         android:layout_width="match_parent"
@@ -109,6 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
+        app:backgroundTint="@null"
         android:background="@drawable/button_background"
         android:text="@string/registrationForm_Register"
         android:textColor="@color/white"
@@ -126,7 +128,7 @@
         android:layout_height="39dp"
         android:layout_marginStart="52dp"
         android:text="@string/AlreadyHaveAccnt"
-        android:textColor="#745474"
+        android:textColor="@color/textview_lbl"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +137,7 @@
         app:layout_constraintVertical_bias="0.215" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/goToLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/linkToLogin"

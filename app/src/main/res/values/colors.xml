@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#e8d7ea</color>
+    <color name="button_color">#715675</color>
+    <color name="forgotPass_color">#816e84</color>
+    <color name="textview_lbl">#745474</color>
 </resources>

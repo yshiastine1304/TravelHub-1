@@ -9,4 +9,10 @@
     <string name="registrationForm_Register">Register</string>
     <string name="AlreadyHaveAccnt">Already have an account?</string>
     <string name="linkToLogin">Log In</string>
+    <string name="login_forgotPassword">Forgot Password</string>
+    <string name="labelLogIn">Don\'t have an account?</string>
+    <string name="signUp_lbl">Sign Up</string>
+    <string name="OnProgressMessage">This page is still in progress!! Thank you for your patience.</string>
+
+
 </resources>
