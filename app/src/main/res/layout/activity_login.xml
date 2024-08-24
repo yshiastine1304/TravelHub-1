@@ -4,33 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@drawable/background_login"
     tools:context=".LogInActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="413dp"
-        android:layout_height="249dp"
+    <TextView
+        android:id="@+id/travel_companion"
+        android:layout_width="320dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/travel_companion_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/travelhub_registerdesign"
-        android:importantForAccessibility="no" />
+        app:layout_constraintTop_toBottomOf="@+id/Welcome_lbl" />
+
+    <TextView
+        android:id="@+id/Welcome_lbl"
+        android:layout_width="335dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/welcome_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/motto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/motto_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/travel_companion" />
 
     <EditText
         android:id="@+id/email_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/registrationForm_email_hint"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/motto" />
 
     <EditText
         android:id="@+id/password_edittext_login"
@@ -53,7 +84,7 @@
         android:layout_margin="25dp"
         android:padding="15dp"
         android:textStyle="bold"
-        android:textColor="@color/forgotPass_color"
+        android:textColor="@color/font_color_bold"
         android:textSize="16sp"
         android:textAlignment="center"
         android:text="@string/login_forgotPassword"
@@ -83,9 +114,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:padding="15dp"
+        android:textSize="16sp"
         android:text="@string/labelLogIn"
-        android:textColor="@color/forgotPass_color"
-        android:textStyle="bold"
+        android:textColor="@color/font_color_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logIn_button"
@@ -96,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:textColor="@color/forgotPass_color"
+        android:textColor="@color/font_color_bold"
         android:textStyle="bold"
         android:textSize="16sp"
         android:text="@string/signUp_lbl"

@@ -13,6 +13,10 @@
     <string name="labelLogIn">Don\'t have an account?</string>
     <string name="signUp_lbl">Sign Up</string>
     <string name="OnProgressMessage">This page is still in progress!! Thank you for your patience.</string>
+    <string name="font_poppins">Poppins</string>
+    <string name="welcome_lbl">Welcome To Your</string>
+    <string name="travel_companion_lbl">Travel Companion</string>
+    <string name="motto_lbl">Your Travel Trip Starts Here!</string>
 
 
 </resources>

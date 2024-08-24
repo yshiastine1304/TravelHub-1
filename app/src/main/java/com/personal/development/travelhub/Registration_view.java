@@ -2,7 +2,9 @@ package com.personal.development.travelhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,10 +13,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registration_view extends AppCompatActivity {
 
+    Intent intent;
+
     FirebaseFirestore firestore; //firestore instantiation
     EditText fullName,email,password,contactNumber,travelInterest,travelStyle; //declaring edittexts
-    Button register;
-    TextView gotoLogin;
+    Button register; // declaring button
+    TextView gotoLogin; // declaring Textviews
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,15 @@ public class Registration_view extends AppCompatActivity {
         register = (Button) findViewById(R.id.Register_button);
         //TextView for Registration
         gotoLogin = (TextView) findViewById(R.id.goToLogIn);
+
+        //Onclick event listeners
+        gotoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(v.getContext(), LogInActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 }

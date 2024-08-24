@@ -4,27 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@drawable/background_login"
     tools:context=".Registration_view">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="410dp"
-        android:layout_height="224dp"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
+
+    <TextView
+        android:id="@+id/Welcome_lbl"
+        android:layout_width="335dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/welcome_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/travelhub_registerdesign" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/travel_companion"
+        android:layout_width="320dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/travel_companion_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Welcome_lbl" />
+
+    <TextView
+        android:id="@+id/motto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/motto_lbl"
+        android:textColor="@color/font_color_bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/travel_companion" />
 
     <EditText
         android:id="@+id/fullname_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="56dp"
         android:autofillHints="First name MI. Last name"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/registrationForm_fullname_hint"
@@ -32,7 +60,7 @@
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/motto" />
 
     <EditText
         android:id="@+id/email_edittext"
@@ -113,7 +141,7 @@
         app:backgroundTint="@null"
         android:background="@drawable/button_background"
         android:text="@string/registrationForm_Register"
-        android:textColor="@color/white"
+        android:textColor="@color/font_color_bold"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +156,7 @@
         android:layout_height="39dp"
         android:layout_marginStart="52dp"
         android:text="@string/AlreadyHaveAccnt"
-        android:textColor="@color/textview_lbl"
+        android:textColor="@color/font_color_bold"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -141,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/linkToLogin"
-        android:textColor="#a788b1"
+        android:textColor="@color/font_color_bold"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -149,7 +177,7 @@
         app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toEndOf="@+id/Labeled1"
         app:layout_constraintTop_toBottomOf="@+id/Register_button"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.202" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
