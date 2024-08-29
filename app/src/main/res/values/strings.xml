@@ -17,6 +17,8 @@
     <string name="welcome_lbl">Welcome To Your</string>
     <string name="travel_companion_lbl">Travel Companion</string>
     <string name="motto_lbl">Your Travel Trip Starts Here!</string>
+    <string name="reset_password_btn">Reset Password</string>
+    <string name="back_to_logIn_txt">Back to Log In</string>
 
 
 </resources>
