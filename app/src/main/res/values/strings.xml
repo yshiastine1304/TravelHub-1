@@ -19,6 +19,7 @@
     <string name="motto_lbl">Your Travel Trip Starts Here!</string>
     <string name="reset_password_btn">Reset Password</string>
     <string name="back_to_logIn_txt">Back to Log In</string>
+    <string name="search_label">Search All</string>
 
 
 </resources>
