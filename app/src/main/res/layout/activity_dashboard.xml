@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
+    android:orientation="vertical"
     tools:context=".Dashboard">
 
+    <Button
+        android:id="@+id/select_all_btn"
+        android:layout_width="167dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_rounded"
+        android:drawableLeft="@drawable/ic_home_name"
+        android:text="@string/search_label"
+        android:textColor="@color/font_color_bold"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <EditText
-        android:id="@+id/email_edittext_forgot"
+        android:id="@+id/search_places"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="25dp"
-        android:autofillHints="username@email.com"
         android:background="@drawable/rounded_edittext"
         android:drawableStart="@drawable/icons8_search_24"
         android:hint="@string/search_hint"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_all_btn" />
-
-    <Button
-        android:id="@+id/select_all_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_rounded"
-        android:text="@string/search_label"
-        android:drawableLeft="@drawable/ic_home_name"
-        android:textColor="@color/font_color_bold"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,9 +45,7 @@
         android:text="@string/home_recommend_label"
         android:textColor="@color/black"
         android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_edittext_forgot" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
@@ -61,23 +54,39 @@
         android:layout_marginStart="24dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:text="@string/tailored_to_request"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:text="@string/tailored_to_request" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_view"
+        android:id="@+id/recommended_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.025"
-        app:reverseLayout="true" />
+        android:orientation="horizontal" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/attraction_moalboal"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/explore_more" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/attractions_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
+

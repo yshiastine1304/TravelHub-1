@@ -55,7 +55,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView picture_location;
         TextView title_caption;
-
         public ViewHolder(View itemView){
             super(itemView);
             picture_location = itemView.findViewById(R.id.titleImageView);

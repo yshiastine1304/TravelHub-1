@@ -7,4 +7,5 @@
     <color name="forgotPass_color">#816e84</color>
     <color name="textview_lbl">#745474</color>
     <color name="font_color_bold">#D0EDFF</color>
+    <color name="background_textview_details">#2596be</color>
 </resources>
