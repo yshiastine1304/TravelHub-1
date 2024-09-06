@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:elevation="4dp"
+    android:orientation="vertical"
     android:padding="8dp">
 
-    <LinearLayout
+    <!-- ImageView for the title image -->
+    <ImageView
+        android:id="@+id/titleImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_picture" />
 
-        <!-- Replace TextView with ImageView -->
-        <ImageView
-            android:id="@+id/titleImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_picture" />
-
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sample_caption"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    <!-- TextView for the description -->
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_textview_details"
+        android:text="@string/sample_caption"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>
