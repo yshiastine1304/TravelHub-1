@@ -6,19 +6,17 @@ public class User {
     private String contactNumber;
     private String interest;
     private String travelStyle;
+    private String access;
 
-    // No-argument constructor required for Firestore serialization
-    public User() {}
-
-    public User(String fullName, String email, String contactNumber, String interest, String travelStyle) {
+    public User(String fullName, String email, String contactNumber, String interest, String travelStyle, String access) {
         this.fullName = fullName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.interest = interest;
         this.travelStyle = travelStyle;
+        this.access = access;
     }
 
-    // Getters and setters
     public String getFullName() {
         return fullName;
     }
@@ -57,5 +55,13 @@ public class User {
 
     public void setTravelStyle(String travelStyle) {
         this.travelStyle = travelStyle;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
     }
 }

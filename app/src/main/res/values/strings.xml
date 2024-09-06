@@ -19,7 +19,11 @@
     <string name="motto_lbl">Your Travel Trip Starts Here!</string>
     <string name="reset_password_btn">Reset Password</string>
     <string name="back_to_logIn_txt">Back to Log In</string>
-    <string name="search_label">Search All</string>
+    <string name="search_label">Search all</string>
+    <string name="search_hint">Places to go…</string>
+    <string name="home_recommend_label">Recommended for You</string>
+    <string name="tailored_to_request">Tours tailored to your interests</string>
+    <string name="sample_caption">1. Airplane Wreck, Saavedra</string>
 
 
 </resources>

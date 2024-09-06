@@ -47,13 +47,6 @@ public class Registration_view extends AppCompatActivity {
         register = (Button) findViewById(R.id.Register_button);
         //TextView for Registration
         gotoLogin = (TextView) findViewById(R.id.goToLogIn);
-        // Get inputs
-//        String full_name = fullName.getText().toString();
-//        String email_ = email.getText().toString();
-//        String password_ = password.getText().toString();
-//        String contact_number = contactNumber.getText().toString();
-//        String travel_interest = travelInterest.getText().toString();
-//        String travel_style = travelStyle.getText().toString();
 
 
         //Onclick event listeners
@@ -68,7 +61,6 @@ public class Registration_view extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 registerUser(fullName.getText().toString(),
                         email.getText().toString(),
                         password.getText().toString(),
@@ -92,7 +84,7 @@ public class Registration_view extends AppCompatActivity {
                                        if (emailTask.isSuccessful()){
                                            Toast.makeText(this, "Verification email sent to " + user.getEmail() , Toast.LENGTH_SHORT).show();
                                            //Create a new User
-                                           User userData = new User (fullname, email, contactNumber, interest, travelStyle);
+                                           User userData = new User (fullname, email, contactNumber, interest, travelStyle, "user");
                                            db.collection("users").document(user.getUid())
                                                    .set(userData)
                                                    .addOnSuccessListener(aVoid ->{
