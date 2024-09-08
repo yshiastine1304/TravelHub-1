@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.personal.development.travelhub.adapters.AttractionAdapter;
 import com.personal.development.travelhub.adapters.HomeAdapter;
 import com.personal.development.travelhub.models.AttractionsModel;
 import com.personal.development.travelhub.models.CardModel;
+import com.personal.development.travelhub.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class Dashboard extends AppCompatActivity {
     private AttractionAdapter adapter2;
     private List<CardModel> dataList;
     private List<AttractionsModel> dataList2;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,25 @@ public class Dashboard extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recommended_recycler_view);
         reco_recyclerView = findViewById(R.id.attractions_recyclerView);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-// Create separate layout managers for each RecyclerView
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                return true;
+            } else if (itemId == R.id.nav_wishlist) {
+                startActivity(new Intent(this, Wishlist.class));
+                return true;
+            } else if (itemId == R.id.nav_trip) {
+                return true;
+            } else if (itemId == R.id.nav_account) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        // Create separate layout managers for each RecyclerView
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); // Vertical layout
 

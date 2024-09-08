@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TravelHub"
         tools:targetApi="31">
         <activity
+            android:name=".Wishlist"
+            android:exported="false" />
+        <activity
             android:name=".DetailsActivity"
             android:exported="false" />
         <activity
