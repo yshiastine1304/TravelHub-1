@@ -39,6 +39,8 @@ public class Dashboard extends AppCompatActivity {
         reco_recyclerView = findViewById(R.id.attractions_recyclerView);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
@@ -69,11 +71,11 @@ public class Dashboard extends AppCompatActivity {
         dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1_jK0fXLw-zqnYeiqrS09PEDMbddh47ab", "2 Magpayong Rock"));
 
         dataList2 = new ArrayList<>();
-        dataList2.add(new AttractionsModel("https://drive.google.com/file/d/1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "3 WHITE BEACH, SAAVEDRA",
-                "https://drive.google.com/file/d/1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "4 PANAGSAMA BEACH, BASDIOT"));
+        dataList2.add(new AttractionsModel("https://drive.google.com/uc?export=view&id=1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "3 WHITE BEACH, SAAVEDRA",
+                "https://drive.google.com/uc?export=view&id=1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "4 PANAGSAMA BEACH, BASDIOT"));
 
-        adapter = new HomeAdapter(dataList);
-        adapter2 = new AttractionAdapter(dataList2);
+        adapter = new HomeAdapter(this,dataList);
+        adapter2 = new AttractionAdapter(this,dataList2);
 
         recyclerView.setAdapter(adapter);
         reco_recyclerView.setAdapter(adapter2);

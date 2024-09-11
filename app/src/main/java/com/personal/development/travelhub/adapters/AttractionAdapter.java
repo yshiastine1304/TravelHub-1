@@ -23,7 +23,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
     private Context context;
 
     // Constructor that takes the list
-    public AttractionAdapter(List<AttractionsModel> dataList) {
+    public AttractionAdapter(Context context, List<AttractionsModel> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -55,6 +55,13 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
             }
         });
 
+        holder.picture_location_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(context, DetailsActivity.class);
+               context.startActivity(intent);
+            }
+        });
 
         Glide.with(holder.itemView.getContext())
                 .load(attractionsModel.getImageUrl_2())

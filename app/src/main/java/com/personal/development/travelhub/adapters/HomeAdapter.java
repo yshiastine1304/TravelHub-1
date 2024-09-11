@@ -1,5 +1,7 @@
 package com.personal.development.travelhub.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
+import com.personal.development.travelhub.DetailsActivity;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.CardModel;
 
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-
+    private Context context;
     private List<CardModel> dataList;
 
-    public HomeAdapter(List<CardModel> dataList) {
+    public HomeAdapter(Context context,List<CardModel> dataList) {
+
+        this.context = context;
         this.dataList = dataList;
     }
     @NonNull
@@ -43,6 +48,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .load(cardModel.getImageUrl())
                 .placeholder(R.drawable.default_picture)
                 .into(holder.picture_location);
+
+        holder.picture_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailsActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
         holder.title_caption.setText(cardModel.getCaption());
     }
