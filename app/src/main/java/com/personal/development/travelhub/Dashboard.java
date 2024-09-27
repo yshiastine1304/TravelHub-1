@@ -49,6 +49,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(this, Wishlist.class));
                 return true;
             } else if (itemId == R.id.nav_trip) {
+                startActivity(new Intent(this, activity_admin.class));
                 return true;
             } else if (itemId == R.id.nav_account) {
                 return true;
@@ -67,12 +68,12 @@ public class Dashboard extends AppCompatActivity {
 
         // Set up data and adapters
         dataList = new ArrayList<>();
-        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1OgDYv9jxQcKwJmTQUDzQLZ1nJLUZ4I9-", "1 Airplane"));
-        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1_jK0fXLw-zqnYeiqrS09PEDMbddh47ab", "2 Magpayong Rock"));
+        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1OgDYv9jxQcKwJmTQUDzQLZ1nJLUZ4I9-", "Airplane"));
+        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1_jK0fXLw-zqnYeiqrS09PEDMbddh47ab", "Magpayong Rock"));
 
         dataList2 = new ArrayList<>();
-        dataList2.add(new AttractionsModel("https://drive.google.com/uc?export=view&id=1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "3 WHITE BEACH, SAAVEDRA",
-                "https://drive.google.com/uc?export=view&id=1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "4 PANAGSAMA BEACH, BASDIOT"));
+        dataList2.add(new AttractionsModel("https://drive.google.com/uc?export=view&id=1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "WHITE BEACH, SAAVEDRA",
+                "https://drive.google.com/uc?export=view&id=1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "PANAGSAMA BEACH, BASDIOT"));
 
         adapter = new HomeAdapter(this,dataList);
         adapter2 = new AttractionAdapter(this,dataList2);

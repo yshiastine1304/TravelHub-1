@@ -19,8 +19,9 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textAlignment="center"
         android:background="@color/background_textview_details"
         android:text="@string/sample_caption"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textColor="@color/white" />
 </LinearLayout>

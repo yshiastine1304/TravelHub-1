@@ -23,7 +23,7 @@
     <string name="search_hint">Places to go…</string>
     <string name="home_recommend_label">Recommended for You</string>
     <string name="tailored_to_request">Tours tailored to your interests</string>
-    <string name="sample_caption">1. Airplane Wreck, Saavedra</string>
+    <string name="sample_caption">Airplane Wreck, Saavedra</string>
     <string name="attraction_moalboal">Attractions in Moalboal</string>
     <string name="explore_more">Explore more places to visit</string>
     <string name="home_bottom_nav_label">Home</string>
@@ -33,5 +33,18 @@
     <string name="review_details">(<u>75 reviews</u>)</string>
     <string name="highligt_lbl">Highlight</string>
     <string name="description_details">One of the South Cebu beaches that you shouldn’t miss out on is Lambug Beach. Unlike the remote Panagsama Beach, Lambug Beach in Badian boasts a lively scene.</string>
+    <string name="time_details">daily 6:00 AM to 6:00 PM.</string>
+    <string name="location_details">Moalboal, Philippines</string>
+    <string name="starting_point">Starting Point Options:</string>
+    <string name="entrance_fee">Entrance Fee: ₱10 per person</string>
+    <string name="starting_point_details">Mactan AIrport</string>
+    <string name="trip_schedule">When do you want to go?</string>
+    <string name="admin_upload_img1">Upload image 1</string>
+    <string name="admin_upload_img2">Upload image 2</string>
+    <string name="admin_destination_hint">Destination</string>
+    <string name="admin_highlight">Highlight</string>
+    <string name="admin_time">Time</string>
+    <string name="location_admin">Location</string>
+    <string name="entranceFee_admin">Entrance Fee</string>
 
 </resources>

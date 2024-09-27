@@ -10,5 +10,6 @@
     <color name="background_textview_details">#2596be</color>
     <color name="bottom_navigation_color">#216088</color>
     <color name="review_text_color">#36a2df</color>
+    <color name="admin_btn_color">#B5D1E2</color>
 
 </resources>

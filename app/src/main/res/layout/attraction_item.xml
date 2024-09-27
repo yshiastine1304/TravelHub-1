@@ -20,17 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_picture" />
+            android:src="@drawable/default_picture"
+            android:importantForAccessibility="no" />
 
         <!-- TextView for the description -->
         <TextView
             android:id="@+id/descriptionTextView_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAlignment="center"
             android:background="@color/background_textview_details"
             android:text="@string/sample_caption"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 
@@ -46,18 +48,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_picture" />
+            android:src="@drawable/default_picture"
+            android:importantForAccessibility="no" />
 
 
         <TextView
             android:id="@+id/descriptionTextView_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAlignment="center"
             android:background="@color/background_textview_details"
             android:text="@string/sample_caption"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textColor="@color/white" />
     </LinearLayout>
-
 
 </LinearLayout>
