@@ -97,7 +97,7 @@
         app:drawableStartCompat="@drawable/time_icon" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -112,6 +112,51 @@
         app:layout_constraintTop_toBottomOf="@+id/time_admin_btn"
         android:importantForAutofill="no" />
 
+    <EditText
+        android:id="@+id/busFare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/bus_fare"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocation"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/whatToExpect"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/whatToExpect"
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/busFare" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_background"
+        android:text="Button"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whatToExpect" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

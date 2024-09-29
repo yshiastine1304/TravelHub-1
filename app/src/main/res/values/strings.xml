@@ -46,5 +46,7 @@
     <string name="admin_time">Time</string>
     <string name="location_admin">Location</string>
     <string name="entranceFee_admin">Entrance Fee</string>
+    <string name="bus_fare">Bus Fare</string>
+    <string name="whatToExpect">What to expect</string>
 
 </resources>
