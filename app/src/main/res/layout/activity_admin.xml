@@ -8,11 +8,10 @@
     tools:context=".activity_admin">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/upload_img_btn_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_marginTop="24dp"
         android:background="@drawable/upload_btn"
         android:drawablePadding="5dp"
         android:padding="5dp"
@@ -26,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/upload_img_btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -41,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_1" />
 
     <EditText
         android:id="@+id/destination_admin"
@@ -57,7 +56,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_2"
         android:importantForAutofill="no" />
 
     <EditText
@@ -97,7 +96,7 @@
         app:drawableStartCompat="@drawable/time_icon" />
 
     <EditText
-        android:id="@+id/editTextLocation"
+        android:id="@+id/location_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -113,23 +112,23 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/busFare"
+        android:id="@+id/bus_fare_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="@string/bus_fare"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="15dp"
         android:background="@drawable/rounded_edittext"
+        android:hint="@string/bus_fare"
+        android:importantForAutofill="no"
         android:inputType="number"
+        android:padding="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/entrance_fee_admin" />
 
     <EditText
-        android:id="@+id/whatToExpect"
+        android:id="@+id/what_to_expect_admin"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="20dp"
@@ -143,20 +142,52 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/busFare" />
+        app:layout_constraintTop_toBottomOf="@+id/bus_fare_admin" />
 
     <Button
-        android:id="@+id/save_btn"
+        android:id="@+id/save_admin_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/button_background"
-        android:text="Button"
+        android:text="@string/submit_btn_admin"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whatToExpect" />
+        app:layout_constraintTop_toBottomOf="@+id/what_to_expect_admin" />
+
+    <Button
+        android:id="@+id/back_admin_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_background"
+        android:text="@string/back_btn_admin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_admin_btn" />
+
+    <EditText
+        android:id="@+id/entrance_fee_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/entrance_fee_admin"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_admin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

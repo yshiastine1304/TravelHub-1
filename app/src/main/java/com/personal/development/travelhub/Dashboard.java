@@ -49,7 +49,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(this, Wishlist.class));
                 return true;
             } else if (itemId == R.id.nav_trip) {
-                startActivity(new Intent(this, activity_admin.class));
+
                 return true;
             } else if (itemId == R.id.nav_account) {
                 return true;

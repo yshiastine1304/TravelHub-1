@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -71,10 +73,32 @@ public class LogInActivity extends AppCompatActivity {
                        // Login success
                        FirebaseUser user = mAuth.getCurrentUser();
                        if (user != null && user.isEmailVerified()) {
-                           // Redirect to the main activity or dashboard
-                           intent = new Intent(LogInActivity.this, Dashboard.class);
-                           startActivity(intent);
-                           finish();
+
+                           // Retrieve
+                           FirebaseFirestore db = FirebaseFirestore.getInstance();
+                           DocumentReference docRef = db.collection("users").document(user.getUid());
+
+                           docRef.get().addOnSuccessListener(documentSnapshot -> {
+                               if (documentSnapshot.exists()) {
+                               String access = documentSnapshot.getString("access");
+
+                               if (access != null){
+                                   if (access.equals("admin")) {
+                                       startActivity(new Intent(this, activity_admin.class));
+                                       finish();
+                                   }else if (access.equals("user")){
+                                       startActivity(new Intent(LogInActivity.this, Dashboard.class));
+                                       finish();
+                                   }
+                               }
+                               } else {
+                                   Toast.makeText(LogInActivity.this, "User data not found", Toast.LENGTH_LONG).show();
+                               }
+                           }).addOnFailureListener(e -> {
+                               Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                           });
+
+
                        }else {
                            // Email not verified, notify the user
                            Toast.makeText(LogInActivity.this,
@@ -91,14 +115,14 @@ public class LogInActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null && user.isEmailVerified()){
-            Intent intent = new Intent(LogInActivity.this, Dashboard.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser user = mAuth.getCurrentUser();
+//        if (user != null && user.isEmailVerified()){
+//            Intent intent = new Intent(LogInActivity.this, Dashboard.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 }
