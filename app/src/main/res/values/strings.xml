@@ -51,4 +51,14 @@
     <string name="submit_btn_admin">Submit</string>
     <string name="back_btn_admin">Back</string>
     <string name="entrance_fee_admin">Entrance Fee</string>
+    <string name="cebu_pier_details">Cebu Pier</string>
+    <string name="south_bus_details">South Bus Terminal</string>
+    <string name="all_dates">All Dates</string>
+    <string name="who_is_coming_with_you">Who’s coming with you?</string>
+    <string name="solo_details">Solo</string>
+    <string-array name="recommended_spinner_items">
+        <item>Select Interest</item>
+        <item>Beach</item>
+        <item>Hiking</item>
+    </string-array>
 </resources>

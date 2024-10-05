@@ -10,6 +10,8 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.personal.development.travelhub.adapters.AttractionAdapter;
 import com.personal.development.travelhub.adapters.HomeAdapter;
 import com.personal.development.travelhub.models.AttractionsModel;
@@ -22,6 +24,7 @@ import java.util.List;
 public class Dashboard extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private RecyclerView recyclerView;
     private RecyclerView reco_recyclerView;
     private HomeAdapter adapter;
@@ -34,6 +37,9 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         recyclerView = findViewById(R.id.recommended_recycler_view);
         reco_recyclerView = findViewById(R.id.attractions_recyclerView);
@@ -68,12 +74,12 @@ public class Dashboard extends AppCompatActivity {
 
         // Set up data and adapters
         dataList = new ArrayList<>();
-        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1OgDYv9jxQcKwJmTQUDzQLZ1nJLUZ4I9-", "Airplane"));
-        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1_jK0fXLw-zqnYeiqrS09PEDMbddh47ab", "Magpayong Rock"));
+//        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1OgDYv9jxQcKwJmTQUDzQLZ1nJLUZ4I9-", "Airplane"));
+//        dataList.add(new CardModel("https://drive.google.com/uc?export=view&id=1_jK0fXLw-zqnYeiqrS09PEDMbddh47ab", "Magpayong Rock"));
 
         dataList2 = new ArrayList<>();
-        dataList2.add(new AttractionsModel("https://drive.google.com/uc?export=view&id=1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "WHITE BEACH, SAAVEDRA",
-                "https://drive.google.com/uc?export=view&id=1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "PANAGSAMA BEACH, BASDIOT"));
+//        dataList2.add(new AttractionsModel("https://drive.google.com/uc?export=view&id=1Xwr2iJTFxsV7xnGGxl6Xi4irwLzAsnPx", "WHITE BEACH, SAAVEDRA",
+//                "https://drive.google.com/uc?export=view&id=1g79NkbSd6gVCR-OJH0syP9PY9qcLlu9h", "PANAGSAMA BEACH, BASDIOT"));
 
         adapter = new HomeAdapter(this,dataList);
         adapter2 = new AttractionAdapter(this,dataList2);
@@ -81,6 +87,46 @@ public class Dashboard extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         reco_recyclerView.setAdapter(adapter2);
 
+        fetchRecommendedData();
+        fetchAttractionsData();
+    }
+
+    private void fetchRecommendedData() {
+        db.collection("attractions")
+                .get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()){
+//                       dataList.clear();
+                      for (QueryDocumentSnapshot document : task.getResult()) {
+                          String interest = document.getString("recommend_interest");
+                          String imageUrl = document.getString("image_link_1");
+                          String title = document.getString("destination_name");
+                          String documentId = document.getId();
+
+                          if (interest.equals("Beach")){
+                              dataList.add(new CardModel(imageUrl,title, documentId));
+                          }
+                      }
+                       adapter.notifyDataSetChanged();
+                   }
+                });
+    }
+
+    private void fetchAttractionsData(){
+        db.collection("attractions")
+                .get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()){
+//                       dataList2.clear();
+                       for (QueryDocumentSnapshot document : task.getResult()){
+                           String imageUrl = document.getString("image_link_1");
+                           String title = document.getString("destination_name");
+
+                           dataList2.add(new AttractionsModel(imageUrl,title,imageUrl,title));
+                       }
+                       adapter2.notifyDataSetChanged();
+                   }
+                });
     }
 
 }

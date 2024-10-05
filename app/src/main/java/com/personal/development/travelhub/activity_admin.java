@@ -9,8 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.core.util.Pair;
 
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,8 +48,10 @@ public class activity_admin extends AppCompatActivity {
     private TextView btnOpenDatePicker, uploadImgBtn1, uploadImgBtn2;
     private EditText destinationNameAdmin, busFareAdmin, entranceFeeAdmin, locationAdmin, whatToExpectAdmin, highlightAdmin;
     private Button saveAdminBtn;
+    private Spinner recommendedSpinner;
 
     private String selectedTimeRange;
+    private String selectedRecommended;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,25 @@ public class activity_admin extends AppCompatActivity {
         whatToExpectAdmin = findViewById(R.id.what_to_expect_admin);
         highlightAdmin = findViewById(R.id.highlight_admin);
         saveAdminBtn = findViewById(R.id.save_admin_btn);
+        recommendedSpinner = findViewById(R.id.recommended_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.recommended_spinner_items, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        recommendedSpinner.setAdapter(adapter);
+
+        recommendedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRecommended = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnOpenDatePicker.setOnClickListener(v -> {openDateRangePicker();});
 
@@ -91,7 +116,7 @@ public class activity_admin extends AppCompatActivity {
             if (requestCode == PICK_IMAGE_REQUEST_1){
                 imageUri1 = data.getData();
                 uploadImgBtn1.setText("Uploaded Successfully");
-            }else if (resultCode == PICK_IMAGE_REQUEST_2){
+            }else if (requestCode == PICK_IMAGE_REQUEST_2){
                 imageUri2 = data.getData();
                 uploadImgBtn2.setText("Uploaded Successfully");
             }
@@ -114,6 +139,7 @@ public class activity_admin extends AppCompatActivity {
         String location = locationAdmin.getText().toString();
         String whatToExpect = whatToExpectAdmin.getText().toString();
         String highlight = highlightAdmin.getText().toString();
+        String selectedTimeRange = btnOpenDatePicker.getText().toString();
 
         if (destinationName.isEmpty() || highlight.isEmpty() || location.isEmpty() || whatToExpect.isEmpty() || selectedTimeRange == null) {
             Toast.makeText(this, "Please fill all mandatory fields", Toast.LENGTH_SHORT).show();
@@ -128,7 +154,7 @@ public class activity_admin extends AppCompatActivity {
         dataMap.put("what_to_expect", whatToExpect);
         dataMap.put("highlight", highlight);
         dataMap.put("time", selectedTimeRange);
-
+        dataMap.put("recommend_interest", selectedRecommended);
         // Upload images and store URLs in Firestore
         if (imageUri1 != null) {
             uploadImage(imageUri1, "image1.jpg", uri -> {
@@ -152,7 +178,7 @@ public class activity_admin extends AppCompatActivity {
     }
 
     private void saveToFirestore(Map<String, Object> dataMap) {
-        db.collection("adminUploads")
+        db.collection("attractions")
                 .add(dataMap)
                 .addOnSuccessListener(documentReference -> Toast.makeText(activity_admin.this, "Data submitted successfully", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(activity_admin.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
