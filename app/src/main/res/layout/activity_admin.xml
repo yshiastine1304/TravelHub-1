@@ -7,11 +7,13 @@
     android:background="@color/background_color"
     tools:context=".activity_admin">
 
+
     <TextView
         android:id="@+id/upload_img_btn_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="35dp"
         android:layout_margin="15dp"
+        android:layout_marginTop="108dp"
         android:background="@drawable/upload_btn"
         android:drawablePadding="5dp"
         android:padding="5dp"
@@ -21,14 +23,16 @@
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/plus_icon_img"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/upload_img_btn_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="35dp"
         android:layout_margin="15dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/upload_btn"
         android:drawablePadding="5dp"
         android:padding="5dp"
@@ -38,44 +42,44 @@
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/plus_icon_img"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_1" />
 
     <EditText
         android:id="@+id/destination_admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
         android:layout_margin="15dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/admin_destination_hint"
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_2"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_2" />
 
     <EditText
         android:id="@+id/highlight_admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="68dp"
         android:layout_margin="15dp"
-        android:hint="@string/admin_highlight"
         android:background="@drawable/rounded_edittext"
-        android:inputType="text"
+        android:hint="@string/admin_highlight"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destination_admin"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/destination_admin" />
 
     <TextView
         android:id="@+id/time_admin_btn"
@@ -97,115 +101,147 @@
 
     <EditText
         android:id="@+id/location_admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:background="@drawable/rounded_edittext"
-        android:padding="15dp"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
         android:layout_margin="15dp"
-        android:inputType="text"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_edittext"
         android:hint="@string/location_admin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_admin_btn" />
+
+    <EditText
+        android:id="@+id/entrance_fee_admin"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/entrance_fee_admin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_admin_btn"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/location_admin" />
 
     <EditText
         android:id="@+id/bus_fare_admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
         android:layout_margin="15dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/bus_fare"
         android:importantForAutofill="no"
-        android:inputType="number"
-        android:padding="15dp"
-        android:textSize="20sp"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrance_fee_admin" />
 
     <EditText
+        android:id="@+id/other_details_admin"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/other_details"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bus_fare_admin" />
+
+    <EditText
         android:id="@+id/what_to_expect_admin"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="382dp"
+        android:layout_height="73dp"
         android:layout_margin="15dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/whatToExpect"
         android:inputType="textMultiLine"
-        android:padding="15dp"
-        android:textSize="20sp"
+        android:padding="10dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bus_fare_admin" />
-
-    <Button
-        android:id="@+id/save_admin_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/button_background"
-        android:text="@string/submit_btn_admin"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recommended_spinner" />
-
-    <Button
-        android:id="@+id/back_admin_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/button_background"
-        android:text="@string/back_btn_admin"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_admin_btn"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/entrance_fee_admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint="@string/entrance_fee_admin"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:padding="15dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_admin" />
+        app:layout_constraintTop_toBottomOf="@+id/other_details_admin" />
 
     <Spinner
         android:id="@+id/recommended_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:padding="5dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/rounded_edittext"
         android:inputType="text"
+        android:padding="5dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/what_to_expect_admin" />
+
+<!--    <Button-->
+<!--        android:id="@+id/save_admin_btn"-->
+<!--        android:layout_width="165dp"-->
+<!--        android:layout_height="41dp"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        android:background="@drawable/button_background"-->
+<!--        android:hint="@string/submit_btn_admin"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:backgroundTint="@null"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/back_admin_btn"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/recommended_spinner"-->
+<!--        app:layout_constraintWidth_percent="0.5" />-->
+
+    <Button
+        android:id="@+id/save_admin_btn"
+        android:layout_width="165dp"
+        android:layout_height="41dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        android:text="@string/submit_btn_admin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_admin_btn"
+        app:layout_constraintTop_toBottomOf="@+id/recommended_spinner"
+        app:layout_constraintWidth_percent="0.5" />
+    <Button
+        android:id="@+id/back_admin_btn"
+        android:layout_width="165dp"
+        android:layout_height="41dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_background"
+        android:text="@string/back_btn_admin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@+id/save_admin_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommended_spinner"
+        app:layout_constraintWidth_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

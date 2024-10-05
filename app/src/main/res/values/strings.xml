@@ -47,8 +47,9 @@
     <string name="location_admin">Location</string>
     <string name="entranceFee_admin">Entrance Fee</string>
     <string name="bus_fare">Bus Fare</string>
+    <string name="other_details">Other details</string>
     <string name="whatToExpect">What to expect</string>
-    <string name="submit_btn_admin">Submit</string>
+    <string name="submit_btn_admin">Save</string>
     <string name="back_btn_admin">Back</string>
     <string name="entrance_fee_admin">Entrance Fee</string>
     <string name="cebu_pier_details">Cebu Pier</string>
@@ -57,7 +58,7 @@
     <string name="who_is_coming_with_you">Who’s coming with you?</string>
     <string name="solo_details">Solo</string>
     <string-array name="recommended_spinner_items">
-        <item>Select Interest</item>
+        <item>Select Category</item>
         <item>Beach</item>
         <item>Hiking</item>
     </string-array>

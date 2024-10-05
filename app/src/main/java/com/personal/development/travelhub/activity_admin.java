@@ -46,7 +46,7 @@ public class activity_admin extends AppCompatActivity {
     private StorageReference storageRef;
 
     private TextView btnOpenDatePicker, uploadImgBtn1, uploadImgBtn2;
-    private EditText destinationNameAdmin, busFareAdmin, entranceFeeAdmin, locationAdmin, whatToExpectAdmin, highlightAdmin;
+    private EditText destinationNameAdmin, busFareAdmin, entranceFeeAdmin, locationAdmin, whatToExpectAdmin, highlightAdmin, other_detailsAdmin;
     private Button saveAdminBtn;
     private Spinner recommendedSpinner;
 
@@ -65,6 +65,7 @@ public class activity_admin extends AppCompatActivity {
         uploadImgBtn1 = findViewById(R.id.upload_img_btn_1);
         uploadImgBtn2 = findViewById(R.id.upload_img_btn_2);
         destinationNameAdmin = findViewById(R.id.destination_admin);
+       other_detailsAdmin = findViewById(R.id.other_details_admin);
         busFareAdmin = findViewById(R.id.bus_fare_admin);
         entranceFeeAdmin = findViewById(R.id.entrance_fee_admin);
         locationAdmin = findViewById(R.id.location_admin);
@@ -139,6 +140,7 @@ public class activity_admin extends AppCompatActivity {
         String location = locationAdmin.getText().toString();
         String whatToExpect = whatToExpectAdmin.getText().toString();
         String highlight = highlightAdmin.getText().toString();
+        String otherDetails = other_detailsAdmin.getText().toString();
         String selectedTimeRange = btnOpenDatePicker.getText().toString();
 
         if (destinationName.isEmpty() || highlight.isEmpty() || location.isEmpty() || whatToExpect.isEmpty() || selectedTimeRange == null) {
@@ -153,6 +155,7 @@ public class activity_admin extends AppCompatActivity {
         dataMap.put("location", location);
         dataMap.put("what_to_expect", whatToExpect);
         dataMap.put("highlight", highlight);
+        dataMap.put("other_details", otherDetails);
         dataMap.put("time", selectedTimeRange);
         dataMap.put("recommend_interest", selectedRecommended);
         // Upload images and store URLs in Firestore
