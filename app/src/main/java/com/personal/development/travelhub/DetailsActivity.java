@@ -18,7 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DetailsActivity extends AppCompatActivity {
-    TextView backBtn, placeName;
+    TextView backBtn, placeName, highlight, time_open;
     ImageView placeImage;
     FirebaseFirestore db;
     Intent intent;
@@ -29,6 +29,8 @@ public class DetailsActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.back_btn);
         placeName = findViewById(R.id.place_name);
         placeImage = findViewById(R.id.place_image);
+        highlight = findViewById(R.id.highlight_details);
+        time_open = findViewById(R.id.open_time_details);
 
         db = FirebaseFirestore.getInstance();
 
@@ -55,8 +57,12 @@ public class DetailsActivity extends AppCompatActivity {
                         if (documentSnapshot.exists()) {
                             String name = documentSnapshot.getString("destination_name");
                             String imageUrl = documentSnapshot.getString("image_link_1");
+                            String highlight_data= documentSnapshot.getString("highlight");
+                            String time = documentSnapshot.getString("time");
 
                             placeName.setText(name);
+                            highlight.setText(highlight_data);
+                            time_open.setText(time);
                             Glide.with(DetailsActivity.this)
                                     .load(imageUrl)
                                     .placeholder(R.drawable.default_picture)
