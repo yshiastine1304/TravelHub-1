@@ -197,22 +197,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/what_to_expect_admin" />
 
-<!--    <Button-->
-<!--        android:id="@+id/save_admin_btn"-->
-<!--        android:layout_width="165dp"-->
-<!--        android:layout_height="41dp"-->
-<!--        android:layout_margin="15dp"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:background="@drawable/button_background"-->
-<!--        android:hint="@string/submit_btn_admin"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:backgroundTint="@null"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/back_admin_btn"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/recommended_spinner"-->
-<!--        app:layout_constraintWidth_percent="0.5" />-->
-
     <Button
         android:id="@+id/save_admin_btn"
         android:layout_width="165dp"

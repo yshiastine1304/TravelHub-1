@@ -62,4 +62,9 @@
         <item>Beach</item>
         <item>Hiking</item>
     </string-array>
+    <string-array name="interest_spinner_items">
+        <item>Select Interest</item>
+        <item>Beach</item>
+        <item>Hiking</item>
+    </string-array>
 </resources>

@@ -74,6 +74,7 @@ public class activity_admin extends AppCompatActivity {
         saveAdminBtn = findViewById(R.id.save_admin_btn);
         recommendedSpinner = findViewById(R.id.recommended_spinner);
 
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.recommended_spinner_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
