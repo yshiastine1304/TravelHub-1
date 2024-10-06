@@ -7,7 +7,20 @@
     android:background="@color/background_color"
     tools:context=".activity_admin">
 
-
+    <TextView
+        android:id="@+id/add_destinations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/addDestinations"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/upload_img_btn_1"
         android:layout_width="382dp"
@@ -25,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/add_destinations"/>
 
     <TextView
         android:id="@+id/upload_img_btn_2"
@@ -46,6 +59,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_1" />
 
+    <TextView
+        android:id="@+id/upload_img_btn_3"
+        android:layout_width="382dp"
+        android:layout_height="35dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/upload_btn"
+        android:drawablePadding="5dp"
+        android:padding="5dp"
+        android:text="@string/admin_upload_img3"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/plus_icon_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_2" />
+
+    <TextView
+        android:id="@+id/upload_img_btn_4"
+        android:layout_width="382dp"
+        android:layout_height="35dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/upload_btn"
+        android:drawablePadding="5dp"
+        android:padding="5dp"
+        android:text="@string/admin_upload_img4"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/plus_icon_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_3" />
+
     <EditText
         android:id="@+id/destination_admin"
         android:layout_width="382dp"
@@ -61,7 +112,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_2" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_4" />
 
     <EditText
         android:id="@+id/highlight_admin"
@@ -74,7 +125,7 @@
         android:inputType="textMultiLine"
         android:padding="15dp"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,18 +137,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="@drawable/upload_btn"
         android:padding="5dp"
+        android:background="@drawable/rounded_edittext"
         android:text="@string/admin_time"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:drawablePadding="5dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/highlight_admin"
-        app:drawableStartCompat="@drawable/time_icon" />
+      />
 
     <EditText
         android:id="@+id/location_admin"

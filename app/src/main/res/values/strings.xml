@@ -41,9 +41,11 @@
     <string name="trip_schedule">When do you want to go?</string>
     <string name="admin_upload_img1">Upload image 1</string>
     <string name="admin_upload_img2">Upload image 2</string>
-    <string name="admin_destination_hint">Destination</string>
+    <string name="admin_upload_img3">Upload image 3</string>
+    <string name="admin_upload_img4">Upload image 4</string>
+    <string name="admin_destination_hint">Destination Name</string>
     <string name="admin_highlight">Highlight</string>
-    <string name="admin_time">Time</string>
+    <string name="admin_time">Open Time</string>
     <string name="location_admin">Location</string>
     <string name="entranceFee_admin">Entrance Fee</string>
     <string name="bus_fare">Bus Fare</string>
@@ -54,17 +56,31 @@
     <string name="entrance_fee_admin">Entrance Fee</string>
     <string name="cebu_pier_details">Cebu Pier</string>
     <string name="south_bus_details">South Bus Terminal</string>
-    <string name="all_dates">All Dates</string>
+    <string name="all_dates">Select Dates</string>
     <string name="who_is_coming_with_you">Who’s coming with you?</string>
     <string name="solo_details">Solo</string>
+    <string name="addDestinations">Add Destination</string>
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
         <item>Beach</item>
         <item>Hiking</item>
+        <item>Festival Events</item>
+        <item>Historical</item>
+        <item>Nightlife and Entertainment</item>
     </string-array>
     <string-array name="interest_spinner_items">
         <item>Select Interest</item>
         <item>Beach</item>
         <item>Hiking</item>
+        <item>Festival Events</item>
+        <item>Historical</item>
+        <item>Nightlife and Entertainment</item>
     </string-array>
+    <string-array name="travelStyle_spinner_items">
+        <item>Select Interest</item>
+        <item>Adventure Travel</item>
+        <item>Solo Travel</item>
+        <item>Group Travel</item>
+    </string-array>
+
 </resources>

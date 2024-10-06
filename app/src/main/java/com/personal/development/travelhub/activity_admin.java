@@ -20,9 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -45,11 +44,12 @@ public class activity_admin extends AppCompatActivity {
     private FirebaseFirestore db;
     private StorageReference storageRef;
 
-    private TextView btnOpenDatePicker, uploadImgBtn1, uploadImgBtn2;
+    private TextView btnOpenTimePicker, uploadImgBtn1, uploadImgBtn2;
     private EditText destinationNameAdmin, busFareAdmin, entranceFeeAdmin, locationAdmin, whatToExpectAdmin, highlightAdmin, other_detailsAdmin;
     private Button saveAdminBtn;
     private Spinner recommendedSpinner;
-
+    private String selectedStartTime; // Add this line
+    private String selectedEndTime;
     private String selectedTimeRange;
     private String selectedRecommended;
 
@@ -61,7 +61,7 @@ public class activity_admin extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference();
 
-        btnOpenDatePicker = findViewById(R.id.time_admin_btn);
+        btnOpenTimePicker = findViewById(R.id.time_admin_btn);
         uploadImgBtn1 = findViewById(R.id.upload_img_btn_1);
         uploadImgBtn2 = findViewById(R.id.upload_img_btn_2);
         destinationNameAdmin = findViewById(R.id.destination_admin);
@@ -93,7 +93,7 @@ public class activity_admin extends AppCompatActivity {
             }
         });
 
-        btnOpenDatePicker.setOnClickListener(v -> {openDateRangePicker();});
+        btnOpenTimePicker.setOnClickListener(v -> {openStartTimePicker();});
 
         // Set image upload button listeners
         uploadImgBtn1.setOnClickListener(v -> openImagePicker(PICK_IMAGE_REQUEST_1));
@@ -142,7 +142,7 @@ public class activity_admin extends AppCompatActivity {
         String whatToExpect = whatToExpectAdmin.getText().toString();
         String highlight = highlightAdmin.getText().toString();
         String otherDetails = other_detailsAdmin.getText().toString();
-        String selectedTimeRange = btnOpenDatePicker.getText().toString();
+        String selectedTimeRange = btnOpenTimePicker.getText().toString(); // Updated variable name
 
         if (destinationName.isEmpty() || highlight.isEmpty() || location.isEmpty() || whatToExpect.isEmpty() || selectedTimeRange == null) {
             Toast.makeText(this, "Please fill all mandatory fields", Toast.LENGTH_SHORT).show();
@@ -159,6 +159,7 @@ public class activity_admin extends AppCompatActivity {
         dataMap.put("other_details", otherDetails);
         dataMap.put("time", selectedTimeRange);
         dataMap.put("recommend_interest", selectedRecommended);
+
         // Upload images and store URLs in Firestore
         if (imageUri1 != null) {
             uploadImage(imageUri1, "image1.jpg", uri -> {
@@ -181,41 +182,73 @@ public class activity_admin extends AppCompatActivity {
         }
     }
 
+
     private void saveToFirestore(Map<String, Object> dataMap) {
         db.collection("attractions")
                 .add(dataMap)
                 .addOnSuccessListener(documentReference -> Toast.makeText(activity_admin.this, "Data submitted successfully", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(activity_admin.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
+    private void openStartTimePicker() {
+        MaterialTimePicker startTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H) // or TimeFormat.CLOCK_12H
+                .setTitleText("Select Start Time")
+                .build();
 
-    private void openDateRangePicker(){
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        startTimePicker.show(getSupportFragmentManager(), "START_TIME_PICKER");
 
-        builder.setTitleText("Select a Date Range");
-
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
-        constraintsBuilder.setValidator(DateValidatorPointForward.now());
-        builder.setCalendarConstraints(constraintsBuilder.build());
-
-        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
-
-        materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
-
-        materialDatePicker.addOnPositiveButtonClickListener(
-                (MaterialPickerOnPositiveButtonClickListener<? super Pair<Long, Long>>) selection -> {
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-                    Calendar calendarStart = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                    calendarStart.setTimeInMillis(selection.first);
-
-                    Calendar calendarEnd = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                    calendarEnd.setTimeInMillis(selection.second);
-
-                    String startDate = sdf.format(calendarStart.getTime());
-                    String endDate = sdf.format(calendarEnd.getTime());
-
-                    btnOpenDatePicker.setText("daily "+ startDate + " to " + endDate);
-                });
-
+        startTimePicker.addOnPositiveButtonClickListener(v -> {
+            selectedStartTime = String.format(Locale.getDefault(), "%02d:%02d", startTimePicker.getHour(), startTimePicker.getMinute());
+            // Open end time picker after selecting start time
+            openEndTimePicker();
+        });
     }
+
+    private void openEndTimePicker() {
+        MaterialTimePicker endTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H) // or TimeFormat.CLOCK_12H
+                .setTitleText("Select End Time")
+                .build();
+
+        endTimePicker.show(getSupportFragmentManager(), "END_TIME_PICKER");
+
+        endTimePicker.addOnPositiveButtonClickListener(v -> {
+            selectedEndTime = String.format(Locale.getDefault(), "%02d:%02d", endTimePicker.getHour(), endTimePicker.getMinute());
+            // Set the selected time range in the TextView
+            btnOpenTimePicker.setText("daily " + selectedStartTime + " am to " + selectedEndTime+ " pm " );
+        });
+    }
+
+
+//
+//    private void openDateRangePicker(){
+//        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+//
+//        builder.setTitleText("Select a Date Range");
+//
+//        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+//        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+//        builder.setCalendarConstraints(constraintsBuilder.build());
+//
+//        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
+//
+//        materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+//
+//        materialDatePicker.addOnPositiveButtonClickListener(
+//                (MaterialPickerOnPositiveButtonClickListener<? super Pair<Long, Long>>) selection -> {
+//
+//                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+//                    Calendar calendarStart = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//                    calendarStart.setTimeInMillis(selection.first);
+//
+//                    Calendar calendarEnd = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//                    calendarEnd.setTimeInMillis(selection.second);
+//
+//                    String startDate = sdf.format(calendarStart.getTime());
+//                    String endDate = sdf.format(calendarEnd.getTime());
+//
+//                    btnOpenDatePicker.setText("daily "+ startDate + " to " + endDate);
+//                });
+//
+//    }
 }
