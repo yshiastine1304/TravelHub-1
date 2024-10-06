@@ -1,6 +1,9 @@
 package com.personal.development.travelhub;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,10 +27,11 @@ public class Registration_view extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    EditText fullName, email, password, contactNumber, travelStyle; // declaring edittexts
+    private EditText fullName, email, password, contactNumber, travelStyle; // declaring edittexts
     private Spinner interestSpinner;
-    Button register; // declaring button
-    TextView gotoLogin; // declaring TextViews
+    private Button register; // declaring button
+    private TextView gotoLogin; // declaring TextViews
+    private String selectedInterest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class Registration_view extends AppCompatActivity {
         interestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // You can handle item selection if needed
+                selectedInterest = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -82,41 +86,71 @@ public class Registration_view extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedInterest = interestSpinner.getSelectedItem().toString(); // Get selected item from Spinner
                 registerUser(fullName.getText().toString(),
                         email.getText().toString(),
                         password.getText().toString(),
                         contactNumber.getText().toString(),
-                        selectedInterest, // Use selected interest here
+                        selectedInterest,
                         travelStyle.getText().toString());
             }
         });
+    }
+
+    private void showDiaglogBox(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert");
+        builder.setMessage(message);
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("I understand", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void registerUser(String fullname, String email, String password, String contactNumber, String interest, String travelStyle) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, get the user
                         FirebaseUser user = mAuth.getCurrentUser();
-
-                        if (user != null) {
-                            user.sendEmailVerification()
-                                    .addOnCompleteListener(this, emailTask -> {
-                                        if (emailTask.isSuccessful()) {
-                                            Toast.makeText(this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                                            // Create a new User
-                                            User userData = new User(fullname, email, contactNumber, interest, travelStyle, "user");
-                                            db.collection("users").document(user.getUid())
-                                                    .set(userData)
-                                                    .addOnSuccessListener(aVoid -> {
-                                                        Toast.makeText(this, "User Registered!", Toast.LENGTH_SHORT).show();
-                                                    })
-                                                    .addOnFailureListener(e -> {
-                                                        Toast.makeText(this, "Error, Not registered: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                    });
-                                        }
-                                    });
+                        if (fullname.isEmpty() && email.isEmpty() && password.isEmpty() && contactNumber.isEmpty() && interest.isEmpty() && travelStyle.isEmpty()){
+                            if (fullname.isEmpty()){
+                                showDiaglogBox("Fullname is empty!");
+                            }else if (email.isEmpty()){
+                                showDiaglogBox("Email is empty!");
+                            }else if (password.isEmpty()){
+                                showDiaglogBox("Password is empty!");
+                            }else if (contactNumber.isEmpty()){
+                                showDiaglogBox("Contact number is empty!");
+                            }else if (interest.isEmpty()){
+                                showDiaglogBox("Kindly choose your interest!");
+                            }else if (travelStyle.isEmpty()){
+                                showDiaglogBox("Travel style is not specified.");
+                            }
+                        }else{
+                            if (user != null) {
+                                user.sendEmailVerification()
+                                        .addOnCompleteListener(this, emailTask -> {
+                                            if (emailTask.isSuccessful()) {
+                                                Toast.makeText(this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                                                // Create a new User
+                                                User userData = new User(fullname, email, contactNumber, interest, travelStyle, "user");
+                                                db.collection("users").document(user.getUid())
+                                                        .set(userData)
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            Toast.makeText(this, "User Registered!", Toast.LENGTH_SHORT).show();
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(this, "Error, Not registered: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        });
+                                            }
+                                        });
+                            }
                         }
 
                     } else {

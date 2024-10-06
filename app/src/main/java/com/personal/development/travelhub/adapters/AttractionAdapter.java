@@ -51,23 +51,11 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("DOCUMENT_ID", attractionsModel.getDocumentUID());
                 context.startActivity(intent);
             }
         });
 
-        holder.picture_location_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent intent = new Intent(context, DetailsActivity.class);
-               context.startActivity(intent);
-            }
-        });
-
-        Glide.with(holder.itemView.getContext())
-                .load(attractionsModel.getImageUrl_2())
-                .placeholder(R.drawable.default_picture)
-                .into(holder.picture_location_2);
-        holder.title_caption_2.setText(attractionsModel.getCaption_2());
     }
 
     @Override
@@ -86,10 +74,6 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
             super(itemView);
             picture_location_1 = itemView.findViewById(R.id.titleImageView_1);
             title_caption_1 = itemView.findViewById(R.id.descriptionTextView_1);
-
-            picture_location_2 = itemView.findViewById(R.id.titleImageView_2);
-            title_caption_2 = itemView.findViewById(R.id.descriptionTextView_2);
-
         }
     }
 }

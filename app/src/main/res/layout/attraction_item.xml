@@ -2,11 +2,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:elevation="4dp"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="9dp">
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="200dp"
@@ -26,34 +23,6 @@
         <!-- TextView for the description -->
         <TextView
             android:id="@+id/descriptionTextView_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:background="@color/background_textview_details"
-            android:text="@string/sample_caption"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-
-        <ImageView
-            android:id="@+id/titleImageView_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_picture"
-            android:importantForAccessibility="no" />
-
-
-        <TextView
-            android:id="@+id/descriptionTextView_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

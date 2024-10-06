@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="place_name" type="id" />
+    <item name="add_destinations" type="id" />
+    <item name="card_view_expectations" type="id" />
+</resources>

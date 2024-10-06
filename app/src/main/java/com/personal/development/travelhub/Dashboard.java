@@ -1,6 +1,7 @@
 package com.personal.development.travelhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,7 +56,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(this, Wishlist.class));
                 return true;
             } else if (itemId == R.id.nav_trip) {
-
+                startActivity(new Intent(this, activity_admin.class));
                 return true;
             } else if (itemId == R.id.nav_account) {
                 return true;
@@ -66,11 +67,12 @@ public class Dashboard extends AppCompatActivity {
 
         // Create separate layout managers for each RecyclerView
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); // Vertical layout
+//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); // Vertical layout
 
         // Set the layout managers to different RecyclerViews
+        reco_recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setLayoutManager(layoutManager1);
-        reco_recyclerView.setLayoutManager(layoutManager2);
+//        reco_recyclerView.setLayoutManager(layoutManager2);
 
         // Set up data and adapters
         dataList = new ArrayList<>();
@@ -121,8 +123,9 @@ public class Dashboard extends AppCompatActivity {
                        for (QueryDocumentSnapshot document : task.getResult()){
                            String imageUrl = document.getString("image_link_1");
                            String title = document.getString("destination_name");
+                           String documentId = document.getId();
 
-                           dataList2.add(new AttractionsModel(imageUrl,title,imageUrl,title));
+                           dataList2.add(new AttractionsModel(imageUrl,title,documentId));
                        }
                        adapter2.notifyDataSetChanged();
                    }

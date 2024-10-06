@@ -39,14 +39,16 @@ public class activity_admin extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST_1 = 1;
     private static final int PICK_IMAGE_REQUEST_2 = 2;
-    private Uri imageUri1 , imageUri2;
+    private static final int PICK_IMAGE_REQUEST_3 = 3;
+    private static final int PICK_IMAGE_REQUEST_4 = 4;
+    private Uri imageUri1 , imageUri2, imageUri3, imageUri4;
 
     private FirebaseFirestore db;
     private StorageReference storageRef;
 
-    private TextView btnOpenTimePicker, uploadImgBtn1, uploadImgBtn2;
+    private TextView btnOpenTimePicker, uploadImgBtn1, uploadImgBtn2, uploadImgBtn3, uploadImgBtn4;
     private EditText destinationNameAdmin, busFareAdmin, entranceFeeAdmin, locationAdmin, whatToExpectAdmin, highlightAdmin, other_detailsAdmin;
-    private Button saveAdminBtn;
+    private Button saveAdminBtn, backBTN;
     private Spinner recommendedSpinner;
     private String selectedStartTime; // Add this line
     private String selectedEndTime;
@@ -64,6 +66,8 @@ public class activity_admin extends AppCompatActivity {
         btnOpenTimePicker = findViewById(R.id.time_admin_btn);
         uploadImgBtn1 = findViewById(R.id.upload_img_btn_1);
         uploadImgBtn2 = findViewById(R.id.upload_img_btn_2);
+        uploadImgBtn3 = findViewById(R.id.upload_img_btn_3);
+        uploadImgBtn4 = findViewById(R.id.upload_img_btn_4);
         destinationNameAdmin = findViewById(R.id.destination_admin);
        other_detailsAdmin = findViewById(R.id.other_details_admin);
         busFareAdmin = findViewById(R.id.bus_fare_admin);
@@ -73,7 +77,15 @@ public class activity_admin extends AppCompatActivity {
         highlightAdmin = findViewById(R.id.highlight_admin);
         saveAdminBtn = findViewById(R.id.save_admin_btn);
         recommendedSpinner = findViewById(R.id.recommended_spinner);
+        backBTN = findViewById(R.id.back_admin_btn);
 
+        backBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_admin.this, Dashboard.class);
+                startActivity(intent);
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.recommended_spinner_items, android.R.layout.simple_spinner_item);
@@ -98,6 +110,8 @@ public class activity_admin extends AppCompatActivity {
         // Set image upload button listeners
         uploadImgBtn1.setOnClickListener(v -> openImagePicker(PICK_IMAGE_REQUEST_1));
         uploadImgBtn2.setOnClickListener(v -> openImagePicker(PICK_IMAGE_REQUEST_2));
+        uploadImgBtn3.setOnClickListener(v -> openImagePicker(PICK_IMAGE_REQUEST_3));
+        uploadImgBtn4.setOnClickListener(v -> openImagePicker(PICK_IMAGE_REQUEST_4));
 
         // Set save button listener
         saveAdminBtn.setOnClickListener(v -> submitData());
@@ -121,6 +135,12 @@ public class activity_admin extends AppCompatActivity {
             }else if (requestCode == PICK_IMAGE_REQUEST_2){
                 imageUri2 = data.getData();
                 uploadImgBtn2.setText("Uploaded Successfully");
+            }else if (requestCode == PICK_IMAGE_REQUEST_3) {
+                imageUri3 = data.getData();
+                uploadImgBtn3.setText("Uploaded Successfully");
+            }else if (requestCode == PICK_IMAGE_REQUEST_4) {
+                imageUri4 = data.getData();
+                uploadImgBtn4.setText("Upload Successfully");
             }
         }
     }
@@ -162,7 +182,7 @@ public class activity_admin extends AppCompatActivity {
 
         // Upload images and store URLs in Firestore
         if (imageUri1 != null) {
-            uploadImage(imageUri1, "image1.jpg", uri -> {
+            uploadImage(imageUri1, destinationName +"_1.jpg", uri -> {
                 dataMap.put("image_link_1", uri.toString());
                 if (imageUri2 == null) {
                     saveToFirestore(dataMap); // Save if only image 1 is selected
@@ -171,13 +191,33 @@ public class activity_admin extends AppCompatActivity {
         }
 
         if (imageUri2 != null) {
-            uploadImage(imageUri2, "image2.jpg", uri -> {
+            uploadImage(imageUri2, destinationName +"_2.jpg", uri -> {
                 dataMap.put("image_link_2", uri.toString());
-                saveToFirestore(dataMap); // Save after both images are uploaded
+                if (imageUri1 == null && imageUri2 == null) {
+                    saveToFirestore(dataMap);
+                }
+
             });
         }
 
-        if (imageUri1 == null && imageUri2 == null) {
+        if (imageUri3 != null) {
+            uploadImage(imageUri3, destinationName +"_3.jpg", uri -> {
+                dataMap.put("image_link_3", uri.toString());
+                if (imageUri1 == null && imageUri2 == null && imageUri3 == null) {
+                    saveToFirestore(dataMap);
+                }
+
+            });
+        }
+
+        if (imageUri4 != null) {
+            uploadImage(imageUri4, destinationName +"_4.jpg", uri -> {
+                dataMap.put("image_link_4", uri.toString());
+                saveToFirestore(dataMap);
+            });
+        }
+
+        if (imageUri1 == null && imageUri2 == null && imageUri3 == null && imageUri4 == null) {
             saveToFirestore(dataMap); // Save if no images are selected
         }
     }

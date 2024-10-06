@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TravelHub</string>
     <string name="registrationForm_fullname_hint">Enter your full name</string>
     <string name="registrationForm_email_hint">Enter your email</string>
@@ -45,7 +45,7 @@
     <string name="admin_upload_img4">Upload image 4</string>
     <string name="admin_destination_hint">Destination Name</string>
     <string name="admin_highlight">Highlight</string>
-    <string name="admin_time">Open Time</string>
+    <string name="admin_time">Select Time</string>
     <string name="location_admin">Location</string>
     <string name="entranceFee_admin">Entrance Fee</string>
     <string name="bus_fare">Bus Fare</string>
@@ -81,7 +81,7 @@
         <item>Historical</item>
         <item>Nightlife and Entertainment</item>
     </string-array>
-    <string-array name="travelStyle_spinner_items">
+    <string-array name="travelStyle_spinner_items" tools:ignore="ExtraTranslation">
         <item>Select Interest</item>
         <item>Adventure Travel</item>
         <item>Solo Travel</item>
