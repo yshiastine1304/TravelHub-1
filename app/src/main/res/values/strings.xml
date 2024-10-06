@@ -58,8 +58,13 @@
     <string name="south_bus_details">South Bus Terminal</string>
     <string name="all_dates">Select Dates</string>
     <string name="who_is_coming_with_you">Who’s coming with you?</string>
+    <string name="whatTo_expect">What to expect?</string>
+    <string name="whatTo_expect_details">This is a truly once-in-a lifetime experience: a swim with the whale sharks of Moalboal. Your day starts very early as you are picked up in your way and then right into the water to go whale shark watching and snorkeling with these gentle giants. You’ll leave Moalboal and the whale sharks for something a little more fast-paced. </string>
     <string name="solo_details">Solo</string>
-    <string name="addDestinations">Add Destination</string>
+    <string name="partner_details">Partner</string>
+    <string name="friends_details">Friends</string>
+    <string name="family_details">Family</string>
+    <string name="addDestinations" >Add Destination</string>
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
         <item>Beach</item>
