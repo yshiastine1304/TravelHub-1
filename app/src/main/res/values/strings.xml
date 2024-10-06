@@ -31,12 +31,14 @@
     <string name="trips_bottom_nav_label">Trips</string>
     <string name="account_bottom_nav_label">Account</string>
     <string name="review_details">(<u>75 reviews</u>)</string>
-    <string name="highligt_lbl">Highlight</string>
+    <string name="highlight_lbl">Highlight</string>
     <string name="description_details">One of the South Cebu beaches that you shouldn’t miss out on is Lambug Beach. Unlike the remote Panagsama Beach, Lambug Beach in Badian boasts a lively scene.</string>
     <string name="time_details">daily 6:00 AM to 6:00 PM.</string>
     <string name="location_details">Moalboal, Philippines</string>
     <string name="starting_point">Starting Point Options:</string>
     <string name="entrance_fee">Entrance Fee: ₱10 per person</string>
+    <string name="bus_fare_details">Bus Fare: ₱10 per person</string>
+    <string name="otheR_details">Other Details: Environmental fee: ₱100 per person </string>
     <string name="starting_point_details">Mactan AIrport</string>
     <string name="trip_schedule">When do you want to go?</string>
     <string name="admin_upload_img1">Upload image 1</string>

@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/place_image"
         android:layout_width="414dp"
-        android:layout_height="166dp"
+        android:layout_height="wrap_content"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,14 +37,6 @@
         app:layout_constraintTop_toBottomOf="@+id/place_image"
         app:drawableEndCompat="@drawable/heart_icon" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/reviews_txt"
         android:layout_width="wrap_content"
@@ -66,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
-        android:text="@string/highligt_lbl"
+        android:text="@string/highlight_lbl"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,21 +123,72 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/open_time_details" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_fees"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:outlineSpotShadowColor="@color/add_trip_btn_color"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_details"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="p">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
     <TextView
         android:id="@+id/entrance_fee_details"
-        android:layout_width="wrap_content"
+        android:layout_width="385dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/textview_button"
         android:padding="5dp"
         android:text="@string/entrance_fee"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_details" />
+
+        <TextView
+            android:id="@+id/bus_fare_Details"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/bus_fare_details"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.095"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_details" />
+
+        <TextView
+            android:id="@+id/other_details"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/otheR_details"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.095"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_details" />
+
+
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
     <TextView
         android:id="@+id/textView9"
@@ -159,7 +202,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entrance_fee_details" />
+        app:layout_constraintTop_toBottomOf="@+id/card_view_fees" />
 
     <TextView
         android:id="@+id/textView10"
@@ -308,21 +351,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/whatTo_expect"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"  />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_expectations"
         android:layout_width="0dp"
@@ -332,7 +360,7 @@
         app:cardBackgroundColor="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
         app:layout_constraintVertical_bias="0.0"
         tools:targetApi="p">
 
@@ -343,7 +371,19 @@
             android:padding="10dp">
 
 
-
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/whatTo_expect"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18"  />
             <TextView
                 android:id="@+id/expect_details"
                 android:layout_width="match_parent"
