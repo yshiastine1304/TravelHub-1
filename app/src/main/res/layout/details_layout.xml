@@ -288,79 +288,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:text="@string/who_is_coming_with_you"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allDate" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="@drawable/textview_button"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:text="@string/solo_details"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/textview_button"
-                android:padding="5dp"
-                android:text="@string/partner_details"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-        android:id="@+id/textView17"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/textview_button"
-        android:padding="5dp"
-        android:layout_marginStart="5dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:text="@string/friends_details"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/textview_button"
-        android:padding="5dp"
-        android:layout_marginStart="5dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:text="@string/family_details"
-        app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_expectations"
         android:layout_width="0dp"
@@ -370,7 +297,7 @@
         app:cardBackgroundColor="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/allDate"
         app:layout_constraintVertical_bias="0.0"
         tools:targetApi="p">
 
@@ -379,7 +306,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:id="@+id/textView19"
@@ -426,7 +352,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_view_expectations"
         app:layout_constraintWidth_percent="0.5" />
-
     />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

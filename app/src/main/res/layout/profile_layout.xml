@@ -23,7 +23,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <LinearLayout
         android:id="@+id/image_linear"
         android:layout_width="211dp"
@@ -158,7 +157,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_interest"
         app:layout_constraintWidth_percent="0.5" />
-
 
 <!--    app:layout_constraintStart_toEndOf="@+id/back_admin_btn"-->
 

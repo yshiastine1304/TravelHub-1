@@ -77,6 +77,9 @@
     <string name="fetch_contact">Contact Number</string>
     <string name="fetch_interest">Your Interest</string>
     <string name="update_btn">Update</string>
+    <string name="total_users">Number of Users</string>
+    <string name="total_destination">Number of Destinations</string>
+    <string name="total_hotels">Number of Hotels</string>
 
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
