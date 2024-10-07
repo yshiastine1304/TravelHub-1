@@ -1,14 +1,19 @@
 package com.personal.development.travelhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.personal.development.travelhub.adapters.WishlistAdapters;
 
 public class Wishlist extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private RecyclerView wishlistRecycler;
+    private WishlistAdapters adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +22,14 @@ public class Wishlist extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
+        wishlistRecycler = findViewById(R.id.wishlist_recycler);
+        wishlistRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new WishlistAdapters(this);
+        wishlistRecycler.setAdapter(adapter);
+
         bottomNavigationView.setSelectedItemId(R.id.nav_wishlist);
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();

@@ -52,6 +52,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("DOCUMENT_ID", attractionsModel.getDocumentUID());
+                intent.putExtra("IMAGE_URL", attractionsModel.getImageUrl_1());
                 context.startActivity(intent);
             }
         });

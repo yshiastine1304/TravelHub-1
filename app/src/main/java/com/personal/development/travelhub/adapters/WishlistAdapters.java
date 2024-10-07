@@ -1,0 +1,100 @@
+package com.personal.development.travelhub.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.personal.development.travelhub.R;
+import com.personal.development.travelhub.models.WishlistModels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.WishlistViewHolder> {
+    private List<WishlistModels> wishlistModels;
+    private Context context;
+
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
+
+    public WishlistAdapters(Context context){
+        this.context = context;
+        this.wishlistModels = wishlistModels;
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        fetchWishlistFromFirestore();
+    }
+
+    @NonNull
+    @Override
+    public WishlistAdapters.WishlistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wishlist_layout, parent, false);
+       return new WishlistViewHolder(view);
+    }
+
+    public class WishlistViewHolder extends RecyclerView.ViewHolder {
+        TextView tripNameTextView, reviewTxtview;
+        ImageView tripImageView;
+        public WishlistViewHolder(@NonNull View itemView){
+            super(itemView);
+            tripNameTextView = itemView.findViewById(R.id.descriptionTextView);
+            reviewTxtview = itemView.findViewById(R.id.reviews_txt);
+            tripImageView = itemView.findViewById(R.id.titleImageView);
+        }
+
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull WishlistAdapters.WishlistViewHolder holder, int position) {
+        WishlistModels model = wishlistModels.get(position);
+        holder.tripNameTextView.setText(model.getTripName());
+        holder.reviewTxtview.setText(model.getReviews());
+
+        Glide.with(context)
+                .load(model.getImageUrl())
+                .apply(new RequestOptions().placeholder(R.drawable.default_picture).error(R.drawable.error_icon))
+                .into(holder.tripImageView);
+    }
+
+    public WishlistAdapters(List<WishlistModels> wishlistModels) {
+        // Ensure wishlistModels is not null
+        this.wishlistModels = wishlistModels != null ? wishlistModels : new ArrayList<>();
+    }
+    @Override
+    public int getItemCount() {
+        return wishlistModels.size();
+    }
+    public void fetchWishlistFromFirestore(){
+        String userId = auth.getCurrentUser().getUid();
+
+        CollectionReference wishlistRef = db.collection("users").document(userId).collection("wishlist");
+        wishlistRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                QuerySnapshot snapshots = task.getResult();
+                wishlistModels.clear();
+
+                for (QueryDocumentSnapshot document : snapshots) {
+                    WishlistModels models = document.toObject(WishlistModels.class);
+                    wishlistModels.add(models);
+                }
+                notifyDataSetChanged();
+            } else {
+
+            }
+        });
+    }
+}

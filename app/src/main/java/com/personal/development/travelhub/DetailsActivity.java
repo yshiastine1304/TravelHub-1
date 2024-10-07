@@ -18,26 +18,35 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
     // Declare UI elements
-    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker;
+    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, reviews;
     ImageView placeImage;
     FirebaseFirestore db;
     Intent intent;
+
+    private FirebaseAuth auth;
+    private String userUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_layout);
 
+        auth = FirebaseAuth.getInstance();
+        userUid = auth.getCurrentUser().getUid();
         // Initialize views
         backBtn = findViewById(R.id.back_btn);
         btnAllDatePicker = findViewById(R.id.allDate);
@@ -45,12 +54,14 @@ public class DetailsActivity extends AppCompatActivity {
         placeImage = findViewById(R.id.place_image);
         highlight = findViewById(R.id.highlight_details);
         time_open = findViewById(R.id.open_time_details);
+        reviews = findViewById(R.id.reviews_txt);
 
         // Initialize Firestore instance
         db = FirebaseFirestore.getInstance();
 
         // Get document ID passed from the previous activity
         String documentId = getIntent().getStringExtra("DOCUMENT_ID");
+        String imageString = getIntent().getStringExtra("IMAGE_URL");
 
         // Fetch place details from Firestore if document ID exists
         if (documentId != null) {
@@ -66,8 +77,32 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        placeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createWishlist(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid);
+            }
+        });
+
         // Open the date picker on button click
         btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
+    }
+
+    private void createWishlist(String place_name, String image_url, String reviews, String userId){
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("tripName;", place_name);
+        dataMap.put("imageUrl", image_url);
+        dataMap.put("reviews", reviews);
+
+        saveWishlistData(userId, dataMap);
+    }
+
+    private void saveWishlistData(String userId,Map<String, Object> dataMap){
+        CollectionReference wishlistRef = db.collection("users").document(userId).collection("wishlist");
+
+        wishlistRef.add(dataMap)
+                .addOnSuccessListener(documentReference -> Toast.makeText(DetailsActivity.this, "Saved to wishlist!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(DetailsActivity.this,  "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     // Fetch place details from Firestore using document ID

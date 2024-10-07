@@ -54,6 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("DOCUMENT_ID", cardModel.getDocumentUID()); // Pass the documentId
+                intent.putExtra("IMAGE_URL", cardModel.getImageUrl());
                 context.startActivity(intent);
             }
         });
