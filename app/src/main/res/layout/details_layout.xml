@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color"
@@ -8,35 +8,44 @@
     tools:context=".DetailsActivity"
     tools:ignore="ExtraText">
 
-
-    <ImageView
-        android:id="@+id/place_image"
-        android:layout_width="414dp"
-        android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_picture" />
-
-    <TextView
-        android:id="@+id/place_name"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/background_textview_details"
-        android:text="@string/sample_caption"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_image"
-        app:drawableEndCompat="@drawable/heart_icon" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/place_image"
+                android:layout_width="414dp"
+                android:layout_height="166dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/default_picture" />
+
+            <TextView
+                android:id="@+id/place_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@color/background_textview_details"
+                android:text="@string/sample_caption"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/place_image"
+                app:drawableEndCompat="@drawable/heart_icon" />
+>>>>>>> Stashed changes
     <TextView
         android:id="@+id/reviews_txt"
         android:layout_width="wrap_content"
@@ -308,21 +317,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/textview_button"
-        android:padding="5dp"
-        android:layout_marginStart="5dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:text="@string/partner_details"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-    <TextView
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/textview_button"
+                android:padding="5dp"
+                android:text="@string/partner_details"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView15"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
         android:id="@+id/textView17"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
@@ -417,4 +427,6 @@
         app:layout_constraintWidth_percent="0.5" />
 
     />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
