@@ -1,6 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".activity_admin"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/add_profImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/profile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/image_linear"
+        android:layout_width="211dp"
+        android:layout_height="198dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/upload_profile_picture"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/add_profImage"
+        tools:layout_editor_absoluteX="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/plus_icon_img">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/upload_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:text="@string/upload_proImage"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/full_name"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/fetch_full_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_linear" />
+
+    <EditText
+        android:id="@+id/your_email"
+        android:layout_width="379dp"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/fetch_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/full_name" />
+
+    <EditText
+        android:id="@+id/your_password"
+        android:layout_width="378dp"
+        android:layout_height="44dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/change_pass"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_email" />
+
+    <EditText
+        android:id="@+id/your_contact"
+        android:layout_width="374dp"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/fetch_contact"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_password" />
+
+    <Spinner
+        android:id="@+id/select_interest"
+        android:layout_width="374dp"
+        android:layout_height="42dp"
+        android:layout_margin="20dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="text"
+        android:padding="5dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_contact" />
+
+    <Button
+        android:id="@+id/save_admin_btn"
+        android:layout_width="138dp"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        android:text="@string/update_btn"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_interest"
+        app:layout_constraintWidth_percent="0.5" />
+
+
+<!--    app:layout_constraintStart_toEndOf="@+id/back_admin_btn"-->
+
+    <!--    <Button-->
+<!--        android:id="@+id/back_admin_btn"-->
+<!--        android:layout_width="165dp"-->
+<!--        android:layout_height="41dp"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:background="@drawable/button_background"-->
+<!--        android:text="@string/back_btn_admin"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:backgroundTint="@null"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/save_admin_btn"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/select_interest"-->
+<!--        app:layout_constraintWidth_percent="0.5" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,6 +69,14 @@
     <string name="addDestinations" >Add Destination</string>
     <string name="view_button" >View Itinerary Details</string>
     <string name="add_trip_btn" >Add to Trip</string>
+    <string name="profile" >My profile</string>
+    <string name="upload_proImage">Profile Picture </string>
+    <string name="fetch_full_name">Full name</string>
+    <string name="fetch_email">email</string>
+    <string name="change_pass">Password</string>
+    <string name="fetch_contact">Contact Number</string>
+    <string name="fetch_interest">Your Interest</string>
+    <string name="update_btn">Update</string>
 
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
