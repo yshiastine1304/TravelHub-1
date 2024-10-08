@@ -5,6 +5,11 @@ public class WishlistModels {
     private String imageUrl;
     private String reviews;
 
+    // No-argument constructor (required by Firestore)
+    public WishlistModels() {
+        // Default constructor
+    }
+
     public String getTripName() {
         return tripName;
     }

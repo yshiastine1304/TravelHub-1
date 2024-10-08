@@ -32,7 +32,7 @@ import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
     // Declare UI elements
-    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, reviews;
+    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, reviews, bus_fare, whatToExpect, location_txtView, OtherDetails, entranceFee_txtView;
     ImageView placeImage;
     FirebaseFirestore db;
     Intent intent;
@@ -55,6 +55,11 @@ public class DetailsActivity extends AppCompatActivity {
         highlight = findViewById(R.id.highlight_details);
         time_open = findViewById(R.id.open_time_details);
         reviews = findViewById(R.id.reviews_txt);
+        bus_fare = findViewById(R.id.bus_fare_Details);
+        whatToExpect = findViewById(R.id.expect_details);
+        location_txtView = findViewById(R.id.location_details);
+        OtherDetails = findViewById(R.id.other_details);
+        entranceFee_txtView = findViewById(R.id.entrance_fee_details);
 
         // Initialize Firestore instance
         db = FirebaseFirestore.getInstance();
@@ -90,7 +95,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void createWishlist(String place_name, String image_url, String reviews, String userId){
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("tripName;", place_name);
+        dataMap.put("tripName", place_name);
         dataMap.put("imageUrl", image_url);
         dataMap.put("reviews", reviews);
 
@@ -117,13 +122,23 @@ public class DetailsActivity extends AppCompatActivity {
                             String imageUrl = documentSnapshot.getString("image_link_1");
                             String highlightData = documentSnapshot.getString("highlight");
                             String time = documentSnapshot.getString("time");
+                            String busFare = documentSnapshot.getString("bus_fare");
+                            String what_to_expect = documentSnapshot.getString("what_to_expect");
+                            String location = documentSnapshot.getString("location");
+                            String other_details = documentSnapshot.getString("other_details");
+                            String entranceFee = documentSnapshot.getString("entrance_fee");
 
-                            // Populate views with the extracted data
+
                             placeName.setText(name);
                             highlight.setText(highlightData);
                             time_open.setText(time);
+                            bus_fare.setText("Bus Fare: "+busFare);
+                            whatToExpect.setText(what_to_expect);
+                            location_txtView.setText(location);
+                            OtherDetails.setText("Other Details: "+ other_details);
+                            entranceFee_txtView.setText("Entrance Fee: "+ entranceFee);
 
-                            // Load the image using Glide
+
                             Glide.with(DetailsActivity.this)
                                     .load(imageUrl)
                                     .placeholder(R.drawable.default_picture)  // Default image placeholder

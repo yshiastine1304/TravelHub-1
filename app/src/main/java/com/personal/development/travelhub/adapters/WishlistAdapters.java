@@ -1,6 +1,7 @@
 package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,7 +34,7 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
 
     public WishlistAdapters(Context context){
         this.context = context;
-        this.wishlistModels = wishlistModels;
+        this.wishlistModels = wishlistModels != null ? wishlistModels : new ArrayList<>();
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         fetchWishlistFromFirestore();
@@ -76,25 +78,35 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
     }
     @Override
     public int getItemCount() {
-        return wishlistModels.size();
+        return wishlistModels != null ? wishlistModels.size() : 0;
     }
-    public void fetchWishlistFromFirestore(){
-        String userId = auth.getCurrentUser().getUid();
+    public void fetchWishlistFromFirestore() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
 
-        CollectionReference wishlistRef = db.collection("users").document(userId).collection("wishlist");
-        wishlistRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                QuerySnapshot snapshots = task.getResult();
-                wishlistModels.clear();
+            CollectionReference wishlistRef = db.collection("users").document(userId).collection("wishlist");
+            wishlistRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshots = task.getResult();
+                    wishlistModels.clear();
 
-                for (QueryDocumentSnapshot document : snapshots) {
-                    WishlistModels models = document.toObject(WishlistModels.class);
-                    wishlistModels.add(models);
+                    if (snapshots != null && !snapshots.isEmpty()) {
+                        for (QueryDocumentSnapshot document : snapshots) {
+                            WishlistModels models = document.toObject(WishlistModels.class);
+                            wishlistModels.add(models);
+                        }
+                        Log.d("Firestore", "Wishlist loaded successfully with " + wishlistModels.size() + " items.");
+                        notifyDataSetChanged();
+                    } else {
+                        Log.d("Firestore", "No wishlist items found for this user.");
+                    }
+                } else {
+                    Log.e("Firestore", "Error getting wishlist documents: ", task.getException());
                 }
-                notifyDataSetChanged();
-            } else {
-
-            }
-        });
+            });
+        } else {
+            Log.e("Firestore", "User not logged in");
+        }
     }
 }
