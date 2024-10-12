@@ -7,6 +7,7 @@ import androidx.core.util.Pair;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import java.util.TimeZone;
 public class DetailsActivity extends AppCompatActivity {
     // Declare UI elements
     TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, reviews, bus_fare, whatToExpect, location_txtView, OtherDetails, entranceFee_txtView;
+    Button saveTripBtn;
     ImageView placeImage;
     FirebaseFirestore db;
     Intent intent;
@@ -54,12 +56,13 @@ public class DetailsActivity extends AppCompatActivity {
         placeImage = findViewById(R.id.place_image);
         highlight = findViewById(R.id.highlight_details);
         time_open = findViewById(R.id.open_time_details);
-        reviews = findViewById(R.id.reviews_txt);
+        reviews = findViewById(R.id.trips_reviews_txt);
         bus_fare = findViewById(R.id.bus_fare_Details);
         whatToExpect = findViewById(R.id.expect_details);
         location_txtView = findViewById(R.id.location_details);
         OtherDetails = findViewById(R.id.other_details);
         entranceFee_txtView = findViewById(R.id.entrance_fee_details);
+        saveTripBtn = findViewById(R.id.save_trip_btn);
 
         // Initialize Firestore instance
         db = FirebaseFirestore.getInstance();
@@ -89,8 +92,24 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        saveTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createTripList(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid);
+            }
+        });
+
         // Open the date picker on button click
         btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
+    }
+
+    private void createTripList(String place_name, String image_url, String reviews, String userId){
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("tripDescription", place_name);
+        dataMap.put("tripImgUrl", image_url);
+        dataMap.put("tripReviews", reviews);
+
+        saveTrip(userId, dataMap);
     }
 
     private void createWishlist(String place_name, String image_url, String reviews, String userId){
@@ -108,6 +127,14 @@ public class DetailsActivity extends AppCompatActivity {
         wishlistRef.add(dataMap)
                 .addOnSuccessListener(documentReference -> Toast.makeText(DetailsActivity.this, "Saved to wishlist!", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(DetailsActivity.this,  "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void saveTrip(String userId, Map<String, Object> dataMap){
+        CollectionReference tripsRef = db.collection("users").document(userId).collection("trips");
+
+        tripsRef.add(dataMap)
+                .addOnSuccessListener(documentReference -> Toast.makeText(DetailsActivity.this, "Saved to trips!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(DetailsActivity.this, "Error submitting data: "+e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     // Fetch place details from Firestore using document ID

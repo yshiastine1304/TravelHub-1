@@ -27,7 +27,7 @@ public class Registration_view extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private EditText fullName, email, password, contactNumber, travelStyle; // declaring edittexts
+    private EditText fullName, email, password, contactNumber; // declaring edittexts
     private Spinner interestSpinner;
     private Button register; // declaring button
     private TextView gotoLogin; // declaring TextViews
@@ -47,7 +47,6 @@ public class Registration_view extends AppCompatActivity {
         email = findViewById(R.id.email_edittext);
         password = findViewById(R.id.password_edittext);
         contactNumber = findViewById(R.id.contactNumber_edittext);
-        travelStyle = findViewById(R.id.travelStyle_edittext);
         interestSpinner = findViewById(R.id.travelInterest_spinner);
 
         // Button for Registration
@@ -90,8 +89,7 @@ public class Registration_view extends AppCompatActivity {
                         email.getText().toString(),
                         password.getText().toString(),
                         contactNumber.getText().toString(),
-                        selectedInterest,
-                        travelStyle.getText().toString());
+                        selectedInterest);
             }
         });
     }
@@ -113,12 +111,12 @@ public class Registration_view extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void registerUser(String fullname, String email, String password, String contactNumber, String interest, String travelStyle) {
+    private void registerUser(String fullname, String email, String password, String contactNumber, String interest) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        if (fullname.isEmpty() && email.isEmpty() && password.isEmpty() && contactNumber.isEmpty() && interest.isEmpty() && travelStyle.isEmpty()){
+                        if (fullname.isEmpty() && email.isEmpty() && password.isEmpty() && contactNumber.isEmpty() && interest.isEmpty()){
                             if (fullname.isEmpty()){
                                 showDiaglogBox("Fullname is empty!");
                             }else if (email.isEmpty()){
@@ -129,8 +127,6 @@ public class Registration_view extends AppCompatActivity {
                                 showDiaglogBox("Contact number is empty!");
                             }else if (interest.isEmpty()){
                                 showDiaglogBox("Kindly choose your interest!");
-                            }else if (travelStyle.isEmpty()){
-                                showDiaglogBox("Travel style is not specified.");
                             }
                         }else{
                             if (user != null) {
@@ -139,7 +135,7 @@ public class Registration_view extends AppCompatActivity {
                                             if (emailTask.isSuccessful()) {
                                                 Toast.makeText(this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
                                                 // Create a new User
-                                                User userData = new User(fullname, email, contactNumber, interest, travelStyle, "user");
+                                                User userData = new User(fullname, email, contactNumber, interest, "user");
                                                 db.collection("users").document(user.getUid())
                                                         .set(userData)
                                                         .addOnSuccessListener(aVoid -> {

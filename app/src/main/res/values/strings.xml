@@ -66,10 +66,10 @@
     <string name="partner_details">Partner</string>
     <string name="friends_details">Friends</string>
     <string name="family_details">Family</string>
-    <string name="addDestinations" >Add Destination</string>
-    <string name="view_button" >View Itinerary Details</string>
-    <string name="add_trip_btn" >Add to Trip</string>
-    <string name="profile" >My profile</string>
+    <string name="addDestinations">Add Destination</string>
+    <string name="view_button">View Itinerary Details</string>
+    <string name="add_trip_btn">Add to Trip</string>
+    <string name="profile">My profile</string>
     <string name="upload_proImage">Profile Picture </string>
     <string name="fetch_full_name">Full name</string>
     <string name="fetch_email">email</string>
@@ -80,6 +80,7 @@
     <string name="total_users">Number of Users</string>
     <string name="total_destination">Number of Destinations</string>
     <string name="total_hotels">Number of Hotels</string>
+    <string name="no_trip">You have no saved trips</string>
 
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>

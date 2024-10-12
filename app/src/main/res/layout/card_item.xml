@@ -8,7 +8,7 @@
 
     <!-- ImageView for the title image -->
     <ImageView
-        android:id="@+id/titleImageView"
+        android:id="@+id/tripsImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
@@ -16,7 +16,7 @@
 
     <!-- TextView for the description -->
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/tripsDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"

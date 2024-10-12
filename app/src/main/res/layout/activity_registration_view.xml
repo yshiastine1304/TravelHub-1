@@ -130,35 +130,21 @@
         app:layout_constraintTop_toBottomOf="@+id/contactNumber_edittext" />
 
 
-    <EditText
-        android:id="@+id/travelStyle_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:hint="@string/registrationForm_travelStyle_hint"
-        android:padding="15dp"
-        android:background="@drawable/rounded_edittext"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/travelInterest_spinner"
-        android:importantForAutofill="no" />
-
     <Button
         android:id="@+id/Register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        app:backgroundTint="@null"
         android:background="@drawable/button_background"
         android:text="@string/registrationForm_Register"
         android:textColor="@color/font_color_bold"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/travelStyle_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/travelInterest_spinner" />
 
     <TextView
         android:id="@+id/Labeled1"

@@ -5,15 +5,13 @@ public class User {
     private String email;
     private String contactNumber;
     private String interest;
-    private String travelStyle;
     private String access;
 
-    public User(String fullName, String email, String contactNumber, String interest, String travelStyle, String access) {
+    public User(String fullName, String email, String contactNumber, String interest, String access) {
         this.fullName = fullName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.interest = interest;
-        this.travelStyle = travelStyle;
         this.access = access;
     }
 
@@ -47,14 +45,6 @@ public class User {
 
     public void setInterest(String interest) {
         this.interest = interest;
-    }
-
-    public String getTravelStyle() {
-        return travelStyle;
-    }
-
-    public void setTravelStyle(String travelStyle) {
-        this.travelStyle = travelStyle;
     }
 
     public String getAccess() {

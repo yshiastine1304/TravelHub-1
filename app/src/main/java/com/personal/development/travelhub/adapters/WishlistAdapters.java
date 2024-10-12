@@ -52,9 +52,9 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
         ImageView tripImageView;
         public WishlistViewHolder(@NonNull View itemView){
             super(itemView);
-            tripNameTextView = itemView.findViewById(R.id.descriptionTextView);
-            reviewTxtview = itemView.findViewById(R.id.reviews_txt);
-            tripImageView = itemView.findViewById(R.id.titleImageView);
+            tripNameTextView = itemView.findViewById(R.id.tripsDescriptionTextView);
+            reviewTxtview = itemView.findViewById(R.id.trips_reviews_txt);
+            tripImageView = itemView.findViewById(R.id.tripsImageView);
         }
 
     }

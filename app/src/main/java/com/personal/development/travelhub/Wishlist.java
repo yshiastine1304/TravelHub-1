@@ -22,7 +22,7 @@ public class Wishlist extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        wishlistRecycler = findViewById(R.id.wishlist_recycler);
+        wishlistRecycler = findViewById(R.id.triplist_recycler);
         wishlistRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new WishlistAdapters(this);
@@ -34,11 +34,12 @@ public class Wishlist extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                startActivity(new Intent(this, Dashboard.class));
+                startActivity(new Intent(Wishlist.this, Dashboard.class));
                 return true;
             } else if (itemId == R.id.nav_wishlist) {
                 return true;
             } else if (itemId == R.id.nav_trip) {
+                startActivity(new Intent(Wishlist.this, TripsActivity.class));
                 return true;
             } else if (itemId == R.id.nav_account) {
                 return true;

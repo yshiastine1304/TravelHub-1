@@ -10,20 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.personal.development.travelhub.DetailsActivity;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.CardModel;
-
-import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private Context context;
@@ -72,8 +65,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView title_caption;
         public ViewHolder(View itemView){
             super(itemView);
-            picture_location = itemView.findViewById(R.id.titleImageView);
-            title_caption = itemView.findViewById(R.id.descriptionTextView);
+            picture_location = itemView.findViewById(R.id.tripsImageView);
+            title_caption = itemView.findViewById(R.id.tripsDescriptionTextView);
         }
     }
 }
