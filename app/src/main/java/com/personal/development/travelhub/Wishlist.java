@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.personal.development.travelhub.adapters.WishlistAdapters;
@@ -13,6 +15,7 @@ import com.personal.development.travelhub.adapters.WishlistAdapters;
 public class Wishlist extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private RecyclerView wishlistRecycler;
+    private TextView noWishlist;
     private WishlistAdapters adapter;
 
     @Override
@@ -21,6 +24,7 @@ public class Wishlist extends AppCompatActivity {
         setContentView(R.layout.activity_wishlist);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        noWishlist = findViewById(R.id.no_wishlist_text_view);
 
         wishlistRecycler = findViewById(R.id.triplist_recycler);
         wishlistRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -29,6 +33,9 @@ public class Wishlist extends AppCompatActivity {
         wishlistRecycler.setAdapter(adapter);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_wishlist);
+
+        // Initially hide the empty state message
+        noWishlist.setVisibility(View.GONE);
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -47,5 +54,15 @@ public class Wishlist extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void toggleEmptyState(boolean isEmpty) {
+        if (isEmpty) {
+            noWishlist.setVisibility(View.VISIBLE);
+            wishlistRecycler.setVisibility(View.GONE);
+        } else {
+            noWishlist.setVisibility(View.GONE);
+            wishlistRecycler.setVisibility(View.VISIBLE);
+        }
     }
 }

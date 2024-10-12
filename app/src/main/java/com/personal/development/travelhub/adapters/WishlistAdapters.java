@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.R;
+import com.personal.development.travelhub.TripsActivity;
+import com.personal.development.travelhub.Wishlist;
 import com.personal.development.travelhub.models.WishlistModels;
 
 import java.util.ArrayList;
@@ -96,17 +98,23 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
                             WishlistModels models = document.toObject(WishlistModels.class);
                             wishlistModels.add(models);
                         }
-                        Log.d("Firestore", "Wishlist loaded successfully with " + wishlistModels.size() + " items.");
                         notifyDataSetChanged();
+
+                        // Hide empty state
+                        ((Wishlist) context).toggleEmptyState(false);
                     } else {
-                        Log.d("Firestore", "No wishlist items found for this user.");
+                        // No trips found, show empty state
+                        ((Wishlist) context).toggleEmptyState(true);
                     }
                 } else {
                     Log.e("Firestore", "Error getting wishlist documents: ", task.getException());
+                    // In case of an error, you may also want to show the empty state
+                    ((Wishlist) context).toggleEmptyState(true);
                 }
             });
         } else {
             Log.e("Firestore", "User not logged in");
+            ((Wishlist) context).toggleEmptyState(true);
         }
     }
 }
