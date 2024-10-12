@@ -11,8 +11,11 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.adapters.AttractionAdapter;
 import com.personal.development.travelhub.adapters.HomeAdapter;
 import com.personal.development.travelhub.models.AttractionsModel;
@@ -33,6 +36,7 @@ public class Dashboard extends AppCompatActivity {
     private List<CardModel> dataList;
     private List<AttractionsModel> dataList2;
     private BottomNavigationView bottomNavigationView;
+    private String user_interest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +93,28 @@ public class Dashboard extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         reco_recyclerView.setAdapter(adapter2);
 
+        fetchInterest();
         fetchRecommendedData();
         fetchAttractionsData();
     }
 
+    public void fetchInterest(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid().toString();
+
+        db.collection("users")
+                .document(userUid)
+                .get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()){
+                       DocumentSnapshot documentSnapshot = task.getResult();
+                        user_interest = documentSnapshot.getString("interest");
+                   }
+                });
+    }
+
     private void fetchRecommendedData() {
+
         db.collection("attractions")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -105,7 +126,7 @@ public class Dashboard extends AppCompatActivity {
                           String title = document.getString("destination_name");
                           String documentId = document.getId();
 
-                          if (interest.equals("Beach")){
+                          if (interest.equals(user_interest)){
                               dataList.add(new CardModel(imageUrl,title, documentId));
                           }
                       }
@@ -121,11 +142,15 @@ public class Dashboard extends AppCompatActivity {
                    if (task.isSuccessful()){
 //                       dataList2.clear();
                        for (QueryDocumentSnapshot document : task.getResult()){
+                           String interest = document.getString("recommend_interest");
                            String imageUrl = document.getString("image_link_1");
                            String title = document.getString("destination_name");
                            String documentId = document.getId();
 
-                           dataList2.add(new AttractionsModel(imageUrl,title,documentId));
+                           if (!interest.equals(user_interest)) {
+                               dataList2.add(new AttractionsModel(imageUrl, title, documentId));
+                           }
+
                        }
                        adapter2.notifyDataSetChanged();
                    }

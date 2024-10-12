@@ -86,7 +86,6 @@
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
         <item>Beach</item>
-        <item>Hiking</item>
         <item>Festival Events</item>
         <item>Historical</item>
         <item>Nightlife and Entertainment</item>
@@ -94,16 +93,9 @@
     <string-array name="interest_spinner_items">
         <item>Select Interest</item>
         <item>Beach</item>
-        <item>Hiking</item>
         <item>Festival Events</item>
         <item>Historical</item>
         <item>Nightlife and Entertainment</item>
-    </string-array>
-    <string-array name="travelStyle_spinner_items" tools:ignore="ExtraTranslation">
-        <item>Select Interest</item>
-        <item>Adventure Travel</item>
-        <item>Solo Travel</item>
-        <item>Group Travel</item>
     </string-array>
 
 </resources>
