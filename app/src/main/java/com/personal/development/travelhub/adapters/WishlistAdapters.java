@@ -1,6 +1,7 @@
 package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.personal.development.travelhub.DetailsActivity;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.TripsActivity;
 import com.personal.development.travelhub.Wishlist;
@@ -52,8 +54,10 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
     public class WishlistViewHolder extends RecyclerView.ViewHolder {
         TextView tripNameTextView, reviewTxtview;
         ImageView tripImageView;
+        View rootView;
         public WishlistViewHolder(@NonNull View itemView){
             super(itemView);
+            rootView = itemView;
             tripNameTextView = itemView.findViewById(R.id.tripsDescriptionTextView);
             reviewTxtview = itemView.findViewById(R.id.trips_reviews_txt);
             tripImageView = itemView.findViewById(R.id.tripsImageView);
@@ -72,6 +76,16 @@ public class WishlistAdapters extends RecyclerView.Adapter<WishlistAdapters.Wish
                 .load(model.getImageUrl())
                 .apply(new RequestOptions().placeholder(R.drawable.default_picture).error(R.drawable.error_icon))
                 .into(holder.tripImageView);
+
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("DOCUMENT_ID", model.getAttraction_uid()); // Pass the documentId
+                intent.putExtra("IMAGE_URL", model.getImageUrl());
+                context.startActivity(intent);
+            }
+        });
     }
 
     public WishlistAdapters(List<WishlistModels> wishlistModels) {

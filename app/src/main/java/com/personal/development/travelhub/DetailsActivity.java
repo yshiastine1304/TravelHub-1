@@ -88,7 +88,7 @@ public class DetailsActivity extends AppCompatActivity {
         placeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createWishlist(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid);
+                createWishlist(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid,documentId);
             }
         });
 
@@ -112,11 +112,12 @@ public class DetailsActivity extends AppCompatActivity {
         saveTrip(userId, dataMap);
     }
 
-    private void createWishlist(String place_name, String image_url, String reviews, String userId){
+    private void createWishlist(String place_name, String image_url, String reviews, String userId, String attraction_uid){
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("tripName", place_name);
         dataMap.put("imageUrl", image_url);
         dataMap.put("reviews", reviews);
+        dataMap.put("attraction_uid", attraction_uid);
 
         saveWishlistData(userId, dataMap);
     }
