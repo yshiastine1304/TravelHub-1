@@ -95,7 +95,6 @@ public class Dashboard extends AppCompatActivity {
 
         fetchInterest();
         fetchRecommendedData();
-        fetchAttractionsData();
     }
 
     public void fetchInterest(){
@@ -119,7 +118,8 @@ public class Dashboard extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                    if (task.isSuccessful()){
-//                       dataList.clear();
+                       dataList.clear();
+                       dataList2.clear();
                       for (QueryDocumentSnapshot document : task.getResult()) {
                           String interest = document.getString("recommend_interest");
                           String imageUrl = document.getString("image_link_1");
@@ -129,32 +129,12 @@ public class Dashboard extends AppCompatActivity {
                           if (interest.equals(user_interest)){
                               dataList.add(new CardModel(imageUrl,title, documentId));
                           }
+                          if (!interest.equals(user_interest)) {
+                              dataList2.add(new AttractionsModel(imageUrl, title, documentId));
+                          }
                       }
                        adapter.notifyDataSetChanged();
                    }
                 });
     }
-
-    private void fetchAttractionsData(){
-        db.collection("attractions")
-                .get()
-                .addOnCompleteListener(task -> {
-                   if (task.isSuccessful()){
-//                       dataList2.clear();
-                       for (QueryDocumentSnapshot document : task.getResult()){
-                           String interest = document.getString("recommend_interest");
-                           String imageUrl = document.getString("image_link_1");
-                           String title = document.getString("destination_name");
-                           String documentId = document.getId();
-
-                           if (!interest.equals(user_interest)) {
-                               dataList2.add(new AttractionsModel(imageUrl, title, documentId));
-                           }
-
-                       }
-                       adapter2.notifyDataSetChanged();
-                   }
-                });
-    }
-
 }
