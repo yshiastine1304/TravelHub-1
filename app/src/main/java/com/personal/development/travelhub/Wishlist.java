@@ -49,6 +49,7 @@ public class Wishlist extends AppCompatActivity {
                 startActivity(new Intent(Wishlist.this, TripsActivity.class));
                 return true;
             } else if (itemId == R.id.nav_account) {
+                startActivity(new Intent(Wishlist.this, Profile.class));
                 return true;
             } else {
                 return false;

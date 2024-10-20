@@ -3,4 +3,5 @@
     <item name="place_name" type="id" />
     <item name="add_destinations" type="id" />
     <item name="card_view_expectations" type="id" />
+    <item name="profile_recycler" type="id" />
 </resources>

@@ -6,14 +6,27 @@ public class User {
     private String contactNumber;
     private String interest;
     private String access;
+    private String profilePictureLink;
 
-    public User(String fullName, String email, String contactNumber, String interest, String access) {
+    public User() {}
+
+    public User(String fullName, String email, String contactNumber, String interest, String access, String profilePictureLink) {
         this.fullName = fullName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.interest = interest;
         this.access = access;
+        this.profilePictureLink = profilePictureLink;
     }
+
+    public String getProfilePictureLink() {
+        return profilePictureLink;
+    }
+
+    public void setProfilePictureLink(String profilePictureLink) {
+        this.profilePictureLink = profilePictureLink;
+    }
+
 
     public String getFullName() {
         return fullName;

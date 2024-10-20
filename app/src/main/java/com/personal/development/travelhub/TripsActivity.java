@@ -48,6 +48,7 @@ public class TripsActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_trip) {
                 return true;
             } else if (itemId == R.id.nav_account) {
+                startActivity(new Intent(TripsActivity.this, Profile.class));
                 return true;
             } else {
                 return false;

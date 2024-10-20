@@ -63,6 +63,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(this, TripsActivity.class));
                 return true;
             } else if (itemId == R.id.nav_account) {
+                startActivity(new Intent(this, Profile.class));
                 return true;
             } else {
                 return false;

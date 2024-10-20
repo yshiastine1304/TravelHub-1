@@ -135,7 +135,7 @@ public class Registration_view extends AppCompatActivity {
                                             if (emailTask.isSuccessful()) {
                                                 Toast.makeText(this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
                                                 // Create a new User
-                                                User userData = new User(fullname, email, contactNumber, interest, "user");
+                                                User userData = new User(fullname, email, contactNumber, interest, "user","");
                                                 db.collection("users").document(user.getUid())
                                                         .set(userData)
                                                         .addOnSuccessListener(aVoid -> {
