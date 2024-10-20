@@ -7,23 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/add_btn_hotel"
-        android:layout_width="87dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/button_rounded"
-        android:drawableStart="@drawable/ic_home_name"
-        android:text="Add"
-        android:textColor="@color/font_color_bold"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/search_places"
         android:layout_width="match_parent"
@@ -35,7 +18,10 @@
         android:inputType="text"
         android:padding="10dp"
         android:autofillHints=""
-        app:layout_constraintTop_toBottomOf="@+id/add_btn_hotel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -56,31 +42,23 @@
             app:cardElevation="0dp"
             android:background="@drawable/rounder_border">
 
-            <ImageView
-                android:id="@+id/hotelImageView"
-                android:layout_width="95dp"
-                android:layout_height="72dp"
-                android:layout_marginStart="6dp"
-                android:importantForAccessibility="no"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_picture" />
-
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="93dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical"
                 android:paddingStart="8dp"
                 tools:ignore="RtlSymmetry">
 
                 <TextView
-                    android:id="@+id/hotel_name"
+                    android:id="@+id/fullname_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Hotel Name"
-                    android:textAlignment="center"
+                    android:padding="5dp"
+                    android:text="Cabonada Candies"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -90,51 +68,49 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/loc_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Location"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hotel_name"  />
-
-                <TextView
-                    android:id="@+id/contact_num"
+                    android:id="@+id/email_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="phone num:"
+                    android:layout_marginStart="6dp"
+                    android:text="email"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/loc_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/fullname_user" />
 
                 <TextView
-                    android:id="@+id/tel_num"
+                    android:id="@+id/contact_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tel number:"
+                    android:layout_marginStart="6dp"
+                    android:text="contact num:"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/contact_num" />
+                    app:layout_constraintTop_toBottomOf="@+id/email_user" />
+
+                <TextView
+                    android:id="@+id/interest_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="interest:"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contact_user" />
 
             </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
