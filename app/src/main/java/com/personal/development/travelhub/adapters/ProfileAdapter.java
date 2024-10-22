@@ -1,17 +1,27 @@
 package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.User;
 
@@ -21,14 +31,20 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
 
     private Context context;
     private List<User> users;
-    private FirebaseFirestore firestore;
     private OnItemClickListener listener;
+    private ArrayAdapter<String> interestAdapter;
+    private List<String> interestOptions;
 
     public ProfileAdapter(Context context, List<User> users, OnItemClickListener listener) {
         this.context = context;
         this.users = users;
         this.listener = listener;
-        firestore = FirebaseFirestore.getInstance();
+        this.interestOptions = interestOptions;
+
+        interestAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                context.getResources().getStringArray(R.array.interest_spinner_items));
+        interestAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
     }
 
     @NonNull
@@ -50,7 +66,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView fullName, email, contactNumber, interest;
+        private TextView fullName, email, contactNumber;
+        private Spinner interest;
         private ImageView profileImage;
         private View saveButton;
 
@@ -63,13 +80,30 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             profileImage = itemView.findViewById(R.id.icon);
             saveButton = itemView.findViewById(R.id.save_admin_btn);
 
+            // Initialize the Spinner with options
+//            interestAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, interestOptions);
+//            interestAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            interest.setAdapter(interestAdapter);
+              interest.setAdapter(interestAdapter);
+
+            // Handle profile image click for uploading
+            profileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onProfileImageClicked(position);
+                    }
+                }
+            });
+
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onUpdateClicked(position, fullName.getText().toString(), email.getText().toString(),
-                                contactNumber.getText().toString(), interest.getText().toString());
+                                contactNumber.getText().toString(),  interest.getSelectedItem().toString());
                     }
                 }
             });
@@ -79,17 +113,25 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             fullName.setText(user.getFullName());
             email.setText(user.getEmail());
             contactNumber.setText(user.getContactNumber());
-            interest.setText(user.getInterest());
+
+
+            // Set selected interest in Spinner
+            if (user.getInterest() != null) {
+                int spinnerPosition = interestAdapter.getPosition(user.getInterest());
+                interest.setSelection(spinnerPosition);
+            }
 
             // Load profile image using Glide
             Glide.with(context)
                     .load(user.getProfilePictureLink())
-                    .placeholder(R.drawable.plus_icon_img)
+                    .placeholder(R.drawable.baseline_person_24)
+                    .circleCrop()
                     .into(profileImage);
         }
     }
 
     public interface OnItemClickListener {
         void onUpdateClicked(int position, String fullName, String email, String contactNumber, String interest);
+        void onProfileImageClicked(int position);
     }
 }
