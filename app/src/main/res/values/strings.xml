@@ -82,6 +82,7 @@
     <string name="no_trip">You have no saved trips</string>
     <string name="wishlist_isEmpty">Your Wishlist is Empty</string>
     <string name="app_name">TravelHub</string>
+    <string name="logout_btn">Sign Out</string>
 
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
@@ -97,5 +98,6 @@
         <item>Historical</item>
         <item>Nightlife and Entertainment</item>
     </string-array>
+
 
 </resources>

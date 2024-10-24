@@ -4,4 +4,6 @@
     <item name="add_destinations" type="id" />
     <item name="card_view_expectations" type="id" />
     <item name="profile_recycler" type="id" />
+    <item name="sign_outBtn" type="id" />
+    <item name="adminListRecycler" type="id" />
 </resources>

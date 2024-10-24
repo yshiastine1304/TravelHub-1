@@ -84,7 +84,7 @@ public class LogInActivity extends AppCompatActivity {
 
                                if (access != null){
                                    if (access.equals("admin")) {
-                                       startActivity(new Intent(this, activity_admin.class));
+                                       startActivity(new Intent(this, AdminDashboardActivity.class));
                                        finish();
                                    }else if (access.equals("user")){
                                        startActivity(new Intent(LogInActivity.this, Dashboard.class));

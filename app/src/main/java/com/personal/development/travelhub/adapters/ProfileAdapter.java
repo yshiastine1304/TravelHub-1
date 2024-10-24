@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.personal.development.travelhub.LogInActivity;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.User;
 
@@ -70,6 +73,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         private Spinner interest;
         private ImageView profileImage;
         private View saveButton;
+        private Button signoutBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +83,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             interest = itemView.findViewById(R.id.select_interest);
             profileImage = itemView.findViewById(R.id.icon);
             saveButton = itemView.findViewById(R.id.save_admin_btn);
+            signoutBtn = itemView.findViewById(R.id.sign_outBtn);
 
             // Initialize the Spinner with options
 //            interestAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, interestOptions);
@@ -97,6 +102,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
                 }
             });
 
+            signoutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(context, LogInActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
+                }
+            });
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
