@@ -95,26 +95,42 @@ public class DetailsActivity extends AppCompatActivity {
         saveTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createTripList(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid);
+                // Assuming "1" as a placeholder for tripCounts; replace as appropriate
+                createTripList(
+                        placeName.getText().toString(),
+                        imageString,
+                        reviews.getText().toString(),
+                        btnAllDatePicker.getText().toString(),
+                        highlight.getText().toString(),
+                        "added",
+                        "1", // tripCounts value here
+                        userUid
+                );
             }
         });
+
 
         // Open the date picker on button click
         btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
     }
 
-    private void createTripList(String place_name, String image_url, String reviews, String userId){
+    private void createTripList(String place_name, String image_url, String reviews, String tripDate, String tripHighlight, String tripStatus, String tripCounts, String userId) {
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("tripDescription", place_name);
         dataMap.put("tripImgUrl", image_url);
-        dataMap.put("tripReviews", reviews);
+        dataMap.put("tripReviews", reviews); // This field can store user review counts or ratings
+        dataMap.put("tripDateFromAndTo", tripDate);
+        dataMap.put("tripHighlight", tripHighlight);
+        dataMap.put("tripStatus", tripStatus);
+        dataMap.put("tripCounts", tripCounts);  // Adding trip counts for consistency with TripsModel
 
         saveTrip(userId, dataMap);
     }
 
+
     private void createWishlist(String place_name, String image_url, String reviews, String userId, String attraction_uid){
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("tripName", place_name);
+        dataMap.put("tripDescription", place_name);
         dataMap.put("imageUrl", image_url);
         dataMap.put("reviews", reviews);
         dataMap.put("attraction_uid", attraction_uid);

@@ -17,112 +17,116 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LogInActivity extends AppCompatActivity {
 
-    Intent intent;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private String access_type, userUid;
 
-    EditText email,password;
-    TextView forgotPassword,gotoSignUp;
+    EditText email, password;
+    TextView forgotPassword, gotoSignUp;
     Button logIn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();  // Ensure Firestore is initialized here
 
-        //Edittext
-        email = (EditText) findViewById(R.id.email_edittext_login);
-        password = (EditText) findViewById(R.id.password_edittext_login);
-        //TextViews
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword_textView);
-        gotoSignUp = (TextView) findViewById(R.id.SignUp);
-        logIn = (Button) findViewById(R.id.logIn_button);
+        // EditTexts
+        email = findViewById(R.id.email_edittext_login);
+        password = findViewById(R.id.password_edittext_login);
+        // TextViews
+        forgotPassword = findViewById(R.id.forgotPassword_textView);
+        gotoSignUp = findViewById(R.id.SignUp);
+        logIn = findViewById(R.id.logIn_button);
 
-        gotoSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(v.getContext(), Registration_view.class);
-                v.getContext().startActivity(intent);
-            }
+        // Sign up and forgot password redirections
+        gotoSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), Registration_view.class);
+            startActivity(intent);
         });
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(v.getContext(), ForgotPassword.class);
-                v.getContext().startActivity(intent);
-            }
+        forgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ForgotPassword.class);
+            startActivity(intent);
         });
 
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser(email.getText().toString(),password.getText().toString());
-            }
-        });
-
+        // Log in button action
+        logIn.setOnClickListener(v -> loginUser(email.getText().toString(), password.getText().toString()));
     }
 
-    private void loginUser(String email_, String password_){
+    private void loginUser(String email_, String password_) {
         mAuth.signInWithEmailAndPassword(email_, password_)
                 .addOnCompleteListener(this, task -> {
-                   if (task.isSuccessful()){
-                       // Login success
-                       FirebaseUser user = mAuth.getCurrentUser();
-                       if (user != null && user.isEmailVerified()) {
-
-                           // Retrieve
-                           FirebaseFirestore db = FirebaseFirestore.getInstance();
-                           DocumentReference docRef = db.collection("users").document(user.getUid());
-
-                           docRef.get().addOnSuccessListener(documentSnapshot -> {
-                               if (documentSnapshot.exists()) {
-                               String access = documentSnapshot.getString("access");
-
-                               if (access != null){
-                                   if (access.equals("admin")) {
-                                       startActivity(new Intent(this, AdminDashboardActivity.class));
-                                       finish();
-                                   }else if (access.equals("user")){
-                                       startActivity(new Intent(LogInActivity.this, Dashboard.class));
-                                       finish();
-                                   }
-                               }
-                               } else {
-                                   Toast.makeText(LogInActivity.this, "User data not found", Toast.LENGTH_LONG).show();
-                               }
-                           }).addOnFailureListener(e -> {
-                               Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                           });
-
-
-                       }else {
-                           // Email not verified, notify the user
-                           Toast.makeText(LogInActivity.this,
-                                   "Please verify your email address",
-                                   Toast.LENGTH_LONG).show();
-                           mAuth.signOut();
-                       }
-                   } else {
-                       // Login failed, show error message
-                       Toast.makeText(LogInActivity.this,
-                               "Authentication failed: "+ task.getException().getMessage(),
-                               Toast.LENGTH_LONG).show();
-                   }
+                    if (task.isSuccessful()) {
+                        // Login success
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null && user.isEmailVerified()) {
+                            // Retrieve user data from Firestore
+                            DocumentReference docRef = db.collection("users").document(user.getUid());
+                            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String access = documentSnapshot.getString("access");
+                                    access_type = access;
+                                    if (access != null) {
+                                        if (access.equals("admin")) {
+                                            startActivity(new Intent(this, AdminDashboardActivity.class));
+                                            finish();
+                                        } else if (access.equals("user")) {
+                                            startActivity(new Intent(this, Dashboard.class));
+                                            finish();
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(LogInActivity.this, "User data not found", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(e -> {
+                                Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            });
+                        } else {
+                            // Email not verified
+                            Toast.makeText(LogInActivity.this, "Please verify your email address", Toast.LENGTH_LONG).show();
+                            mAuth.signOut();
+                        }
+                    } else {
+                        // Login failed
+                        Toast.makeText(LogInActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null && user.isEmailVerified()){
-            Intent intent = new Intent(LogInActivity.this, Dashboard.class);
-            startActivity(intent);
-            finish();
+        if (user != null) {
+            userUid = user.getUid();
+            db.collection("users").document(userUid)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            access_type = documentSnapshot.getString("access");
+                            if (user.isEmailVerified()) {
+                                if ("admin".equals(access_type)) {
+                                    startActivity(new Intent(LogInActivity.this, AdminDashboardActivity.class));
+                                } else if ("user".equals(access_type)) {
+                                    startActivity(new Intent(LogInActivity.this, Dashboard.class));
+                                }
+                                finish();
+                            } else {
+                                Toast.makeText(LogInActivity.this, "Please verify your email address", Toast.LENGTH_LONG).show();
+                                mAuth.signOut();
+                            }
+                        } else {
+                            Toast.makeText(LogInActivity.this, "Cannot identify user", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                    );
         }
     }
 }

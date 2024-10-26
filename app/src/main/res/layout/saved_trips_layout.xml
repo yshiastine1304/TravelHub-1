@@ -1,49 +1,48 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background_color">
 
     <!-- Outer CardView with constraints -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/destination_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="10dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/background_color"
-        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"
-            >
+            android:padding="10dp">
 
             <!-- Date TextView inside the outer CardView -->
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="1dp"
                 android:text="October 23, 2024 - October 24, 2024"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:layout_marginStart="6dp"
-                android:layout_marginBottom="1dp"/>
+                android:textStyle="bold" />
 
             <!-- Destinations layout with label on left and count on right -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="6dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
 
                 <!-- Destinations label on the left -->
                 <TextView
@@ -60,9 +59,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" 10"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/destination_string"
                     android:layout_width="wrap_content"
@@ -77,8 +77,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/add_btn"
@@ -99,27 +99,29 @@
 
             <!-- Inner CardView -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/destination_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="2dp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/wishlist_background_color"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/wishlist_background_color">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/rounder_border"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:background="@drawable/rounder_border">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/tripsImageView"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
-                        android:scaleType="centerCrop"
                         android:layout_marginStart="6dp"
-                        android:src="@drawable/default_picture"
-                        android:importantForAccessibility="no" />
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_picture" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -146,27 +148,28 @@
                             android:id="@+id/trips_highlight_txt"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
                             android:text="One of the South Cebu beaches that you shouldn't miss."
                             android:textColor="@color/black"
-                            android:textSize="9sp"
-                            android:padding="2dp"
-                            android:layout_marginStart="6dp" />
+                            android:textSize="9sp" />
+
                         <TextView
                             android:id="@+id/status"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
                             android:text="status: "
                             android:textColor="@color/black"
                             android:textSize="9sp"
-                            android:padding="2dp"
-                            android:textStyle="bold"
-                            android:layout_marginStart="6dp" />
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/remove_btn"
@@ -186,15 +189,439 @@
                                 android:id="@+id/view_details"
                                 android:layout_width="0dp"
                                 android:layout_height="24dp"
-                                android:layout_weight="1"
                                 android:layout_marginStart="10dp"
-                                android:padding="0dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/round_border_trip"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
                                 android:text="View"
                                 android:textColor="@color/black"
                                 android:textSize="10sp"
                                 android:textStyle="bold"
+                                app:backgroundTint="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/destination_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/wishlist_background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounder_border"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/tripsImageView_2"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_picture" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="8dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <TextView
+                            android:id="@+id/tripsDescriptionTextView_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:padding="5dp"
+                            android:text="@string/sample_caption"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/trips_highlight_txt_2"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="One of the South Cebu beaches that you shouldn't miss."
+                            android:textColor="@color/black"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/status_2"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="status: "
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/remove_btn_2"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cancel_itinerary_btn"
                                 android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="Remove"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+
+                            <Button
+                                android:id="@+id/view_details_2"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border_trip"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="View"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/destination_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/wishlist_background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounder_border"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/tripsImageView_3"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_picture" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="8dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <TextView
+                            android:id="@+id/tripsDescriptionTextView_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:padding="5dp"
+                            android:text="@string/sample_caption"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/trips_highlight_txt_3"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="One of the South Cebu beaches that you shouldn't miss."
+                            android:textColor="@color/black"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/status_3"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="status: "
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/remove_btn_3"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cancel_itinerary_btn"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="Remove"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+
+                            <Button
+                                android:id="@+id/view_details_3"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border_trip"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="View"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/destination_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/wishlist_background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounder_border"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/tripsImageView_4"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_picture" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="8dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <TextView
+                            android:id="@+id/tripsDescriptionTextView_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:padding="5dp"
+                            android:text="@string/sample_caption"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/trips_highlight_txt_4"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="One of the South Cebu beaches that you shouldn't miss."
+                            android:textColor="@color/black"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/status_4"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="status: "
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/remove_btn_4"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cancel_itinerary_btn"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="Remove"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+
+                            <Button
+                                android:id="@+id/view_details_4"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border_trip"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="View"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/destination_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/wishlist_background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                tools:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounder_border"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/tripsImageView_5"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_picture" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="8dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <TextView
+                            android:id="@+id/tripsDescriptionTextView_5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:padding="5dp"
+                            android:text="@string/sample_caption"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/trips_highlight_txt_5"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="One of the South Cebu beaches that you shouldn't miss."
+                            android:textColor="@color/black"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/status_5"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:padding="2dp"
+                            android:text="status: "
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/remove_btn_5"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/cancel_itinerary_btn"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="Remove"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null" />
+
+                            <Button
+                                android:id="@+id/view_details_5"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border_trip"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="View"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
                                 app:backgroundTint="@null" />
                         </LinearLayout>
                     </LinearLayout>
@@ -205,36 +632,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/cancel_btn"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_weight="1"
-                    android:padding="0dp"
                     android:background="@drawable/cancel_itinerary_btn"
+                    android:includeFontPadding="false"
+                    android:padding="0dp"
                     android:text="Cancel"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    android:includeFontPadding="false"
                     app:backgroundTint="@null" />
 
                 <Button
                     android:id="@+id/view_itinerary_btn"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:padding="0dp"
+                    android:layout_weight="1"
                     android:background="@drawable/round_border_trip"
+                    android:includeFontPadding="false"
+                    android:padding="0dp"
                     android:text="View Itinerary"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    android:includeFontPadding="false"
                     app:backgroundTint="@null" />
             </LinearLayout>
         </LinearLayout>

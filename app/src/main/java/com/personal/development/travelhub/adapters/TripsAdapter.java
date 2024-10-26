@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.R;
@@ -47,8 +48,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TripsViewHol
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.TripsViewHolder holder, int position) {
         TripsModel model = tripsModel.get(position);
-        holder.tripNameTextView.setText(model.getTripDescription());
-        holder.reviewTxtview.setText(model.getTripReviews());
+        holder.tripDescriptionTxtView.setText(model.getTripDescription());
+        holder.destination_highlight.setText(model.getTripHighlight());
+        holder.dateTxtView.setText(model.getTripDateFromAndTo());
+        holder.statusTxt.setText(model.getTripStatus());
 
         Glide.with(context)
                 .load(model.getTripImgUrl())
@@ -69,53 +72,59 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TripsViewHol
     @NonNull
     @Override
     public TripsAdapter.TripsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trips_layout, parent, false);
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_trips_layout, parent, false);
        return new TripsViewHolder(view);
     }
 
     public class TripsViewHolder extends RecyclerView.ViewHolder {
-        TextView tripNameTextView, reviewTxtview;
+        TextView tripDescriptionTxtView, dateTxtView,destination_count,destination_highlight,statusTxt;
         ImageView tripImageView;
-        Button viewItinerary;
+
         public TripsViewHolder(@NonNull View itemView){
             super(itemView);
-            tripNameTextView = itemView.findViewById(R.id.tripsDescriptionTextView);
-            reviewTxtview = itemView.findViewById(R.id.trips_reviews_txt);
+            tripDescriptionTxtView = itemView.findViewById(R.id.tripsDescriptionTextView);
             tripImageView = itemView.findViewById(R.id.tripsImageView);
-            viewItinerary = itemView.findViewById(R.id.view_itinerary_btn);
+            dateTxtView = itemView.findViewById(R.id.dateTextView);
+            destination_count = itemView.findViewById(R.id.destinations_count);
+            destination_highlight = itemView.findViewById(R.id.trips_highlight_txt);
+            statusTxt = itemView.findViewById(R.id.status);
         }
 
     }
 
+    // In the fetchTripsFromFirestore method
     // In the fetchTripsFromFirestore method
     public void fetchTripsFromFirestore() {
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
             CollectionReference tripsRef = db.collection("users").document(userId).collection("trips");
-            tripsRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    QuerySnapshot snapshots = task.getResult();
-                    tripsModel.clear();
 
-                    if (snapshots != null && !snapshots.isEmpty()) {
-                        for (QueryDocumentSnapshot document : snapshots) {
-                            TripsModel models = document.toObject(TripsModel.class);
-                            tripsModel.add(models);
+            // Order by tripDateFromAndTo for chronological ordering
+            tripsRef.orderBy("tripDateFromAndTo", Query.Direction.ASCENDING)
+                    .get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot snapshots = task.getResult();
+                            tripsModel.clear();
+
+                            if (snapshots != null && !snapshots.isEmpty()) {
+                                for (QueryDocumentSnapshot document : snapshots) {
+                                    TripsModel models = document.toObject(TripsModel.class);
+                                    tripsModel.add(models);
+                                }
+                                notifyDataSetChanged();
+                                // Hide empty state
+                                ((TripsActivity) context).toggleEmptyState(false);
+                            } else {
+                                // No trips found, show empty state
+                                ((TripsActivity) context).toggleEmptyState(true);
+                            }
+                        } else {
+                            Log.e("Firestore", "Error getting trip documents: ", task.getException());
+                            // Show empty state in case of error
+                            ((TripsActivity) context).toggleEmptyState(true);
                         }
-                        notifyDataSetChanged();
-                        // Hide empty state
-                        ((TripsActivity) context).toggleEmptyState(false);
-                    } else {
-                        // No trips found, show empty state
-                        ((TripsActivity) context).toggleEmptyState(true);
-                    }
-                } else {
-                    Log.e("Firestore", "Error getting wishlist documents: ", task.getException());
-                    // In case of an error, you may also want to show the empty state
-                    ((TripsActivity) context).toggleEmptyState(true);
-                }
-            });
+                    });
         } else {
             Log.e("Firestore", "User not logged in");
             ((TripsActivity) context).toggleEmptyState(true);

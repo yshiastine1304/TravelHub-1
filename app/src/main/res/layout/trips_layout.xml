@@ -10,29 +10,29 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/wishlist_background_color"
-        android:layout_marginTop="40dp"
-        tools:ignore="MissingConstraints">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounder_border"
             android:orientation="horizontal"
-            android:padding="10dp"
-            app:cardElevation="0dp"
-            android:background="@drawable/rounder_border">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/tripsImageView"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
                 android:layout_marginStart="6dp"
-                android:src="@drawable/default_picture"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_picture" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -51,43 +51,67 @@
                     android:text="@string/sample_caption"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
 
                 <TextView
-                    android:id="@+id/trips_reviews_txt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/trips_highlight_txt"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/review_details"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
                     android:layout_marginStart="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tripsDescriptionTextView" />
+                    android:padding="2dp"
+                    android:text="One of the South Cebu beaches that you shouldn't miss."
+                    android:textColor="@color/black"
+                    android:textSize="9sp" />
 
-                <Button
-                    android:id="@+id/view_itinerary_btn"
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:padding="2dp"
+                    android:text="status: "
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/round_border_trip"
-                    android:padding="8dp"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/view_button"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@null" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/remove_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/cancel_itinerary_btn"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="Remove"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/view_details"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_border_trip"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="View"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
