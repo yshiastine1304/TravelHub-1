@@ -23,10 +23,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.personal.development.travelhub.models.Destination;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -95,16 +98,23 @@ public class DetailsActivity extends AppCompatActivity {
         saveTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Assuming "1" as a placeholder for tripCounts; replace as appropriate
-                createTripList(
+                List<Destination> destinations = new ArrayList<>();
+
+                // Example destination, you can dynamically add multiple destinations based on user input
+                destinations.add(new Destination(
                         placeName.getText().toString(),
-                        imageString,
-                        reviews.getText().toString(),
-                        btnAllDatePicker.getText().toString(),
                         highlight.getText().toString(),
-                        "added",
-                        "1", // tripCounts value here
-                        userUid
+                        "added",  // Status
+                        imageString
+
+                ));
+
+                createTripList(
+                        btnAllDatePicker.getText().toString(),
+                        reviews.getText().toString(),
+                        "1", // Trip counts placeholder
+                        userUid,
+                        destinations
                 );
             }
         });
@@ -114,15 +124,12 @@ public class DetailsActivity extends AppCompatActivity {
         btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
     }
 
-    private void createTripList(String place_name, String image_url, String reviews, String tripDate, String tripHighlight, String tripStatus, String tripCounts, String userId) {
+    private void createTripList(String tripDate, String reviews, String tripCounts, String userId, List<Destination> destinations) {
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("tripDescription", place_name);
-        dataMap.put("tripImgUrl", image_url);
-        dataMap.put("tripReviews", reviews); // This field can store user review counts or ratings
         dataMap.put("tripDateFromAndTo", tripDate);
-        dataMap.put("tripHighlight", tripHighlight);
-        dataMap.put("tripStatus", tripStatus);
-        dataMap.put("tripCounts", tripCounts);  // Adding trip counts for consistency with TripsModel
+        dataMap.put("tripReviews", reviews);  // Store review or rating count
+        dataMap.put("tripCounts", tripCounts);  // Trip count or order
+        dataMap.put("destinations", destinations);  // Store destinations list
 
         saveTrip(userId, dataMap);
     }
@@ -146,12 +153,16 @@ public class DetailsActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(DetailsActivity.this,  "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    private void saveTrip(String userId, Map<String, Object> dataMap){
+    private void saveTrip(String userId, Map<String, Object> dataMap) {
         CollectionReference tripsRef = db.collection("users").document(userId).collection("trips");
 
         tripsRef.add(dataMap)
-                .addOnSuccessListener(documentReference -> Toast.makeText(DetailsActivity.this, "Saved to trips!", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(DetailsActivity.this, "Error submitting data: "+e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(documentReference ->
+                        Toast.makeText(DetailsActivity.this, "Saved to trips!", Toast.LENGTH_SHORT).show()
+                )
+                .addOnFailureListener(e ->
+                        Toast.makeText(DetailsActivity.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
     }
 
     // Fetch place details from Firestore using document ID

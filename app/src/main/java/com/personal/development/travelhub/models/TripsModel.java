@@ -8,17 +8,15 @@ public class TripsModel {
     private String tripDescription;
     private String tripHighlight;
     private String tripStatus;
-    private String tripCounts;  // Could be an integer or derived from the list size in the Adapter, but keeping it for backward compatibility
+    private String tripCounts;
     private String tripDateFromAndTo;
-    private List<String> destinations;  // New list for multiple destinations
+    private List<Destination> destinations;  // Change to List<Destination>
 
-    // No-argument constructor
-    public TripsModel() {
-        // Required empty constructor for Firestore deserialization
-    }
+    // No-argument constructor for Firestore deserialization
+    public TripsModel() {}
 
     // Constructor with all fields
-    public TripsModel(String tripImgUrl, String tripDescription, String tripHighlight, String tripStatus, String tripCounts, String tripDateFromAndTo, List<String> destinations) {
+    public TripsModel(String tripImgUrl, String tripDescription, String tripHighlight, String tripStatus, String tripCounts, String tripDateFromAndTo, List<Destination> destinations) {
         this.tripImgUrl = tripImgUrl;
         this.tripDescription = tripDescription;
         this.tripHighlight = tripHighlight;
@@ -83,11 +81,12 @@ public class TripsModel {
     }
 
     // Getter and setter for destinations list
-    public List<String> getDestinations() {
+    // Getter and setter for destinations
+    public List<Destination> getDestinations() {
         return destinations;
     }
 
-    public void setDestinations(List<String> destinations) {
+    public void setDestinations(List<Destination> destinations) {
         this.destinations = destinations != null ? destinations : new ArrayList<>();
     }
 }
