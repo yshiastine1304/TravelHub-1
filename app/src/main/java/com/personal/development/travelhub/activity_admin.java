@@ -82,7 +82,7 @@ public class activity_admin extends AppCompatActivity {
         backBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_admin.this, Dashboard.class);
+                Intent intent = new Intent(activity_admin.this, AdminDashboardActivity.class);
                 startActivity(intent);
             }
         });

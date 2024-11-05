@@ -17,9 +17,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class AdminDashboardActivity extends AppCompatActivity {
     private CardView cardDestination, cardTotalUsers;
-    private TextView totalUser;
+    private TextView totalUser, totalDestination;
     private FirebaseFirestore db;
-    int userTotal, adminTotal;
+    int userTotal, adminTotal, destinationTotal;
 
 
     @Override
@@ -32,6 +32,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         cardDestination = findViewById(R.id.card_total_destinations);
         cardTotalUsers =  findViewById(R.id.card_total_users);
         totalUser = findViewById(R.id.total_users_count);
+        totalDestination = findViewById(R.id.total_destinations_count);
 
         getUserandAdminCount();
 
@@ -66,11 +67,21 @@ public class AdminDashboardActivity extends AppCompatActivity {
             }
         });
         Query adminQuery = db.collection("users").whereEqualTo("access", "admin");
-        userQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        adminQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     adminTotal = task.getResult().size();
+                }
+            }
+        });
+        Query destinationQuery = db.collection("attractions");
+        destinationQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    destinationTotal = task.getResult().size();
+                    totalDestination.setText(String.valueOf(destinationTotal));
                 }
             }
         });
