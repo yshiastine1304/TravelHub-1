@@ -29,17 +29,17 @@
                 android:id="@+id/tripsImageView"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
                 android:layout_marginStart="6dp"
-                android:src="@drawable/default_picture"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_picture" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="59dp"
+                android:layout_width="195dp"
+                android:layout_height="81dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical"
                 android:paddingStart="8dp"
                 tools:ignore="RtlSymmetry">
 
@@ -61,21 +61,55 @@
 
                 <TextView
                     android:id="@+id/trips_reviews_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:text="@string/review_details"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tripsDescriptionTextView" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/remove_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/cancel_itinerary_btn"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="Remove"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/view_details"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_border_trip"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="View"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
