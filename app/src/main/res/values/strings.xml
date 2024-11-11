@@ -83,6 +83,8 @@
     <string name="wishlist_isEmpty">Your Wishlist is Empty</string>
     <string name="app_name">TravelHub</string>
     <string name="logout_btn">Sign Out</string>
+    <string name="travel_details">Discover the beauty of the islands of Moalboal and canyoneering in Badian on this guided day tour. This tour includes roundtrip transfers that will pick you up from your accommodations in Cebu City and take you to Badian. You will also enjoy a complimentary motorbike ride to the Kawasan Falls jump-off point and a complimentary lunch.Your tour will begin once you are picked up from your accommodations within Cebu City, Mactan, Talaban, or Mandaue or direct from the Mactan-Cebu International Airport. When you get to Moalboal, you'll meet your local guide and get on your motorized boat. You will be given swimming goggles and life jackets so you can snorkel. </string>
+
 
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>

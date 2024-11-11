@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".activity_admin"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/back_btn"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        app:drawableStartCompat="@drawable/back_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/upload_img_btn_1"
+        android:layout_width="382dp"
+        android:layout_height="35dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/upload_btn"
+        android:drawablePadding="5dp"
+        android:padding="5dp"
+        android:text="@string/admin_upload_img1"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/plus_icon_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_btn"/>
+
+    <EditText
+        android:id="@+id/destination_admin"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Tour name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="255dp"
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_1"/>
+
+    <EditText
+        android:id="@+id/description_admin_tour"
+        android:layout_width="380dp"
+        android:layout_height="80dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Description"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destination_admin" />
+
+    <EditText
+        android:id="@+id/location_admin"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/location_admin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="288dp"
+        app:layout_constraintTop_toBottomOf="@+id/description_admin_tour"/>
+
+    <EditText
+        android:id="@+id/inclusion_details_admin"
+        android:layout_width="382dp"
+        android:layout_height="80dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Inclusion details"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_admin" />
+
+    <EditText
+        android:id="@+id/destinations_tour_admin"
+        android:layout_width="382dp"
+        android:layout_height="80dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Destinations Details"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inclusion_details_admin" />
+
+    <EditText
+        android:id="@+id/activity_details_tour_admin"
+        android:layout_width="382dp"
+        android:layout_height="80dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Activity details"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destinations_tour_admin" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_view_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:outlineSpotShadowColor="@color/add_trip_btn_color"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_details_tour_admin"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="p">
+
+        <EditText
+            android:id="@+id/duration_tour_admin"
+            android:layout_width="136dp"
+            android:layout_height="36dp"
+            android:layout_margin="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="duration"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/min_age_tour_admin"
+            android:layout_width="136dp"
+            android:layout_height="36dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="minimum age"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/duration_tour_admin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_view_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:outlineSpotShadowColor="@color/add_trip_btn_color"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view_duration"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="p">
+
+        <EditText
+            android:id="@+id/price_tour_admin"
+            android:layout_width="136dp"
+            android:layout_height="36dp"
+            android:layout_margin="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Price"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/price_per_tour_admin"
+            android:layout_width="136dp"
+            android:layout_height="36dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="price per"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/price_tour_admin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/other_details_tour_admin"
+        android:layout_width="382dp"
+        android:layout_height="70dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Other details "
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view_price" />
+
+    <Button
+        android:id="@+id/save_admin_btn"
+        android:layout_width="165dp"
+        android:layout_height="41dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_background"
+        android:text="@string/submit_btn_admin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itinerary_btn"
+        app:layout_constraintWidth_percent="0.5"
+        tools:layout_editor_absoluteY="787dp"
+        app:layout_constraintTop_toBottomOf="@+id/other_details_tour_admin"/>
+    <Button
+        android:id="@+id/itinerary_btn"
+        android:layout_width="165dp"
+        android:layout_height="41dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_background"
+        android:text="Itinerary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@+id/save_admin_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        tools:layout_editor_absoluteY="787dp"
+        app:layout_constraintTop_toBottomOf="@+id/other_details_tour_admin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
