@@ -18,7 +18,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class AdminDashboardActivity extends AppCompatActivity {
-    private CardView cardDestination, cardTotalUsers;
+    private CardView cardDestination, cardTotalUsers, cardTours;
     private TextView totalUser, totalDestination;
     private Button signOut;
     private FirebaseFirestore db;
@@ -36,6 +36,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         cardTotalUsers =  findViewById(R.id.card_total_users);
         totalUser = findViewById(R.id.total_users_count);
         totalDestination = findViewById(R.id.total_destinations_count);
+        cardTours = findViewById(R.id.card_total_tour_offers);
         signOut = findViewById(R.id.sign_out);
 
         getUserandAdminCount();
@@ -53,6 +54,12 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminDashboardActivity.this, AdminTotalUserActivity.class));
+            }
+        });
+        cardTours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminDashboardActivity.this, AddToursActivity.class));
             }
         });
 
