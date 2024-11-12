@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.core.util.Pair;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,22 +17,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
-import java.util.TimeZone;
 
 public class activity_admin extends AppCompatActivity {
 
@@ -64,11 +57,11 @@ public class activity_admin extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference();
 
         btnOpenTimePicker = findViewById(R.id.time_admin_btn);
-        uploadImgBtn1 = findViewById(R.id.upload_img_btn_1);
+        uploadImgBtn1 = findViewById(R.id.upload_img_btn_tour);
         uploadImgBtn2 = findViewById(R.id.upload_img_btn_2);
         uploadImgBtn3 = findViewById(R.id.upload_img_btn_3);
         uploadImgBtn4 = findViewById(R.id.upload_img_btn_4);
-        destinationNameAdmin = findViewById(R.id.destination_admin);
+        destinationNameAdmin = findViewById(R.id.tour_name);
        other_detailsAdmin = findViewById(R.id.other_details_admin);
         busFareAdmin = findViewById(R.id.bus_fare_admin);
         entranceFeeAdmin = findViewById(R.id.entrance_fee_admin);

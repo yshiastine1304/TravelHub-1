@@ -9,7 +9,7 @@
     tools:ignore="MissingDefaultResource">
 
     <TextView
-        android:id="@+id/upload_img_btn_1"
+        android:id="@+id/upload_img_btn_tour"
         android:layout_width="382dp"
         android:layout_height="35dp"
         android:layout_margin="15dp"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_1" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_tour" />
 
     <TextView
         android:id="@+id/upload_img_btn_3"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/upload_img_btn_3" />
 
     <EditText
-        android:id="@+id/destination_admin"
+        android:id="@+id/tour_name"
         android:layout_width="382dp"
         android:layout_height="38dp"
         android:layout_margin="15dp"
@@ -117,7 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destination_admin" />
+        app:layout_constraintTop_toBottomOf="@+id/tour_name" />
 
     <TextView
         android:id="@+id/time_admin_btn"
