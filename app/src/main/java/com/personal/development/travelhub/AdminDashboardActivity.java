@@ -19,10 +19,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class AdminDashboardActivity extends AppCompatActivity {
     private CardView cardDestination, cardTotalUsers, cardTours;
-    private TextView totalUser, totalDestination;
+    private TextView totalUser, totalDestination, totalTourCount;
     private Button signOut;
     private FirebaseFirestore db;
-    int userTotal, adminTotal, destinationTotal;
+    int userTotal, adminTotal, destinationTotal, toursPackageTotal;
 
 
     @Override
@@ -38,6 +38,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         totalDestination = findViewById(R.id.total_destinations_count);
         cardTours = findViewById(R.id.card_total_tour_offers);
         signOut = findViewById(R.id.sign_out);
+        totalTourCount = findViewById(R.id.total_tour_count);
 
         getUserandAdminCount();
 
@@ -103,5 +104,17 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Query toursQuery = db.collection("tour_package");
+        toursQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                   toursPackageTotal = task.getResult().size();
+                    totalTourCount.setText(String.valueOf(toursPackageTotal));
+                }
+            }
+        });
+
     }
 }
