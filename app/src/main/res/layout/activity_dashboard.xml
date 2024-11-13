@@ -96,6 +96,19 @@
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Add New Trip"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        app:drawableStartCompat="@drawable/add_btn"
+        app:layout_constraintBottom_toTopOf="@id/frame_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <!-- FrameLayout for fragment navigation -->
     <FrameLayout
         android:id="@+id/frame_layout"

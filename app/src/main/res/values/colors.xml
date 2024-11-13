@@ -13,4 +13,5 @@
     <color name="review_text_color">#36a2df</color>
     <color name="admin_btn_color">#B5D1E2</color>
     <color name="add_trip_btn_color">#3F6A85</color>
+    <color name="float_btn">#133287</color>
 </resources>
