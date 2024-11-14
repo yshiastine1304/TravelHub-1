@@ -5,7 +5,7 @@
     android:background="@color/background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity"
+    tools:context=".TravelsActivity"
     tools:ignore="ExtraText">
 
     <ScrollView
@@ -44,7 +44,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/highlight_details" />
+                app:layout_constraintTop_toBottomOf="@+id/description_txtV" />
 
             <TextView
                 android:id="@+id/place_name"
@@ -91,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/trips_reviews_txt" />
 
             <TextView
-                android:id="@+id/highlight_details"
+                android:id="@+id/description_txtV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -258,7 +258,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/activities_text" />
 
             <TextView
-                android:id="@+id/back_btn"
+                android:id="@+id/goback"
                 android:layout_width="33dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="16dp"

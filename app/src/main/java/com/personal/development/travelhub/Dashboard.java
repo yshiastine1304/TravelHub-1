@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +39,7 @@ public class Dashboard extends AppCompatActivity {
     private List<AttractionsModel> dataList2;
     private BottomNavigationView bottomNavigationView;
     private String user_interest;
+    private TextView addNewTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,16 @@ public class Dashboard extends AppCompatActivity {
         recyclerView = findViewById(R.id.recommended_recycler_view);
         reco_recyclerView = findViewById(R.id.attractions_recyclerView);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        addNewTrip = findViewById(R.id.add_new_trip);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+        addNewTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this, TravelsActivity.class));
+            }
+        });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();

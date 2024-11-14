@@ -53,11 +53,11 @@ public class DetailsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         userUid = auth.getCurrentUser().getUid();
         // Initialize views
-        backBtn = findViewById(R.id.back_btn);
+        backBtn = findViewById(R.id.add_new_trip);
         btnAllDatePicker = findViewById(R.id.allDate);
         placeName = findViewById(R.id.place_name);
         placeImage = findViewById(R.id.place_image);
-        highlight = findViewById(R.id.highlight_details);
+        highlight = findViewById(R.id.description_txtV);
         time_open = findViewById(R.id.open_time_details);
         reviews = findViewById(R.id.trips_reviews_txt);
         bus_fare = findViewById(R.id.bus_fare_Details);
