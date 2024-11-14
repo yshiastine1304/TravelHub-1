@@ -58,12 +58,12 @@
         app:layout_constraintTop_toBottomOf="@id/textView12"
         tools:ignore="MissingConstraints">
 
+        <!-- Main LinearLayout set to vertical to stack items -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="10dp"
-            app:cardElevation="0dp"
             android:background="@drawable/travel_plan_border">
 
             <TextView
@@ -78,27 +78,68 @@
                 android:layout_gravity="start"
                 android:layout_marginEnd="10dp" />
 
-            <TextView
-                android:id="@+id/add_new_trip"
+            <!-- Location Logo and Starting Point Spinner -->
+            <LinearLayout
+                android:id="@+id/loc_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:drawableStart="@drawable/location_icon"
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="center_vertical"/>
+                android:orientation="horizontal"
+                android:layout_marginStart="50dp"
+                android:layout_gravity="center_vertical">
 
-            <Spinner
-                android:id="@+id/select_start_point"
+                <TextView
+                    android:id="@+id/loc_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/location_icon"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical" />
+
+                <Spinner
+                    android:id="@+id/select_start_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:hint="@string/starting_point"
+                    android:inputType="text"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <!-- Home Logo and Accommodation Text, aligned below loc_container -->
+            <LinearLayout
+                android:id="@+id/acco_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:hint="@string/starting_point"
-                android:inputType="text"
-                android:padding="5dp"/>
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/home_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/home_icon"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/accommodation_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:text="Accommodation"
+                    android:layout_marginEnd="10dp" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
