@@ -3,15 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource,MissingTranslation"
-    tools:context=".AdminDestinationList">
+    tools:context=".AdminDestinationList"
+    android:background="@color/background_color">
+    <TextView
+        android:id="@+id/back_btn_user"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        app:drawableStartCompat="@drawable/back_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/search_places"
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:autofillHints=""
@@ -22,15 +33,17 @@
         android:minHeight="48dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/back_btn_user" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewUsers"
         android:layout_width="match_parent"
-        android:layout_height="819dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

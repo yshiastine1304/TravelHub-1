@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/background_color"
     tools:context=".AdminDashboardActivity">
 
     <!-- CardView for Total Users -->
@@ -13,6 +14,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="100dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         app:cardCornerRadius="8dp"
+        android:layout_marginTop="100dp"
+
         app:layout_constraintStart_toEndOf="@+id/card_total_users"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,19 +179,19 @@
         android:layout_width="195dp"
         android:layout_height="54dp"
         android:layout_weight="1"
-        android:background="@drawable/round_border_trip"
+        android:background="@drawable/button_background"
         android:includeFontPadding="false"
         android:padding="0dp"
         android:text="Sign Out"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_total_hotels"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
