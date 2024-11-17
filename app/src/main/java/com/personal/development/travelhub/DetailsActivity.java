@@ -98,30 +98,40 @@ public class DetailsActivity extends AppCompatActivity {
         saveTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Destination> destinations = new ArrayList<>();
 
-                // Example destination, you can dynamically add multiple destinations based on user input
-                destinations.add(new Destination(
-                        placeName.getText().toString(),
-                        highlight.getText().toString(),
-                        "added",  // Status
-                        imageString
+                Intent intent = new Intent(DetailsActivity.this, TravelPlanActivity.class);
 
-                ));
+                // Add extra data to the intent
+                intent.putExtra("destination_name", placeName.getText().toString()); // Example of a string
 
-                createTripList(
-                        btnAllDatePicker.getText().toString(),
-                        reviews.getText().toString(),
-                        "1", // Trip counts placeholder
-                        userUid,
-                        destinations
-                );
+                // Start the activity
+                startActivity(intent);
+
+
+//                List<Destination> destinations = new ArrayList<>();
+//
+//                // Example destination, you can dynamically add multiple destinations based on user input
+//                destinations.add(new Destination(
+//                        placeName.getText().toString(),
+//                        highlight.getText().toString(),
+//                        "added",  // Status
+//                        imageString
+//
+//                ));
+//
+//                createTripList(
+//                        btnAllDatePicker.getText().toString(),
+//                        reviews.getText().toString(),
+//                        "1", // Trip counts placeholder
+//                        userUid,
+//                        destinations
+//                );
             }
         });
 
 
         // Open the date picker on button click
-        btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
+//        btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
     }
 
     private void createTripList(String tripDate, String reviews, String tripCounts, String userId, List<Destination> destinations) {

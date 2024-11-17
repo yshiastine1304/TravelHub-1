@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class AddToursActivity extends AppCompatActivity {
             pricePer_txtV,
             otherDetails_txtV;
     private Spinner destinationDetails_spinner;
+    private TextView backBtn;
     private Button saveBtn;
     boolean isSpinnerInitialLoad = true, isAllDetailsEmpty= false;
     String tourID;
@@ -65,6 +67,7 @@ public class AddToursActivity extends AppCompatActivity {
         pricePer_txtV = findViewById(R.id.price_per_tour_admin);
         otherDetails_txtV = findViewById(R.id.other_details_tour_admin);
         saveBtn = findViewById(R.id.save_admin_btn);
+        backBtn = findViewById(R.id.add_new_trip);
 
         destinationDetails_spinner.setEnabled(false);
 
@@ -72,6 +75,12 @@ public class AddToursActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveTour();
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddToursActivity.this, ToursList.class));
             }
         });
         populateDestinationDetails();
@@ -131,6 +140,7 @@ public class AddToursActivity extends AppCompatActivity {
         View viewSaveDestination = inflater.inflate(R.layout.add_destination_dialog_layout, null);
 
         EditText activity= viewSaveDestination.findViewById(R.id.activity_details_tour_admin2);
+        EditText days = viewSaveDestination.findViewById(R.id.days);
         EditText startTime = viewSaveDestination.findViewById(R.id.startTime_edittext);
         TextView destinationName_txt = viewSaveDestination.findViewById(R.id.destinationName_dialogTxt);
         Button addToList = viewSaveDestination.findViewById(R.id.add_destinations_btn);
@@ -155,6 +165,7 @@ public class AddToursActivity extends AppCompatActivity {
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dataMap.put("day", days.getText().toString());
                 dataMap.put("destination_counter", "Destination "+destinationCounter);
                 dataMap.put("destination_name", destinationName);
                 dataMap.put("start_time", startTime.getText().toString());

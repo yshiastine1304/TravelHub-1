@@ -60,7 +60,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         cardTours.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminDashboardActivity.this, AddToursActivity.class));
+                startActivity(new Intent(AdminDashboardActivity.this, ToursList.class));
             }
         });
 

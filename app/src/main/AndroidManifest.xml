@@ -18,6 +18,15 @@
         android:theme="@style/Theme.TravelHub"
         tools:targetApi="31">
         <activity
+            android:name=".ItineraryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TravelPlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ToursList"
+            android:exported="false" />
+        <activity
             android:name=".TravelsActivity"
             android:exported="false" />
         <activity

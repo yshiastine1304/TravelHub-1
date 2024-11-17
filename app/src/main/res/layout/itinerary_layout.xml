@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    tools:context=".ItineraryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,7 +120,7 @@
 
                     <!-- Location Logo and Starting Point Spinner -->
                     <LinearLayout
-                        android:id="@+id/loc_container"
+                        android:id="@+id/loc_container_"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
@@ -157,7 +157,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/departure"
+                            android:id="@+id/departure_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -200,7 +200,7 @@
                     <!-- Home Logo and Accommodation Text, aligned below loc_container -->
 
                     <LinearLayout
-                        android:id="@+id/acco_container"
+                        android:id="@+id/acco_container_"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -332,7 +332,7 @@
                             android:drawableStart="@drawable/location2" />
 
                         <Spinner
-                            android:id="@+id/select_start_point"
+                            android:id="@+id/select_start_point_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -344,7 +344,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/dep_container"
+                        android:id="@+id/dep_container_"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -361,7 +361,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/departure_time"
+                            android:id="@+id/departure_time_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -372,7 +372,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/transpo"
+                        android:id="@+id/transpo_"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -412,7 +412,7 @@
                             android:drawableStart="@drawable/hotel" />
 
                         <TextView
-                            android:id="@+id/arrival_txt"
+                            android:id="@+id/arrival_txt_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -423,7 +423,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/accomodation_txt"
+                        android:id="@+id/accomodation_txt_"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
