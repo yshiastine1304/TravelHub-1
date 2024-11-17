@@ -1,15 +1,19 @@
 package com.personal.development.travelhub;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +30,6 @@ public class AddToursActivity extends AppCompatActivity {
             description_txtV,
             location_txtV,
             inclusionDetails_txtV,
-
             activityDetails_txtV,
             duration_txtV,
             price_txtV,
@@ -35,6 +38,9 @@ public class AddToursActivity extends AppCompatActivity {
             otherDetails_txtV;
     private Spinner destinationDetails_spinner;
     private Button saveBtn;
+    boolean isSpinnerInitialLoad = true, isAllDetailsEmpty= false;
+    String tourID;
+    int countDestination = 0;
     private FirebaseFirestore db;
 
 
@@ -59,6 +65,8 @@ public class AddToursActivity extends AppCompatActivity {
         pricePer_txtV = findViewById(R.id.price_per_tour_admin);
         otherDetails_txtV = findViewById(R.id.other_details_tour_admin);
         saveBtn = findViewById(R.id.save_admin_btn);
+
+        destinationDetails_spinner.setEnabled(false);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +110,13 @@ public class AddToursActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedDestination = destinationsList.get(position);
 
+                if (isSpinnerInitialLoad){
+                    isSpinnerInitialLoad = false;
+                    return;
+                }
+
+                countDestination = countDestination + 1;
+                openSaveDestination(selectedDestination, countDestination);
             }
 
             @Override
@@ -111,16 +126,50 @@ public class AddToursActivity extends AppCompatActivity {
         });
     }
 
+    public void openSaveDestination(String destinationName, int destinationCounter){
+        LayoutInflater inflater = LayoutInflater.from(AddToursActivity.this);
+        View viewSaveDestination = inflater.inflate(R.layout.add_destination_dialog_layout, null);
 
+        EditText activity= viewSaveDestination.findViewById(R.id.activity_details_tour_admin2);
+        EditText startTime = viewSaveDestination.findViewById(R.id.startTime_edittext);
+        TextView destinationName_txt = viewSaveDestination.findViewById(R.id.destinationName_dialogTxt);
+        Button addToList = viewSaveDestination.findViewById(R.id.add_destinations_btn);
 
+        Map<String, Object> dataMap = new HashMap<>();
+        destinationName_txt.setText("Destination "+destinationCounter);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddToursActivity.this);
+        builder.setView(viewSaveDestination);
+
+        builder.setCancelable(true)
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        addToList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataMap.put("destination_counter", "Destination "+destinationCounter);
+                dataMap.put("destination_name", destinationName);
+                dataMap.put("start_time", startTime.getText().toString());
+                dataMap.put("activity", activity.getText().toString());
+
+                addDestinationToFirestore(dataMap);
+            }
+        });
+    }
 
     public void saveTour(){
         String tourname = tourName_txtV.getText().toString();
         String description = description_txtV.getText().toString();
         String location = location_txtV.getText().toString();
         String inclusionDetails = inclusionDetails_txtV.getText().toString();
-        String destinationDetails = destinationDetails_spinner.getSelectedItem().toString();
-        String activityDetails = activityDetails_txtV.getText().toString();
         String duration = duration_txtV.getText().toString();
         String price = price_txtV.getText().toString();
         String minimumAge = minimumAge_txtV.getText().toString();
@@ -132,8 +181,6 @@ public class AddToursActivity extends AppCompatActivity {
         dataMap.put("description", description);
         dataMap.put("location", location);
         dataMap.put("inclusionDetails", inclusionDetails);
-        dataMap.put("destinationDetails", destinationDetails);
-        dataMap.put("activityDetails", activityDetails);
         dataMap.put("duration", duration);
         dataMap.put("price", price);
         dataMap.put("minimumAge", minimumAge);
@@ -143,10 +190,27 @@ public class AddToursActivity extends AppCompatActivity {
         saveToFirestore(dataMap);
     }
 
-    public void saveToFirestore(Map<String, Object> dataMap){
+    public void addDestinationToFirestore(Map<String, Object> dataMap) {
+        db.collection("tour_package")
+                .document(tourID)
+                .collection("destination_list")
+                .add(dataMap)
+                .addOnSuccessListener(documentReference ->
+                        Toast.makeText(AddToursActivity.this, "Destination saved successfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(AddToursActivity.this, "Something went wrong, data not saved.", Toast.LENGTH_SHORT).show());
+    }
+
+    public void saveToFirestore(Map<String, Object> dataMap) {
         db.collection("tour_package")
                 .add(dataMap)
-                .addOnSuccessListener(documentReference -> Toast.makeText(AddToursActivity.this, "Tour Save Successfully", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(documentReference -> Toast.makeText(AddToursActivity.this, "Something went wrong, data not saved.", Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(documentReference -> {
+                    tourID = documentReference.getId();
+                    destinationDetails_spinner.setEnabled(true);
+                    Toast.makeText(AddToursActivity.this, "Tour saved successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(AddToursActivity.this, "Something went wrong, data not saved.", Toast.LENGTH_SHORT).show());
     }
+
 }

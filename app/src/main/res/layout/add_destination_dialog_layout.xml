@@ -1,23 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background_color"
-    android:layout_margin="25dp">
+    android:padding="25dp">
 
-    <EditText
-        android:id="@+id/activity_details_tour_admin"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_edittext"
-        android:hint="Activity details"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:maxLines="5"
-        android:minLines="3"
-        android:padding="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/destinationName_dialogTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:text="Destination" />
+
+        <EditText
+            android:id="@+id/startTime_edittext"
+            android:layout_width="158dp"
+            android:layout_height="54dp"
+            android:layout_margin="15dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter Start Time"
+            android:padding="10dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/destinations_tour_admin"
+            android:layout_width="158dp"
+            android:layout_height="54dp"
+            android:layout_margin="15dp"
+            android:layout_marginStart="4dp"
+            android:hint="Enter days"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="90dp" />
+
+        <EditText
+            android:id="@+id/activity_details_tour_admin2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_edittext"
+            android:layout_margin="15dp"
+            android:hint="Activity details"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:minLines="3"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/add_destinations_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="ADD TO LIST"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:layout_editor_absoluteX="194dp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
