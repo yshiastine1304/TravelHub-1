@@ -1,285 +1,494 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_color" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
 
-    <TextView
-        android:id="@+id/travel_plan_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp"
-        android:text="Itinerary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
     <LinearLayout
-        android:id="@+id/date_container"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:layout_marginStart="30dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/travel_plan_text">
-
-        <!-- Trip Schedule Text -->
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="@string/trip_schedule"
-            android:layout_marginEnd="8dp" />
-
-        <!-- Select Date Text with Icon -->
-        <TextView
-            android:id="@+id/selectDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="Select date "
-            android:layout_marginTop="3dp"
-            android:drawableRight="@drawable/calendar" />
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/first_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/background_color"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/date_container"
-        tools:ignore="MissingConstraints">
+        android:orientation="vertical">
 
-        <!-- Main LinearLayout set to vertical to stack items -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-        <LinearLayout
-            android:id="@+id/day_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:id="@+id/day_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text="Day"
-                android:layout_gravity="start" />
-            <TextView
-                android:id="@+id/num_days"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text=" 1"
-                android:layout_gravity="start"
-                android:layout_marginEnd="10dp" />
-        </LinearLayout>
+            android:background="@color/background_color">
 
-            <!-- Location Logo and Starting Point Spinner -->
+            <TextView
+                android:id="@+id/travel_plan_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:text="Itinerary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
-                android:id="@+id/loc_container"
+                android:id="@+id/date_container"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/loc_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:drawableStart="@drawable/location2"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="center_vertical" />
-
-                <Spinner
-                    android:id="@+id/select_start_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="5dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:hint="@string/starting_point"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/dep_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="60dp"
-                android:layout_gravity="center_vertical">
-            <TextView
-                android:id="@+id/departure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_gravity="center_vertical"
-                android:text="Departure: "
-                android:layout_marginEnd="10dp" />
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.081"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/travel_plan_text">
+
+                <!-- Trip Schedule Text -->
+
                 <TextView
-                    android:id="@+id/departure_time"
+                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/trip_schedule"
                     android:textSize="12sp"
-                    android:layout_gravity="center_vertical"
-                    android:text="1 pm"
                     android:textStyle="bold" />
 
-        </LinearLayout>
-            <TextView
-                android:id="@+id/transpo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginStart="60dp"
-                android:layout_gravity="center_vertical"
-                android:text="Transportation: Private car, shared van, or public bus "
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toBottomOf="@id/departure" />
-            <TextView
-                android:id="@+id/est_arrival"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginStart="60dp"
-                android:layout_gravity="center_vertical"
-                android:text="Estimated Travel Time: 3-5 hours "
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toBottomOf="@id/transpo" />
-        <!-- Home Logo and Accommodation Text, aligned below loc_container -->
-
-            <LinearLayout
-                android:id="@+id/acco_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp">
-
+                <!-- Select Date Text with Icon -->
                 <TextView
-                    android:id="@+id/home_logo"
+                    android:id="@+id/selectDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/hotel"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:id="@+id/arrival_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
-                    android:text="Arrival in Moalboal"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginTop="3dp"
+                    android:drawableRight="@drawable/calendar"
+                    android:text="Select date "
+                    android:textSize="12sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/accomodation_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginStart="60dp"
-                android:layout_gravity="center_vertical"
-                android:text="Check into Accomodation "
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toBottomOf="@id/transpo" />
-
-            <!-- Main LinearLayout set to vertical to stack items -->
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/first_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="10dp"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/date_container"
+                tools:ignore="MissingConstraints">
 
-                <!-- Location Logo and Starting Point Spinner -->
+                <!-- Main LinearLayout set to vertical to stack items -->
 
                 <LinearLayout
-                    android:id="@+id/lunch_container"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/lunch_logo"
+                    <LinearLayout
+                        android:id="@+id/day_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/lunch"
-                        android:layout_marginEnd="10dp"
-                        android:layout_gravity="center_vertical" />
-
-                    <TextView
-                        android:id="@+id/lunch_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
-                        android:text="Lunch" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/day_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Day"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/num_days"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:text=" 1"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Location Logo and Starting Point Spinner -->
+                    <LinearLayout
+                        android:id="@+id/loc_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/loc_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:drawableStart="@drawable/location2" />
+
+                        <Spinner
+                            android:id="@+id/select_start_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:hint="@string/starting_point"
+                            android:inputType="text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dep_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/departure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:text="Departure: "
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="1 pm"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/transpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Transportation: Private car, shared van, or public bus "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/departure" />
+
+                    <TextView
+                        android:id="@+id/est_arrival"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Estimated Travel Time: 3-5 hours "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+                    <!-- Home Logo and Accommodation Text, aligned below loc_container -->
+
+                    <LinearLayout
+                        android:id="@+id/acco_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/home_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:drawableStart="@drawable/hotel" />
+
+                        <TextView
+                            android:id="@+id/arrival_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:text="Arrival in Moalboal"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/accomodation_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Check into Accomodation "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+
+                    <!-- Main LinearLayout set to vertical to stack items -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Location Logo and Starting Point Spinner -->
+
+                        <LinearLayout
+                            android:id="@+id/lunch_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/lunch_logo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="10dp"
+                                android:drawableStart="@drawable/lunch" />
+
+                            <TextView
+                                android:id="@+id/lunch_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="Lunch"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Home Logo and Accommodation Text, aligned below loc_container -->
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/local_restaurant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Nearby Local Restaurant"
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- Home Logo and Accommodation Text, aligned below loc_container -->
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/local_restaurant"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/first_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="10dp"
-                android:text="Nearby Local Restaurant"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/transpo" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/background_color"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/date_container"
+                tools:ignore="MissingConstraints">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <!-- Main LinearLayout set to vertical to stack items -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
+                    <!-- Location Logo and Starting Point Spinner -->
+                    <LinearLayout
+                        android:id="@+id/loc_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:orientation="horizontal">
 
-        </LinearLayout>
+                        <TextView
+                            android:id="@+id/loc_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:drawableStart="@drawable/location2" />
 
-    </androidx.cardview.widget.CardView>
+                        <Spinner
+                            android:id="@+id/select_start_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:hint="@string/starting_point"
+                            android:inputType="text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/dep_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/departure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:text="Departure: "
+                            android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="1 pm"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
+                    </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/transpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Transportation: Private car, shared van, or public bus "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/departure" />
 
+                    <TextView
+                        android:id="@+id/est_arrival"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Estimated Travel Time: 3-5 hours "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+                    <!-- Home Logo and Accommodation Text, aligned below loc_container -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:id="@+id/acco_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/home_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:drawableStart="@drawable/hotel" />
+
+                        <TextView
+                            android:id="@+id/arrival_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:text="Arrival in Moalboal"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/accomodation_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Check into Accomodation "
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+
+                    <!-- Main LinearLayout set to vertical to stack items -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Location Logo and Starting Point Spinner -->
+
+                        <LinearLayout
+                            android:id="@+id/lunch_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/lunch_logo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="10dp"
+                                android:drawableStart="@drawable/lunch" />
+
+                            <TextView
+                                android:id="@+id/lunch_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="Lunch"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Home Logo and Accommodation Text, aligned below loc_container -->
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/local_restaurant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Nearby Local Restaurant"
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/transpo" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/day1_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    </ScrollView>

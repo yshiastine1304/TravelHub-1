@@ -10,15 +10,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="25dp">
 
         <TextView
             android:id="@+id/destinationName_dialogTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="Destination"
             android:textSize="30sp"
-            android:text="Destination" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/startTime_edittext"
@@ -37,8 +39,8 @@
             android:layout_height="54dp"
             android:layout_margin="15dp"
             android:layout_marginStart="4dp"
-            android:hint="Enter days"
             android:background="@drawable/rounded_edittext"
+            android:hint="Enter days"
             android:padding="10dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +50,8 @@
             android:id="@+id/activity_details_tour_admin2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_edittext"
             android:layout_margin="15dp"
+            android:background="@drawable/rounded_edittext"
             android:hint="Activity details"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"

@@ -207,6 +207,7 @@ public class AddToursActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentReference -> {
                     tourID = documentReference.getId();
                     destinationDetails_spinner.setEnabled(true);
+                    saveBtn.setEnabled(false);
                     Toast.makeText(AddToursActivity.this, "Tour saved successfully", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e ->
