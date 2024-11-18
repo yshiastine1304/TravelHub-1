@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.personal.development.travelhub.adapters.ItineraryAdapter;
 import com.personal.development.travelhub.models.ItineraryDestinationModel;
+import com.personal.development.travelhub.models.Tour;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +71,15 @@ public class ItineraryActivity extends AppCompatActivity {
                                     if (!queryDocumentSnapshots.isEmpty()) {
                                         for (QueryDocumentSnapshot destinationDocument : queryDocumentSnapshots) {
                                             // Convert the destination document to the model
-                                            ItineraryDestinationModel itinerary = destinationDocument.toObject(ItineraryDestinationModel.class);
-                                            itineraryList.add(itinerary); // Add to the itinerary list
+                                            String activity = destinationDocument.getString("activity");
+                                            String day = destinationDocument.getString("day");
+                                            String destinationCounter = destinationDocument.getString("destination_counter");
+                                            String destinationName = destinationDocument.getString("destination_name");
+                                            String startTime = destinationDocument.getString("start_time");
+
+                                            ItineraryDestinationModel tour = new ItineraryDestinationModel(activity, day, destinationCounter, destinationName, startTime);
+                                            itineraryList.add(tour);
+
                                         }
                                         adapter.notifyDataSetChanged(); // Refresh RecyclerView after data is added
                                     }

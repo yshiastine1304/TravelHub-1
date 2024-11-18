@@ -25,6 +25,14 @@ public class ItineraryDestinationModel {
         this.startTime = startTime;
     }
 
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
     public String getDay() {
         return day;
     }
@@ -33,20 +41,28 @@ public class ItineraryDestinationModel {
         this.day = day;
     }
 
-    public String getActivity() {
-        return activity;
-    }
-
     public String getDestinationCounter() {
         return destinationCounter;
+    }
+
+    public void setDestinationCounter(String destinationCounter) {
+        this.destinationCounter = destinationCounter;
     }
 
     public String getDestinationName() {
         return destinationName;
     }
 
+    public void setDestinationName(String destinationName) {
+        this.destinationName = destinationName;
+    }
+
     public String getStartTime() {
         return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }
 

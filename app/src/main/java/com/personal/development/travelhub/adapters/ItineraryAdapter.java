@@ -31,7 +31,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItineraryDestinationModel itinerary = itineraryList.get(position);
-        holder.dayText.setText("Day " + itinerary.getDay());
+        holder.dayText.setText(itinerary.getDay());
         holder.destinationName.setText(itinerary.getDestinationName());
         holder.startTime.setText(itinerary.getStartTime());
         holder.activity.setText(itinerary.getActivity());
@@ -48,8 +48,8 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dayText = itemView.findViewById(R.id.day_text);
-            destinationName = itemView.findViewById(R.id.destination_name_itinerary);
-            startTime = itemView.findViewById(R.id.start_time);
+            destinationName = itemView.findViewById(R.id.destinationName);
+            startTime = itemView.findViewById(R.id.startTime);
             activity = itemView.findViewById(R.id.activities);
         }
     }
