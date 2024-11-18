@@ -208,6 +208,7 @@
         android:text="@string/starting_point"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -221,6 +222,7 @@
         android:layout_marginStart="20dp"
         android:background="@drawable/textview_button"
         android:padding="5dp"
+        android:visibility="gone"
         android:text="@string/starting_point_details"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -271,7 +273,8 @@
         android:textAlignment="center"
         android:text="@string/cebu_pier_details"
         app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textView13"
@@ -281,6 +284,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/textview_button"
         android:padding="5dp"
+        android:visibility="gone"
         android:text="@string/south_bus_details"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -341,12 +345,12 @@
 
     <Button
         android:id="@+id/save_trip_btn"
-        android:layout_width="165dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_marginTop="200dp"
         android:background="@color/add_trip_btn_color"
-        android:text="@string/add_trip_btn"
+        android:text="View Tours"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@null"

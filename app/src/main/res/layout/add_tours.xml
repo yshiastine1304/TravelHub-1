@@ -100,14 +100,13 @@
         android:background="@drawable/rounded_edittext"
         android:hint="Inclusion details"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:padding="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_admin" />
-
     <Spinner
         android:id="@+id/destinations_tour_admin"
         android:layout_width="382dp"
