@@ -35,6 +35,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
         holder.destinationName.setText(itinerary.getDestinationName());
         holder.startTime.setText(itinerary.getStartTime());
         holder.activity.setText(itinerary.getActivity());
+        holder.destinationCounter.setText(itinerary.getDestinationCounter());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView dayText, destinationName, startTime, activity;
+        TextView dayText, destinationName, startTime, activity, destinationCounter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
             destinationName = itemView.findViewById(R.id.destinationName);
             startTime = itemView.findViewById(R.id.startTime);
             activity = itemView.findViewById(R.id.activities);
+            destinationCounter = itemView.findViewById(R.id.destination_text);
         }
     }
 }

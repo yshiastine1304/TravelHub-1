@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".TripsActivity">
 
-
-
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="0dp"
@@ -20,6 +18,21 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/save_tour_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp"
+            android:text="Saved Trips"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/no_trips_text_view"

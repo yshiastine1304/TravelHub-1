@@ -17,7 +17,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class TravelsActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
-    private TextView tourName_txtV, description_txtV,goBack;
+    private TextView tourName_txtV, description_txtV,goBack,duration_txtV,otherDetails,
+            inclusion_details_txtV,price_txtV,minimumAge_txtV,pricePer,location_txtV;
     private Button viewItinerary;
     String tourName_,destination_name_,tourUID;
     @Override
@@ -35,6 +36,14 @@ public class TravelsActivity extends AppCompatActivity {
         viewItinerary = findViewById(R.id.view_itinerary_btn);
         tourName_txtV = findViewById(R.id.place_name);
         description_txtV = findViewById(R.id.description_txtV);
+        duration_txtV = findViewById(R.id.duration_hour);
+        otherDetails = findViewById(R.id.travel_other_details);
+        inclusion_details_txtV = findViewById(R.id.inclusion_details);
+        price_txtV = findViewById(R.id.price_travel);
+        minimumAge_txtV = findViewById(R.id.min_age);
+        pricePer = findViewById(R.id.price_per);
+        location_txtV = findViewById(R.id.location_tour);
+
         goBack = findViewById(R.id.goback);
 
         tourName_txtV.setText(tourName_);
@@ -79,7 +88,25 @@ public class TravelsActivity extends AppCompatActivity {
                         if (querySnapshot != null && !querySnapshot.isEmpty()) {
                             for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                                 String tourname = document.getString("tourName");
+                                String description = document.getString("description");
+                                String duration = document.getString("duration");
+                                String otherDetails_data = document.getString("otherDetails");
+                                String inclusionDetails = document.getString("inclusionDetails");
+                                String price = document.getString("price");
+                                String minAge = document.getString("minimumAge");
+                                String pricePer_ = document.getString("pricePer");
+                                String location = document.getString("location");
+
                                 tourUID = document.getId().toString();
+                                description_txtV.setText(description);
+                                duration_txtV.setText(duration);
+                                otherDetails.setText(otherDetails_data);
+                                inclusion_details_txtV.setText(inclusionDetails);
+                                price_txtV.setText(price);
+                                minimumAge_txtV.setText(minAge);
+                                pricePer.setText(pricePer_);
+                                location_txtV.setText(location);
+
                                 // Update your UI or handle the retrieved data here
                                 Toast.makeText(TravelsActivity.this, "Data found: " + tourname, Toast.LENGTH_SHORT).show();
                             }
