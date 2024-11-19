@@ -101,17 +101,17 @@
     </string-array>
     <string-array name="recommended_spinner_items">
         <item>Select Category</item>
-        <item>Beach</item>
-        <item>Festival Events</item>
-        <item>Historical</item>
-        <item>Nightlife and Entertainment</item>
+        <item>Beach and Marine Life</item>
+        <item>Adventure</item>
+        <item>Cultural and Historical Sites</item>
+        <item>Nature and Relaxation</item>
     </string-array>
     <string-array name="interest_spinner_items">
         <item>Select Interest</item>
-        <item>Beach</item>
-        <item>Festival Events</item>
-        <item>Historical</item>
-        <item>Nightlife and Entertainment</item>
+        <item>Beach and Marine Life</item>
+        <item>Adventure</item>
+        <item>Cultural and Historical Sites</item>
+        <item>Nature and Relaxation</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
