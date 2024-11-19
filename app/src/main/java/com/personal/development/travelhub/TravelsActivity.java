@@ -1,25 +1,42 @@
 package com.personal.development.travelhub;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.core.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 
 public class TravelsActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private TextView tourName_txtV, description_txtV,goBack,duration_txtV,otherDetails,
             inclusion_details_txtV,price_txtV,minimumAge_txtV,pricePer,location_txtV;
-    private Button viewItinerary;
+    private Button viewItinerary,saveTripBtn;
     String tourName_,destination_name_,tourUID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +60,7 @@ public class TravelsActivity extends AppCompatActivity {
         minimumAge_txtV = findViewById(R.id.min_age);
         pricePer = findViewById(R.id.price_per);
         location_txtV = findViewById(R.id.location_tour);
+        saveTripBtn = findViewById(R.id.save_tripBtn);
 
         goBack = findViewById(R.id.goback);
 
@@ -62,14 +80,20 @@ public class TravelsActivity extends AppCompatActivity {
             }
         });
 
+        saveTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showSelectDate();
+                saveTrip();
+            }
+        });
+
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TravelsActivity.this, TravelPlanActivity.class);
-
                 // Add extra data to the intent
                 intent.putExtra("destination_name", destination_name_); // Example of a string
-
                 // Start the activity
                 startActivity(intent);
 
@@ -78,6 +102,84 @@ public class TravelsActivity extends AppCompatActivity {
 
         retrievedData();
     }
+
+    public void showSelectDate(String dateRange){
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.select_date_dialog_layout, null);
+
+        TextView selectDateTextView = dialogView.findViewById(R.id.selectDate);
+
+        selectDateTextView.setText(dateRange);
+        selectDateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTrip();
+            }
+        });
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setTitle("Select Date");
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            saveDataIntDB(dateRange);
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void saveTrip(){
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("Select a Date Range");
+
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+        builder.setCalendarConstraints(constraintsBuilder.build());
+
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
+        materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+        materialDatePicker.addOnPositiveButtonClickListener(
+                (MaterialPickerOnPositiveButtonClickListener<? super Pair<Long, Long>>) selection -> {
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+
+                    Calendar calendarStart = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                    calendarStart.setTimeInMillis(selection.first);
+                    Calendar calendarEnd = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                    calendarEnd.setTimeInMillis(selection.second);
+
+                    String startDate = sdf.format(calendarStart.getTime());
+                    String endDate = sdf.format(calendarEnd.getTime());
+
+                    showSelectDate("from " + startDate + " to " + endDate);
+                });
+    }
+
+    public void saveDataIntDB(String dateRange) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Reference to the "saved_tour" collection
+        CollectionReference saveTourRef = db.collection("users")
+                .document(uid)
+                .collection("trips");
+
+        // Create a new document with an auto-generated ID
+        DocumentReference newTripRef = saveTourRef.document(); // This generates a new document ID
+
+        Map<String, Object> tourData = new HashMap<>();
+        tourData.put("tourName", tourName_txtV.getText().toString());
+        tourData.put("dateRange", dateRange);
+
+        newTripRef.set(tourData)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Trip saved successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error saving trip: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 
     public void retrievedData() {
         db.collection("tour_package").whereEqualTo("tourName", tourName_)

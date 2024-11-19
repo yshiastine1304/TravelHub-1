@@ -1,22 +1,39 @@
 package com.personal.development.travelhub;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.personal.development.travelhub.adapters.TripsAdapter;
+import com.personal.development.travelhub.models.TourSaveModel;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TripsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextView noTripsAdded;
     private RecyclerView trip_recyclerview;
     private TripsAdapter adapter;
+
+    // List to store trips
+    private List<TourSaveModel> tripList;
+
+    // Firebase Firestore
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +49,23 @@ public class TripsActivity extends AppCompatActivity {
 
         trip_recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new TripsAdapter(this);
+        // Initialize the Firebase Firestore instance
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid(); // Get current user's UID
+
+        // Initialize the trips list
+        tripList = new ArrayList<>();
+
+        // Fetch trips data from Firestore
+        fetchTripsData();
+
+        // Initialize the adapter
+        adapter = new TripsAdapter(this, tripList);
         trip_recyclerview.setAdapter(adapter);
+
+        // Toggle empty state based on whether there are trips or not
+        toggleEmptyState(tripList.isEmpty());
 
         bottomNavigationView.setSelectedItemId(R.id.nav_trip);
 
@@ -56,6 +88,43 @@ public class TripsActivity extends AppCompatActivity {
         });
     }
 
+    // Method to fetch trip data from Firestore
+    private void fetchTripsData() {
+        // Reference to the "saved_tour" collection
+        CollectionReference saveTourRef = db.collection("users")
+                .document(uid)
+                .collection("trips");
+
+        // Fetch the trips
+        saveTourRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                for (DocumentSnapshot document : queryDocumentSnapshots) {
+                    // Get the data from each document
+                    String dateRange = document.getString("dateRange");
+                    String tourName = document.getString("tourName");
+
+                    // Create a TourSaveModel object with the retrieved data
+                    TourSaveModel tour = new TourSaveModel(dateRange, tourName);
+
+                    // Add the tour to the list
+                    tripList.add(tour);
+                }
+
+                // Notify the adapter that the data has been updated
+                adapter.notifyDataSetChanged();
+
+                // Update the empty state visibility
+                toggleEmptyState(tripList.isEmpty());
+            } else {
+                // Handle case when there are no trips
+                toggleEmptyState(true);
+            }
+        }).addOnFailureListener(e -> {
+            // Handle any errors
+            toggleEmptyState(true);
+        });
+    }
+
     // Method to show or hide the empty state
     public void toggleEmptyState(boolean isEmpty) {
         if (isEmpty) {
@@ -67,3 +136,4 @@ public class TripsActivity extends AppCompatActivity {
         }
     }
 }
+
