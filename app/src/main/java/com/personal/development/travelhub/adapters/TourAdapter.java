@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.personal.development.travelhub.R; // Make sure to replace this with your actual package name
 import com.personal.development.travelhub.TravelsActivity;
 import com.personal.development.travelhub.models.Tour;
@@ -50,6 +53,11 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                 context.startActivity(intent);
             }
         });
+        Glide.with(context)
+                .load(tour.getImage_link_1())
+                .placeholder(R.drawable.default_picture)
+                .error(R.drawable.error_icon)
+                .into(holder.imgView);
     }
 
     @Override
@@ -60,6 +68,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     public static class TourViewHolder extends RecyclerView.ViewHolder {
         TextView tourName, destinationList, destinationName;
         CardView cardView;
+        ImageView imgView;
 
         public TourViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +76,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             destinationList = itemView.findViewById(R.id.list_destination);
             destinationName = itemView.findViewById(R.id.destination_name);  // New field
             cardView = itemView.findViewById(R.id.view_tour_details);
+            imgView = itemView.findViewById(R.id.tourImageView);
         }
     }
 }

@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.TourSaveModel;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHolder> {
 
     private List<TourSaveModel> tourList;
     private final LayoutInflater inflater;
+    private final HashSet<String> displayedDateRanges = new HashSet<>(); // To track displayed date ranges
 
     public TripsAdapter(Context context, List<TourSaveModel> tourList) {
         this.tourList = tourList;
@@ -34,8 +36,19 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
     @Override
     public void onBindViewHolder(@NonNull TourViewHolder holder, int position) {
         TourSaveModel tour = tourList.get(position);
-        holder.tourDateRange.setText(tour.getDateRange());
-        holder.tourName.setText(tour.getTourName());
+        String dateRange = tour.getDateRange();
+        String tourName = tour.getTourName();
+
+        // Check if this dateRange has already been displayed
+        if (displayedDateRanges.contains(dateRange)) {
+            holder.tourDateRange.setVisibility(View.GONE); // Hide dateRange TextView
+        } else {
+            holder.tourDateRange.setVisibility(View.VISIBLE); // Show dateRange TextView
+            holder.tourDateRange.setText(dateRange); // Set the date range text
+            displayedDateRanges.add(dateRange); // Mark this dateRange as displayed
+        }
+
+        holder.tourName.setText(tourName); // Set the tour name
     }
 
     @Override
@@ -53,4 +66,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
             tourName = itemView.findViewById(R.id.tour_name);
         }
     }
+
+    // Reset method for the adapter to handle fresh data
+    public void resetDisplayedDateRanges() {
+        displayedDateRanges.clear();
+    }
 }
+

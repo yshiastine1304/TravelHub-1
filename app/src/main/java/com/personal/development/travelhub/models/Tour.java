@@ -5,16 +5,26 @@ public class Tour {
     private String destinationCounter;
     private String destinationName;
     private String startTime;
+    private String image_link_1;
 
     public Tour() {
         // Empty constructor for Firestore serialization
     }
 
-    public Tour(String tourName, String destinationCounter, String destinationName, String startTime) {
+    public Tour(String tourName, String destinationCounter, String destinationName, String startTime, String image_link_1) {
         this.tourName = tourName;
         this.destinationCounter = destinationCounter;
         this.destinationName = destinationName;
         this.startTime = startTime;
+        this.image_link_1 = image_link_1;
+    }
+
+    public String getImage_link_1() {
+        return image_link_1;
+    }
+
+    public void setImage_link_1(String image_link_1) {
+        this.image_link_1 = image_link_1;
     }
 
     public String getTourName() {

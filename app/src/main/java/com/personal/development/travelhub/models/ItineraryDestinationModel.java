@@ -13,16 +13,27 @@ public class ItineraryDestinationModel {
     private String destinationName;
     @PropertyName("start_time")
     private String startTime;
+    @PropertyName("image_link_1")
+    private String imageLink1;
 
     // Firestore requires an empty constructor for deserialization
     public ItineraryDestinationModel() {}
 
-    public ItineraryDestinationModel(String activity,String day, String destinationCounter, String destinationName, String startTime) {
+    public ItineraryDestinationModel(String activity,String day, String destinationCounter, String destinationName, String startTime, String imageLink1) {
         this.activity = activity;
         this.day = day;
         this.destinationCounter = destinationCounter;
         this.destinationName = destinationName;
         this.startTime = startTime;
+        this.imageLink1 = imageLink1;
+    }
+
+    public String getImageLink1() {
+        return imageLink1;
+    }
+
+    public void setImageLink1(String imageLink1) {
+        this.imageLink1 = imageLink1;
     }
 
     public String getActivity() {

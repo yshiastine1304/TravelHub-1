@@ -9,9 +9,11 @@ import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -38,6 +40,7 @@ public class TravelsActivity extends AppCompatActivity {
             inclusion_details_txtV,price_txtV,minimumAge_txtV,pricePer,location_txtV;
     private Button viewItinerary,saveTripBtn;
     String tourName_,destination_name_,tourUID;
+    private ImageView tourImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,6 +64,7 @@ public class TravelsActivity extends AppCompatActivity {
         pricePer = findViewById(R.id.price_per);
         location_txtV = findViewById(R.id.location_tour);
         saveTripBtn = findViewById(R.id.save_tripBtn);
+        tourImg = findViewById(R.id.place_image);
 
         goBack = findViewById(R.id.goback);
 
@@ -198,8 +202,9 @@ public class TravelsActivity extends AppCompatActivity {
                                 String minAge = document.getString("minimumAge");
                                 String pricePer_ = document.getString("pricePer");
                                 String location = document.getString("location");
+                                String imgLink = document.getString("image_link_1");
 
-                                tourUID = document.getId().toString();
+                                tourUID = document.getId();
                                 description_txtV.setText(description);
                                 duration_txtV.setText(duration);
                                 otherDetails.setText(otherDetails_data);
@@ -209,7 +214,17 @@ public class TravelsActivity extends AppCompatActivity {
                                 pricePer.setText(pricePer_);
                                 location_txtV.setText(location);
 
-                                // Update your UI or handle the retrieved data here
+                                // Ensure imgLink is not null and valid before loading
+                                if (imgLink != null && !imgLink.isEmpty()) {
+                                    Glide.with(TravelsActivity.this) // Corrected context
+                                            .load(imgLink)
+                                            .placeholder(R.drawable.default_picture) // Placeholder image
+                                            .error(R.drawable.error_icon) // Error image
+                                            .into(tourImg); // Replace `tourImg` with your ImageView ID
+                                } else {
+                                    Toast.makeText(TravelsActivity.this, "Image link is missing or invalid", Toast.LENGTH_SHORT).show();
+                                }
+
                                 Toast.makeText(TravelsActivity.this, "Data found: " + tourname, Toast.LENGTH_SHORT).show();
                             }
                         } else {
@@ -220,5 +235,6 @@ public class TravelsActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

@@ -7,7 +7,7 @@ public class AddTourModel {
     private String location;
     private String inclusionDetails;
     private String destinationDetails;
-    private String activityDetails;;
+    private String activityDetails;
     private String duration;
     private String price;
     private String minimumAge;

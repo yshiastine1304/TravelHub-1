@@ -1,10 +1,13 @@
 package com.personal.development.travelhub;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +20,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,13 +43,16 @@ public class AddToursActivity extends AppCompatActivity {
             minimumAge_txtV,
             pricePer_txtV,
             otherDetails_txtV;
+    private static final int PICK_IMAGE_REQUEST_1 = 1;
     private Spinner destinationDetails_spinner;
-    private TextView backBtn;
+    private TextView backBtn,uploadImgBtn;
     private Button saveBtn;
     boolean isSpinnerInitialLoad = true, isAllDetailsEmpty= false;
     String tourID;
     int countDestination = 0;
     private FirebaseFirestore db;
+    private StorageReference storageRef;
+    private Uri imageUri1;
 
 
 
@@ -54,6 +63,7 @@ public class AddToursActivity extends AppCompatActivity {
 
         // Initialize FirebaseFirestore instance
         db = FirebaseFirestore.getInstance();
+        storageRef = FirebaseStorage.getInstance().getReference();
 
         tourName_txtV = findViewById(R.id.tour_name);
         description_txtV = findViewById(R.id.description_admin_tour);
@@ -68,8 +78,16 @@ public class AddToursActivity extends AppCompatActivity {
         otherDetails_txtV = findViewById(R.id.other_details_tour_admin);
         saveBtn = findViewById(R.id.save_admin_btn);
         backBtn = findViewById(R.id.add_new_trip);
+        uploadImgBtn = findViewById(R.id.upload_img_btn_tour);
 
         destinationDetails_spinner.setEnabled(false);
+
+        uploadImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImagePicker(PICK_IMAGE_REQUEST_1);
+            }
+        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +102,33 @@ public class AddToursActivity extends AppCompatActivity {
             }
         });
         populateDestinationDetails();
+    }
+
+    private void openImagePicker(int requestCode){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data!=null && data.getData() != null){
+            if (requestCode == PICK_IMAGE_REQUEST_1){
+                imageUri1 = data.getData();
+                uploadImgBtn.setText("Uploaded Successfully");
+            }
+        }
+    }
+
+    private void uploadImage(Uri imageUri, String filename, OnSuccessListener<Uri> onSuccessListener){
+        if (imageUri != null){
+            StorageReference imgRef = storageRef.child("images/"+ filename);
+            imgRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> imgRef.getDownloadUrl().addOnSuccessListener(onSuccessListener))
+                    .addOnFailureListener(e -> Toast.makeText(AddToursActivity.this, "Image Upload Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
     }
 
     public void populateDestinationDetails() {
@@ -198,7 +243,14 @@ public class AddToursActivity extends AppCompatActivity {
         dataMap.put("pricePer", pricePer);
         dataMap.put("otherDetails", otherDetails);
 
-        saveToFirestore(dataMap);
+        if (imageUri1 != null) {
+            uploadImage(imageUri1, tourname +"_1.jpg", uri -> {
+                dataMap.put("image_link_1", uri.toString());
+                    saveToFirestore(dataMap); // Save if only image 1 is selected
+            });
+        }
+
+//        saveToFirestore(dataMap);
     }
 
     public void addDestinationToFirestore(Map<String, Object> dataMap) {

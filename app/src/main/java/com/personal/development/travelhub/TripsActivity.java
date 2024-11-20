@@ -57,15 +57,12 @@ public class TripsActivity extends AppCompatActivity {
         // Initialize the trips list
         tripList = new ArrayList<>();
 
-        // Fetch trips data from Firestore
-        fetchTripsData();
-
         // Initialize the adapter
         adapter = new TripsAdapter(this, tripList);
         trip_recyclerview.setAdapter(adapter);
 
-        // Toggle empty state based on whether there are trips or not
-        toggleEmptyState(tripList.isEmpty());
+        // Fetch trips data from Firestore
+        fetchTripsData();
 
         bottomNavigationView.setSelectedItemId(R.id.nav_trip);
 
@@ -94,6 +91,10 @@ public class TripsActivity extends AppCompatActivity {
         CollectionReference saveTourRef = db.collection("users")
                 .document(uid)
                 .collection("trips");
+
+        // Clear existing data to avoid duplicates
+        tripList.clear();
+        adapter.resetDisplayedDateRanges();
 
         // Fetch the trips
         saveTourRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -136,4 +137,5 @@ public class TripsActivity extends AppCompatActivity {
         }
     }
 }
+
 

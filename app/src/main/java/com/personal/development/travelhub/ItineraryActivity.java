@@ -62,6 +62,7 @@ public class ItineraryActivity extends AppCompatActivity {
                         // Fetch the document ID and tourName
                         String documentUID = documentSnapshot.getId();
                         String tourName = documentSnapshot.getString("tourName");
+                        String imgLink1 = documentSnapshot.getString("image_link_1");
 
                         // Now, fetch the 'destination_list' subcollection of the specific tour_package
                         db.collection("tour_package").document(documentUID)
@@ -77,7 +78,7 @@ public class ItineraryActivity extends AppCompatActivity {
                                             String destinationName = destinationDocument.getString("destination_name");
                                             String startTime = destinationDocument.getString("start_time");
 
-                                            ItineraryDestinationModel tour = new ItineraryDestinationModel(activity, day, destinationCounter, destinationName, startTime);
+                                            ItineraryDestinationModel tour = new ItineraryDestinationModel(activity, day, destinationCounter, destinationName, startTime,imgLink1);
                                             itineraryList.add(tour);
 
                                         }

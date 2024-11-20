@@ -72,6 +72,7 @@ public class TravelPlanActivity extends AppCompatActivity {
                             // Fetch the document ID for each tour_package
                             String documentUID = document.getId();
                             String tourName = document.getString("tourName");
+                            String imgUrl = document.getString("image_link_1");
 
                             // Now, fetch the 'destination_list' subcollection of the specific tour_package
                             db.collection("tour_package").document(documentUID)
@@ -88,7 +89,7 @@ public class TravelPlanActivity extends AppCompatActivity {
                                                 String startTime = destinationDocument.getString("start_time");
 
                                                 // Create a Tour object and add to the list
-                                                Tour tour = new Tour(tourName, destinationCounter, destinationName, startTime);
+                                                Tour tour = new Tour(tourName, destinationCounter, destinationName, startTime, imgUrl);
                                                 tourList.add(tour);
                                             }
                                             adapter.notifyDataSetChanged();
