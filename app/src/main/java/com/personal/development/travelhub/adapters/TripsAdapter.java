@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.TourSaveModel;
 
@@ -20,10 +22,12 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
     private List<TourSaveModel> tourList;
     private final LayoutInflater inflater;
     private final HashSet<String> displayedDateRanges = new HashSet<>(); // To track displayed date ranges
+    private Context context;
 
     public TripsAdapter(Context context, List<TourSaveModel> tourList) {
         this.tourList = tourList;
         this.inflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @NonNull
@@ -38,6 +42,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
         TourSaveModel tour = tourList.get(position);
         String dateRange = tour.getDateRange();
         String tourName = tour.getTourName();
+        String imgLink = tour.getImage_link_1();
 
         // Check if this dateRange has already been displayed
         if (displayedDateRanges.contains(dateRange)) {
@@ -49,6 +54,12 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
         }
 
         holder.tourName.setText(tourName); // Set the tour name
+        Glide.with(context)
+                .load(imgLink)
+                .placeholder(R.drawable.default_picture)
+                .error(R.drawable.error_icon)
+                .into(holder.imgView);
+
     }
 
     @Override
@@ -59,11 +70,13 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
     public static class TourViewHolder extends RecyclerView.ViewHolder {
         TextView tourDateRange;
         TextView tourName;
+        ImageView imgView;
 
         public TourViewHolder(View itemView) {
             super(itemView);
             tourDateRange = itemView.findViewById(R.id.tour_text);
             tourName = itemView.findViewById(R.id.tour_name);
+            imgView = itemView.findViewById(R.id.tourImageView_saved);
         }
     }
 

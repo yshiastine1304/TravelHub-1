@@ -76,7 +76,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             destinationList = itemView.findViewById(R.id.list_destination);
             destinationName = itemView.findViewById(R.id.destination_name);  // New field
             cardView = itemView.findViewById(R.id.view_tour_details);
-            imgView = itemView.findViewById(R.id.tourImageView);
+            imgView = itemView.findViewById(R.id.tourImageView_saved);
         }
     }
 }

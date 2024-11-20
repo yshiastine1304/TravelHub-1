@@ -1,14 +1,17 @@
 package com.personal.development.travelhub.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.TourSaveModel;
 
@@ -17,9 +20,13 @@ import java.util.List;
 public class TourSavedAdapter extends RecyclerView.Adapter<TourSavedAdapter.TourSavedViewHolder> {
 
     private List<TourSaveModel> tourList;
+    private Context context;
 
-    public TourSavedAdapter(List<TourSaveModel> tourList) {
+    public TourSavedAdapter(Context context, List<TourSaveModel> tourList ) {
+
+        this.context = context;
         this.tourList = tourList;
+
     }
 
     @NonNull
@@ -38,6 +45,12 @@ public class TourSavedAdapter extends RecyclerView.Adapter<TourSavedAdapter.Tour
         // Bind data to the TextViews
         holder.tourDateRange.setText(currentTour.getDateRange());
         holder.tourName.setText(currentTour.getTourName());
+
+        Glide.with(context)
+                .load(currentTour.getImage_link_1())
+                .placeholder(R.drawable.default_picture)
+                .error(R.drawable.error_icon)
+                .into(holder.tourImg);
     }
 
     @Override
@@ -49,12 +62,14 @@ public class TourSavedAdapter extends RecyclerView.Adapter<TourSavedAdapter.Tour
 
         TextView tourDateRange;
         TextView tourName;
+        ImageView tourImg;
 
         public TourSavedViewHolder(View itemView) {
             super(itemView);
             // Find the views by their IDs
             tourDateRange = itemView.findViewById(R.id.tour_text);
             tourName = itemView.findViewById(R.id.tour_name);
+            tourImg = itemView.findViewById(R.id.tourImageView_saved);
         }
     }
 }

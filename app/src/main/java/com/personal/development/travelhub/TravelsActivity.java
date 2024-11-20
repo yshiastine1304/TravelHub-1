@@ -40,6 +40,7 @@ public class TravelsActivity extends AppCompatActivity {
             inclusion_details_txtV,price_txtV,minimumAge_txtV,pricePer,location_txtV;
     private Button viewItinerary,saveTripBtn;
     String tourName_,destination_name_,tourUID;
+    String imgLink;
     private ImageView tourImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +174,7 @@ public class TravelsActivity extends AppCompatActivity {
         Map<String, Object> tourData = new HashMap<>();
         tourData.put("tourName", tourName_txtV.getText().toString());
         tourData.put("dateRange", dateRange);
+        tourData.put("image_link_1", imgLink);
 
         newTripRef.set(tourData)
                 .addOnSuccessListener(aVoid -> {
@@ -202,7 +204,7 @@ public class TravelsActivity extends AppCompatActivity {
                                 String minAge = document.getString("minimumAge");
                                 String pricePer_ = document.getString("pricePer");
                                 String location = document.getString("location");
-                                String imgLink = document.getString("image_link_1");
+                                imgLink = document.getString("image_link_1");
 
                                 tourUID = document.getId();
                                 description_txtV.setText(description);

@@ -103,9 +103,10 @@ public class TripsActivity extends AppCompatActivity {
                     // Get the data from each document
                     String dateRange = document.getString("dateRange");
                     String tourName = document.getString("tourName");
+                    String imgUrl = document.getString("image_link_1");
 
                     // Create a TourSaveModel object with the retrieved data
-                    TourSaveModel tour = new TourSaveModel(dateRange, tourName);
+                    TourSaveModel tour = new TourSaveModel(dateRange, tourName,imgUrl);
 
                     // Add the tour to the list
                     tripList.add(tour);
