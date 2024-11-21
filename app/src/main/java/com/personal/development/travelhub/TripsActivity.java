@@ -30,6 +30,7 @@ public class TripsActivity extends AppCompatActivity {
     // List to store trips
     private List<TourSaveModel> tripList;
 
+
     // Firebase Firestore
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -43,6 +44,7 @@ public class TripsActivity extends AppCompatActivity {
         trip_recyclerview = findViewById(R.id.trips_recycler);
         noTripsAdded = findViewById(R.id.no_trips_text_view);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
 
         // Initially hide the empty state message
         noTripsAdded.setVisibility(View.GONE);

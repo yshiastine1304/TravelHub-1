@@ -38,27 +38,34 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     @Override
     public void onBindViewHolder(@NonNull TourViewHolder holder, int position) {
         Tour tour = tourList.get(position);
+
+        // Set text for TextViews
         holder.tourName.setText(tour.getTourName());
         holder.destinationList.setText(tour.getDestinationCounter());
         holder.destinationName.setText(tour.getDestinationName());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, TravelsActivity.class);
 
-                // Add extra data to the intent
-                intent.putExtra("tour_name", tour.getTourName()); // Example of a string
-                intent.putExtra("destination_name", tour.getDestinationName());
-                // Start the activity
-                context.startActivity(intent);
-            }
+        // Set OnClickListener for CardView
+        holder.cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, TravelsActivity.class);
+            intent.putExtra("tour_name", tour.getTourName());
+            intent.putExtra("destination_name", tour.getDestinationName());
+            context.startActivity(intent);
         });
-        Glide.with(context)
-                .load(tour.getImage_link_1())
-                .placeholder(R.drawable.default_picture)
-                .error(R.drawable.error_icon)
-                .into(holder.imgView);
+
+        // Handle Glide loading
+        String imageUrl = tour.getImage_link_1();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.default_picture)
+                    .error(R.drawable.error_icon)
+                    .into(holder.imgView);
+        } else {
+            // Set a default image if the URL is null or empty
+            holder.imgView.setImageResource(R.drawable.default_picture);
+        }
     }
+
 
     @Override
     public int getItemCount() {
