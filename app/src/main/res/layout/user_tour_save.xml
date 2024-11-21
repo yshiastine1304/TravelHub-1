@@ -137,6 +137,7 @@
                 android:includeFontPadding="false"
                 android:padding="0dp"
                 android:text="Remove"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
