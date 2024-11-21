@@ -129,9 +129,9 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/remove_btn"
+                android:id="@+id/remove_btn_saveTrip"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/cancel_itinerary_btn"
                 android:includeFontPadding="false"
@@ -140,21 +140,23 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:clickable="true"
                 app:backgroundTint="@null" />
 
+
             <Button
-                android:id="@+id/view_details_savedData"
+                android:id="@+id/view_details_saveData"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/round_border_trip"
                 android:includeFontPadding="false"
                 android:padding="0dp"
-                android:text="View"
+                android:text="View Itinerary"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:clickable="true"
                 app:backgroundTint="@null" />
         </LinearLayout>
 
