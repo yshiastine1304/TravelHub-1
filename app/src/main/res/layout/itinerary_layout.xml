@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:text="@string/trip_schedule"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -61,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:visibility="gone"
                     android:drawableRight="@drawable/calendar"
                     android:text="Select date "
                     android:textSize="12sp" />

@@ -50,7 +50,7 @@
                 android:id="@+id/destination_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:text=" Destination" />
@@ -66,7 +66,7 @@
                 android:id="@+id/destinationName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:text=" Pescador Island" />
@@ -84,8 +84,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
-                android:text="Start time: "
-                android:layout_marginEnd="10dp" />
+                android:text="Start time: " />
             <TextView
                 android:id="@+id/startTime"
                 android:layout_width="wrap_content"
@@ -104,17 +103,17 @@
             android:layout_marginStart="60dp"
             android:layout_gravity="center_vertical"
             android:text="Activities: "
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="12dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/activities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="60dp"
             android:layout_gravity="center_vertical"
-            android:text="List of activities and its details and optional activities "
+            android:text=""
             android:layout_marginEnd="10dp" />
         <TextView
             android:id="@+id/duration_activity"

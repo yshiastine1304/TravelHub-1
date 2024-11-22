@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_color"
+    android:padding="25dp">
+
+    <LinearLayout
+        android:id="@+id/date_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/travel_plan_text">
+
+        <!-- Trip Schedule Text -->
+        <TextView
+            android:id="@+id/num_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Select Number of Days"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+
+            <!-- Select Date Text with Icon -->
+            <TextView
+                android:id="@+id/date_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/calendar"
+                android:drawablePadding="8dp"
+                android:text=""
+                android:layout_marginStart="10dp"
+                android:textSize="12sp" />
+
+            <!-- Spinner -->
+            <Spinner
+                android:id="@+id/select_days_spinner"
+                android:layout_width="0dp"
+                android:layout_height="51dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext"
+                android:padding="2dp"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/save_trip_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/round_border_trip"
+            android:text="Generate Itinerary"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_view_expectations"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintWidth_percent="0.5" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
