@@ -2,6 +2,7 @@ package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.personal.development.travelhub.ItineraryActivity;
 import com.personal.development.travelhub.R;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -93,7 +97,49 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
                         Toast.makeText(context, "Failed to fetch tour details!", Toast.LENGTH_SHORT).show();
                     });
         });
+
+        holder.removeBTN.setOnClickListener(v -> {
+            // Get the current user's UID
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            // Reference to the "trips" collection of the current user
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference saveTourRef = db.collection("users")
+                    .document(uid)
+                    .collection("trips");
+
+            Query query = saveTourRef.whereEqualTo("destination_name", tourName);
+
+            // Get documents matching the query
+            query.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Delete the document
+                        document.getReference().delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    // Handle success
+                                    Toast.makeText(context.getApplicationContext(), "Document successfully deleted!", Toast.LENGTH_SHORT).show();
+                                    // Optionally, remove the item from the RecyclerView
+                                    tourList.remove(position); // Remove item from the list
+                                    notifyItemRemoved(position); // Notify adapter about the change
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Handle failure
+                                    Toast.makeText(context.getApplicationContext(), "Error deleting document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    }
+                } else {
+                    // Handle error
+                    Toast.makeText(context.getApplicationContext(), "Error getting documents: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -104,6 +150,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
         TextView tourDateRange;
         TextView tourName;
         ImageView imgView;
+        Button removeBTN;
         Button viewDetail;
 
         public TourViewHolder(View itemView) {
@@ -111,7 +158,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.TourViewHold
             tourDateRange = itemView.findViewById(R.id.tour_text);
             tourName = itemView.findViewById(R.id.tour_name);
             imgView = itemView.findViewById(R.id.tourImageView_saved);
-            viewDetail = itemView.findViewById(R.id.view_details_savedData);
+            viewDetail = itemView.findViewById(R.id.view_details_saveData);
+            removeBTN = itemView.findViewById(R.id.remove_btn_saveTrip);
         }
     }
 
