@@ -38,6 +38,7 @@ public class AddToursActivity extends AppCompatActivity {
             location_txtV,
             inclusionDetails_txtV,
             activityDetails_txtV,
+            numOfDays_txtV,
             duration_txtV,
             price_txtV,
             minimumAge_txtV,
@@ -71,6 +72,7 @@ public class AddToursActivity extends AppCompatActivity {
         inclusionDetails_txtV = findViewById(R.id.inclusion_details_admin);
         destinationDetails_spinner = findViewById(R.id.destinations_tour_admin);
         activityDetails_txtV = findViewById(R.id.activity_details_tour_admin);
+        numOfDays_txtV = findViewById(R.id.num_of_days_tour_admin);
         duration_txtV = findViewById(R.id.duration_tour_admin);
         price_txtV = findViewById(R.id.price_tour_admin);
         minimumAge_txtV = findViewById(R.id.min_age_tour_admin);
@@ -226,6 +228,7 @@ public class AddToursActivity extends AppCompatActivity {
         String description = description_txtV.getText().toString();
         String location = location_txtV.getText().toString();
         String inclusionDetails = inclusionDetails_txtV.getText().toString();
+        String numOfDays = numOfDays_txtV.getText().toString();
         String duration = duration_txtV.getText().toString();
         String price = price_txtV.getText().toString();
         String minimumAge = minimumAge_txtV.getText().toString();
@@ -237,6 +240,7 @@ public class AddToursActivity extends AppCompatActivity {
         dataMap.put("description", description);
         dataMap.put("location", location);
         dataMap.put("inclusionDetails", inclusionDetails);
+        dataMap.put("numOfDays", numOfDays);
         dataMap.put("duration", duration);
         dataMap.put("price", price);
         dataMap.put("minimumAge", minimumAge);
