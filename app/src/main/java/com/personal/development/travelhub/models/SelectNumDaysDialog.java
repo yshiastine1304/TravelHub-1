@@ -1,15 +1,20 @@
 package com.personal.development.travelhub.models;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import com.personal.development.travelhub.R;
+import com.personal.development.travelhub.GeneratedItineraryActivity; // Add this import
 
 public class SelectNumDaysDialog extends DialogFragment {
 
@@ -35,8 +40,22 @@ public class SelectNumDaysDialog extends DialogFragment {
         // Apply the adapter to the spinner
         selectDaysSpinner.setAdapter(adapter);
 
+        // Reference the Generate button
+        Button generateButton = view.findViewById(R.id.generate_btn);
+
+        // Set up the Generate button click listener
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the GeneratedActivity (redirect to generated_itinerary.xml)
+                Intent intent = new Intent(getActivity(), GeneratedItineraryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
