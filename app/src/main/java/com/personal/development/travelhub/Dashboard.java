@@ -23,6 +23,7 @@ import com.personal.development.travelhub.adapters.HomeAdapter;
 import com.personal.development.travelhub.models.AttractionsModel;
 import com.personal.development.travelhub.models.CardModel;
 import com.personal.development.travelhub.R;
+import com.personal.development.travelhub.models.SelectNumDaysDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class Dashboard extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private String user_interest;
     private TextView addNewTrip;
+    private TextView add_btn_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +61,12 @@ public class Dashboard extends AppCompatActivity {
         addNewTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Dashboard.this, TravelsActivity.class));
+                // Show the dialog
+                SelectNumDaysDialog dialog = new SelectNumDaysDialog();
+                dialog.show(getSupportFragmentManager(), "SelectNumDaysDialog");
             }
         });
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
