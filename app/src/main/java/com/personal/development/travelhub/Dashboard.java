@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -17,13 +16,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.adapters.AttractionAdapter;
 import com.personal.development.travelhub.adapters.HomeAdapter;
 import com.personal.development.travelhub.models.AttractionsModel;
 import com.personal.development.travelhub.models.CardModel;
-import com.personal.development.travelhub.R;
-import com.personal.development.travelhub.models.SelectNumDaysDialog;
+
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +65,7 @@ public class Dashboard extends AppCompatActivity {
         addNewTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Show the dialog
-                SelectNumDaysDialog dialog = new SelectNumDaysDialog();
-                dialog.show(getSupportFragmentManager(), "SelectNumDaysDialog");
+                openSelectNumDaysDialog(); // Call the dialog method
             }
         });
 
@@ -154,4 +156,52 @@ public class Dashboard extends AppCompatActivity {
                    }
                 });
     }
+
+    private void openSelectNumDaysDialog() {
+        // Inflate the custom layout
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View viewSelectNumDays = inflater.inflate(R.layout.select_num_days, null);
+
+        // Find views in the inflated layout
+        TextView closeButton = viewSelectNumDays.findViewById(R.id.close_button);
+        Spinner selectDaysSpinner = viewSelectNumDays.findViewById(R.id.select_days_spinner);
+        Button generateButton = viewSelectNumDays.findViewById(R.id.generate_btn);
+
+        // Populate Spinner with numbers (1 to 30 days)
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        for (int i = 1; i <= 3; i++) {
+            adapter.add(String.valueOf(i));
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectDaysSpinner.setAdapter(adapter);
+
+        // Build the AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(viewSelectNumDays);
+        builder.setCancelable(true);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Close button functionality
+        closeButton.setOnClickListener(v -> dialog.dismiss());
+
+        // Generate button functionality
+        generateButton.setOnClickListener(v -> {
+            String selectedDays = selectDaysSpinner.getSelectedItem().toString();
+            Toast.makeText(this, "Selected Days: " + selectedDays, Toast.LENGTH_SHORT).show();
+
+            // You can call a method to generate the itinerary here
+            generateItinerary(Integer.parseInt(selectedDays));
+
+            dialog.dismiss();
+        });
+    }
+
+    // Dummy method for generating itinerary
+    private void generateItinerary(int days) {
+        // Logic for itinerary generation can be added here
+        Toast.makeText(this, "Generating itinerary for " + days + " days", Toast.LENGTH_SHORT).show();
+    }
+
 }
