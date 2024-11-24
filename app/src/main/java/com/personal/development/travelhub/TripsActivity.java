@@ -15,7 +15,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.personal.development.travelhub.adapters.TripsAdapter;
+import com.personal.development.travelhub.adapters.TourSavedAdapter;
 import com.personal.development.travelhub.models.TourSaveModel;
 
 import java.util.ArrayList;
@@ -25,11 +25,10 @@ public class TripsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextView noTripsAdded;
     private RecyclerView trip_recyclerview;
-    private TripsAdapter adapter;
+    private TourSavedAdapter adapter;
 
     // List to store trips
     private List<TourSaveModel> tripList;
-
 
     // Firebase Firestore
     private FirebaseFirestore db;
@@ -45,13 +44,12 @@ public class TripsActivity extends AppCompatActivity {
         noTripsAdded = findViewById(R.id.no_trips_text_view);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-
         // Initially hide the empty state message
         noTripsAdded.setVisibility(View.GONE);
 
         trip_recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize the Firebase Firestore instance
+        // Initialize Firebase Firestore
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid(); // Get current user's UID
@@ -59,13 +57,14 @@ public class TripsActivity extends AppCompatActivity {
         // Initialize the trips list
         tripList = new ArrayList<>();
 
-        // Initialize the adapter
-        adapter = new TripsAdapter(this, tripList);
+        // Initialize the adapter with TourSavedAdapter
+        adapter = new TourSavedAdapter(this, tripList, db, uid);
         trip_recyclerview.setAdapter(adapter);
 
         // Fetch trips data from Firestore
         fetchTripsData();
 
+        // Set up bottom navigation actions
         bottomNavigationView.setSelectedItemId(R.id.nav_trip);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -87,47 +86,68 @@ public class TripsActivity extends AppCompatActivity {
         });
     }
 
-    // Method to fetch trip data from Firestore
     private void fetchTripsData() {
-        // Reference to the "saved_tour" collection
+        // Reference to the "trips" collection
         CollectionReference saveTourRef = db.collection("users")
                 .document(uid)
                 .collection("trips");
 
         // Clear existing data to avoid duplicates
         tripList.clear();
-        adapter.resetDisplayedDateRanges();
 
         // Fetch the trips
         saveTourRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
             if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                // Fetch tours and then fetch tour ID for each one
                 for (DocumentSnapshot document : queryDocumentSnapshots) {
                     // Get the data from each document
                     String dateRange = document.getString("dateRange");
                     String tourName = document.getString("tourName");
                     String imgUrl = document.getString("image_link_1");
+                    String documentId = document.getId();
 
-                    // Create a TourSaveModel object with the retrieved data
-                    TourSaveModel tour = new TourSaveModel(dateRange, tourName,imgUrl);
+                    // Asynchronous query to get the tour ID
+                    Query getTourId = db.collection("tour_package").whereEqualTo("tourName", tourName);
+                    getTourId.get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Assuming the tour ID is fetched correctly
+                                    String tourID = "";
+                                    for (DocumentSnapshot tourDoc : task.getResult()) {
+                                        tourID = tourDoc.getId(); // Set tourID from the fetched document
+                                    }
 
-                    // Add the tour to the list
-                    tripList.add(tour);
+                                    // Now that the tourID is retrieved, create the TourSaveModel
+                                    TourSaveModel tour = new TourSaveModel(dateRange, tourName, imgUrl, documentId, uid, tourID);
+
+                                    // Add the tour to the list
+                                    tripList.add(tour);
+
+                                    // Notify the adapter that the data has been updated
+                                    adapter.notifyDataSetChanged();
+
+                                    // Update the empty state visibility
+                                    toggleEmptyState(tripList.isEmpty());
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                // Handle any errors during the fetch of tour ID
+                                toggleEmptyState(true);
+                            });
                 }
-
-                // Notify the adapter that the data has been updated
-                adapter.notifyDataSetChanged();
-
-                // Update the empty state visibility
-                toggleEmptyState(tripList.isEmpty());
             } else {
                 // Handle case when there are no trips
                 toggleEmptyState(true);
             }
         }).addOnFailureListener(e -> {
-            // Handle any errors
+            // Handle any errors during the trips fetch
             toggleEmptyState(true);
         });
     }
+
+
+
+
 
     // Method to show or hide the empty state
     public void toggleEmptyState(boolean isEmpty) {
@@ -140,5 +160,3 @@ public class TripsActivity extends AppCompatActivity {
         }
     }
 }
-
-
