@@ -36,7 +36,7 @@ import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
     // Declare UI elements
-    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, reviews, bus_fare, whatToExpect, location_txtView, OtherDetails, entranceFee_txtView;
+    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, tripCount, bus_fare, whatToExpect, location_txtView, OtherDetails, entranceFee_txtView;
     Button saveTripBtn;
     ImageView placeImage;
     FirebaseFirestore db;
@@ -59,7 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
         placeImage = findViewById(R.id.place_image);
         highlight = findViewById(R.id.description_txtV);
         time_open = findViewById(R.id.open_time_details);
-        reviews = findViewById(R.id.trips_reviews_txt);
+        tripCount = findViewById(R.id.trip_count_text);
         bus_fare = findViewById(R.id.bus_fare_Details);
         whatToExpect = findViewById(R.id.expect_details);
         location_txtView = findViewById(R.id.location_details);
@@ -91,7 +91,7 @@ public class DetailsActivity extends AppCompatActivity {
         placeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createWishlist(placeName.getText().toString(),imageString,reviews.getText().toString(),userUid,documentId);
+                createWishlist(placeName.getText().toString(),imageString,tripCount.getText().toString(),userUid,documentId);
             }
         });
 
