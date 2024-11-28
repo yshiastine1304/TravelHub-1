@@ -18,7 +18,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class AdminDashboardActivity extends AppCompatActivity {
-    private CardView cardDestination, cardTotalUsers, cardTours;
+    private CardView cardDestination, cardTotalUsers, cardTours, agencyTotal;
     private TextView totalUser, totalDestination, totalTourCount;
     private Button signOut;
     private FirebaseFirestore db;
@@ -39,6 +39,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         cardTours = findViewById(R.id.card_total_tour_offers);
         signOut = findViewById(R.id.sign_out);
         totalTourCount = findViewById(R.id.total_tour_count);
+        agencyTotal = findViewById(R.id.card_total_agency);
 
         getUserandAdminCount();
 
@@ -47,7 +48,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(AdminDashboardActivity.this, LogInActivity.class));
+                Intent intent = new Intent(AdminDashboardActivity.this, LogInActivity.class);
+                intent.putExtra("indicator","user");
+                startActivity(intent);
+
             }
         });
 
@@ -68,6 +72,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminDashboardActivity.this, DestinationList.class));
+            }
+        });
+        agencyTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(new Intent(AdminDashboardActivity.this, Registration_view.class));
+                intent.putExtra("access_type","agency");
+                startActivity(intent);
             }
         });
 

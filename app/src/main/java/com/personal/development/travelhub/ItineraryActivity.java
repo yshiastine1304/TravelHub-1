@@ -28,7 +28,7 @@ public class ItineraryActivity extends AppCompatActivity {
     private ItineraryAdapter adapter;
     private List<ItineraryDestinationModel> itineraryList;
     private FirebaseFirestore db;
-    String tourUID,destinationName;
+    String tourUID,destinationName,formStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class ItineraryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tourUID = intent.getStringExtra("tour_uid");
         destinationName = intent.getStringExtra("destination_name");
+        formStatus = intent.getStringExtra("form_status");
         // Initialize RecyclerView
         itineraryRecyclerView = findViewById(R.id.day1_recycler);
         itineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,8 +51,11 @@ public class ItineraryActivity extends AppCompatActivity {
         adapter = new ItineraryAdapter(itineraryList);
         itineraryRecyclerView.setAdapter(adapter);
 
-        // Fetch data from Firestore
-        fetchItineraryData();
+        if (formStatus.equals("0")){
+            // Fetch data from Firestore
+            fetchItineraryData();
+        }
+
     }
 
     private void fetchItineraryData() {

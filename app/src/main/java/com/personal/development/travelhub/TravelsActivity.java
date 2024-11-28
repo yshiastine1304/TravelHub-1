@@ -79,6 +79,7 @@ public class TravelsActivity extends AppCompatActivity {
 
                 // Add extra data to the intent
                 intent.putExtra("destination_name", destination_name_); // Example of a string
+                intent.putExtra("form_status", "0");
                 intent.putExtra("tour_uid", tourUID);
                 // Start the activity
                 startActivity(intent);
@@ -99,6 +100,7 @@ public class TravelsActivity extends AppCompatActivity {
                 Intent intent = new Intent(TravelsActivity.this, TravelPlanActivity.class);
                 // Add extra data to the intent
                 intent.putExtra("destination_name", destination_name_); // Example of a string
+                intent.putExtra("formType", "0");
                 // Start the activity
                 startActivity(intent);
 

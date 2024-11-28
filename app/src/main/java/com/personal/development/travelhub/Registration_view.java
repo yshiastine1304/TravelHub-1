@@ -32,6 +32,7 @@ public class Registration_view extends AppCompatActivity {
     private Button register; // declaring button
     private TextView gotoLogin; // declaring TextViews
     private String selectedInterest;
+    String accessType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,20 @@ public class Registration_view extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        intent = getIntent();
+        accessType = intent.getStringExtra("access_type");
+
         // EditText for Registration
         fullName = findViewById(R.id.fullname_edittext);
         email = findViewById(R.id.email_edittext);
         password = findViewById(R.id.password_edittext);
         contactNumber = findViewById(R.id.contactNumber_edittext);
         interestSpinner = findViewById(R.id.travelInterest_spinner);
+
+        if (accessType.equals("agency")){
+            fullName.setHint("Enter agency name");
+            interestSpinner.setVisibility(View.GONE);
+        }
 
         // Button for Registration
         register = findViewById(R.id.Register_button);
@@ -85,11 +94,19 @@ public class Registration_view extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(fullName.getText().toString(),
-                        email.getText().toString(),
-                        password.getText().toString(),
-                        contactNumber.getText().toString(),
-                        selectedInterest);
+                if (accessType.equals("users")){
+                    registerUser(fullName.getText().toString(),
+                            email.getText().toString(),
+                            password.getText().toString(),
+                            contactNumber.getText().toString(),
+                            selectedInterest);
+                }else if (accessType.equals("agency")){
+                    registerUser(fullName.getText().toString(),
+                            email.getText().toString(),
+                            password.getText().toString(),
+                            contactNumber.getText().toString(),"N/A");
+                }
+
             }
         });
     }
@@ -135,7 +152,7 @@ public class Registration_view extends AppCompatActivity {
                                             if (emailTask.isSuccessful()) {
                                                 Toast.makeText(this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
                                                 // Create a new User
-                                                User userData = new User(fullname, email, contactNumber, interest, "user","");
+                                                User userData = new User(fullname, email, contactNumber, interest, accessType,"");
                                                 db.collection("users").document(user.getUid())
                                                         .set(userData)
                                                         .addOnSuccessListener(aVoid -> {

@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/background_color"
-    tools:context=".AdminDashboardActivity">
+    tools:context=".AgencyDashboard">
 
     <TextView
-        android:id="@+id/tour_text"
+        android:id="@+id/tour_welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -109,7 +109,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_total_hotels"
+        android:id="@+id/card_total_agency_destination"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -153,7 +153,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_total_tour_offers"
+        android:id="@+id/card_total_tour_agency"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

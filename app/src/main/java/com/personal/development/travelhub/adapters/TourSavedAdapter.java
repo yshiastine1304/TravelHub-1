@@ -53,6 +53,7 @@ public class TourSavedAdapter extends RecyclerView.Adapter<TourSavedAdapter.Tour
         holder.viewItinerary.setOnClickListener(v -> {
             Intent intent = new Intent(context, ItineraryActivity.class);
             intent.putExtra("tour_uid", trip.getTourID());
+            intent.putExtra("form_status", "0");
             context.startActivity(intent);
 //            holder.tourName.setText(trip.getTourID());
         });

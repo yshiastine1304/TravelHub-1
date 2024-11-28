@@ -31,7 +31,7 @@ public class TravelPlanActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TourAdapter adapter;
     private List<Tour> tourList;
-    public String destinationNameToMatch;
+    public String destinationNameToMatch, form_type;
     private TextView backBtn;
 
     @Override
@@ -41,6 +41,7 @@ public class TravelPlanActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         destinationNameToMatch = intent.getStringExtra("destination_name");
+        form_type = intent.getStringExtra("formType");
 
         db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.travel_plan_recycler);
@@ -58,7 +59,12 @@ public class TravelPlanActivity extends AppCompatActivity {
             }
         });
 
-        fetchTourPackages();
+        if (form_type.equals("0")){
+            fetchTourPackages();
+        }else if (form_type.equals("1")){
+            fetchFilteredList();
+        }
+
     }
 
     private void fetchTourPackages() {
@@ -104,6 +110,9 @@ public class TravelPlanActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Toast.makeText(TravelPlanActivity.this, "Error fetching tour packages: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+    public void fetchFilteredList(){
+
     }
 
 

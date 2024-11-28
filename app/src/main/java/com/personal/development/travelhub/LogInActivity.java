@@ -45,6 +45,7 @@ public class LogInActivity extends AppCompatActivity {
         // Sign up and forgot password redirections
         gotoSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), Registration_view.class);
+            intent.putExtra("access_type", "users");
             startActivity(intent);
         });
 
@@ -69,6 +70,7 @@ public class LogInActivity extends AppCompatActivity {
                             docRef.get().addOnSuccessListener(documentSnapshot -> {
                                 if (documentSnapshot.exists()) {
                                     String access = documentSnapshot.getString("access");
+                                    String agencyName = documentSnapshot.getString("fullName");
                                     access_type = access;
                                     if (access != null) {
                                         if (access.equals("admin")) {
@@ -76,6 +78,12 @@ public class LogInActivity extends AppCompatActivity {
                                             finish();
                                         } else if (access.equals("user")) {
                                             startActivity(new Intent(this, Dashboard.class));
+                                            finish();
+                                        } else if (access.equals("agency")) {
+                                            Intent intent = new Intent(this, AgencyDashboard.class);
+                                            intent.putExtra("agency_name", agencyName);
+                                            startActivity(intent);
+
                                             finish();
                                         }
                                     }
@@ -109,11 +117,16 @@ public class LogInActivity extends AppCompatActivity {
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
                             access_type = documentSnapshot.getString("access");
+                            String name = documentSnapshot.getString("fullName");
                             if (user.isEmailVerified()) {
                                 if ("admin".equals(access_type)) {
                                     startActivity(new Intent(LogInActivity.this, AdminDashboardActivity.class));
                                 } else if ("user".equals(access_type)) {
                                     startActivity(new Intent(LogInActivity.this, Dashboard.class));
+                                } else if ("agency".equals(access_type)) {
+                                    Intent intent = new Intent(LogInActivity.this, AgencyDashboard.class);
+                                    intent.putExtra("agency_name", name);
+                                    startActivity(intent);
                                 }
                                 finish();
                             } else {

@@ -192,6 +192,7 @@ public class Dashboard extends AppCompatActivity {
             Toast.makeText(this, "Selected Days: " + selectedDays, Toast.LENGTH_SHORT).show();
 
             // You can call a method to generate the itinerary here
+
             generateItinerary(Integer.parseInt(selectedDays));
 
             dialog.dismiss();

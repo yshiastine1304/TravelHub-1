@@ -103,29 +103,11 @@ public class DetailsActivity extends AppCompatActivity {
 
                 // Add extra data to the intent
                 intent.putExtra("destination_name", placeName.getText().toString()); // Example of a string
+                intent.putExtra("formType","0");
 
                 // Start the activity
                 startActivity(intent);
 
-
-//                List<Destination> destinations = new ArrayList<>();
-//
-//                // Example destination, you can dynamically add multiple destinations based on user input
-//                destinations.add(new Destination(
-//                        placeName.getText().toString(),
-//                        highlight.getText().toString(),
-//                        "added",  // Status
-//                        imageString
-//
-//                ));
-//
-//                createTripList(
-//                        btnAllDatePicker.getText().toString(),
-//                        reviews.getText().toString(),
-//                        "1", // Trip counts placeholder
-//                        userUid,
-//                        destinations
-//                );
             }
         });
 

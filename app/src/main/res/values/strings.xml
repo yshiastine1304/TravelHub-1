@@ -78,7 +78,7 @@
     <string name="update_btn">Update</string>
     <string name="total_users">Number of Users</string>
     <string name="total_destination">Number of Destinations</string>
-    <string name="total_hotels">Number of Hotels</string>
+    <string name="total_hotels">Number of Agencies</string>
     <string name="no_trip">You have no saved trips</string>
     <string name="wishlist_isEmpty">Your Wishlist is Empty</string>
     <string name="app_name">TravelHub</string>

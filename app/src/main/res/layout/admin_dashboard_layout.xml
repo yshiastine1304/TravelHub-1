@@ -92,7 +92,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_total_hotels"
+        android:id="@+id/card_total_agency"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -140,6 +140,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toEndOf="@+id/card_total_hotels"
         app:layout_constraintTop_toBottomOf="@+id/card_total_destinations"
