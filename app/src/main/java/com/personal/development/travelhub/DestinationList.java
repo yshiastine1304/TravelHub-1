@@ -134,7 +134,7 @@ public class DestinationList extends AppCompatActivity implements DestinationLis
                                  // If access is not "agency", redirect to AdminUpdateDestinationActivity
                                  Intent intent = new Intent(DestinationList.this, AdminUpdateDestinationActivity.class);
                                  // Pass the destination ID to AdminUpdateDestinationActivity
-                                 intent.putExtra("destination_id", document.getId());  // Pass the unique destination ID
+                                 intent.putExtra("destination_name", destinationModel.getDestination_name());  // Pass the unique destination ID
                                  startActivity(intent);
                              }
                          }

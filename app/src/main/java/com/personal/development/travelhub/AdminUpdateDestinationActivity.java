@@ -27,9 +27,9 @@ import com.personal.development.travelhub.models.DestinationModels;
 public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
     // UI components
-    private EditText destinationName, location, highlight, busFare, entranceFee, whatToExpect, otherDetails;
+    private EditText destinationName_txt, location, highlight, busFare, entranceFee, whatToExpect, otherDetails;
     private ImageView destinationImage;
-    private Button updateButton;
+    private Button updateButton, backBtn;
 
     // Firestore instance
     private FirebaseFirestore firestore;
@@ -46,7 +46,7 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         // Initialize UI components
-        destinationName = findViewById(R.id.tour_name);
+        destinationName_txt = findViewById(R.id.tour_name);
         location = findViewById(R.id.location_admin);
         highlight = findViewById(R.id.highlight_admin);
         busFare = findViewById(R.id.bus_fare_admin);
@@ -55,27 +55,37 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
         otherDetails = findViewById(R.id.other_details_admin);
         destinationImage = findViewById(R.id.upload_img_btn_tour);
         updateButton = findViewById(R.id.save_admin_btn);
+        backBtn = findViewById(R.id.back_admin_btn);
 
         // Get the destination_id passed from the adapter
         Intent intent = getIntent();
-        String destinationIdValue = intent.getStringExtra("destination_id"); // Get the destination_id
+        String destinationName = intent.getStringExtra("destination_name"); // Get the destination_id
 
 // Fetch the destination data using destination_id
-        fetchDestinationData(destinationIdValue);
+        fetchDestinationData(destinationName);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminUpdateDestinationActivity.this, DestinationList.class);
+                intent.putExtra("access", "admin");
+                startActivity(intent);
+            }
+        });
 
 
         // Update button listener
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDestination();
+                updateDestination(destinationName);
             }
         });
     }
 
-    private void fetchDestinationData(String destinationId) {
+    private void fetchDestinationData(String destinationName) {
         firestore.collection("attractions")
-                .whereEqualTo("destination_id", destinationId)  // Use destination_id here
+                .whereEqualTo("destination_name", destinationName)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -99,7 +109,7 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
     private void populateFields(DestinationModels destination) {
         if (destination != null) {
-            destinationName.setText(destination.getDestination_name());
+            destinationName_txt.setText(destination.getDestination_name());
             location.setText(destination.getLocation());
             highlight.setText(destination.getHighlight());
             busFare.setText(destination.getBus_fare());
@@ -118,9 +128,9 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
     }
 
 
-    private void updateDestination() {
+    private void updateDestination(String destination_) {
         // Get updated data from fields
-        String updatedDestinationName = destinationName.getText().toString();
+        String updatedDestinationName = destinationName_txt.getText().toString();
         String updatedLocation = location.getText().toString();
         String updatedHighlight = highlight.getText().toString();
         String updatedBusFare = busFare.getText().toString();
@@ -145,27 +155,28 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
         destination.setWhat_to_expect(updatedWhatToExpect);
         destination.setOther_details(updatedOtherDetails);
 
-        // Update Firestore
         firestore.collection("attractions")
-                .whereEqualTo("destination_name", destination.getDestination_name())
-                .get()
+                .whereEqualTo("destination_name", destination_)
+                .get() // Fetch documents matching the query
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                        // Get the document ID of the first matching document
                         String documentId = task.getResult().getDocuments().get(0).getId();
 
-                        firestore.collection("destinations").document(documentId)
+                        // Update the document using the document ID
+                        firestore.collection("attractions").document(documentId)
                                 .set(destination)
-                                .addOnCompleteListener(updateTask -> {
-                                    if (updateTask.isSuccessful()) {
-                                        Toast.makeText(this, "Destination updated successfully", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    } else {
-                                        Toast.makeText(this, "Error updating destination", Toast.LENGTH_SHORT).show();
-                                    }
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Destination updated successfully!", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Failed to update destination.", Toast.LENGTH_SHORT).show();
                                 });
+
                     } else {
                         Toast.makeText(this, "Error finding destination to update", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 }
