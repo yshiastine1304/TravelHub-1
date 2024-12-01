@@ -8,6 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".ToursList">
 
+    <TextView
+        android:id="@+id/back_btn_tours"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        app:drawableStartCompat="@drawable/back_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/add_btn_tour"
         android:layout_width="87dp"

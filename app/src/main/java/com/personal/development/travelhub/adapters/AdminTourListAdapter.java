@@ -1,23 +1,27 @@
 package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.R;
+import com.personal.development.travelhub.TravelsActivity;
 import com.personal.development.travelhub.models.AddTourModel;
 
 import java.util.ArrayList;
@@ -50,6 +54,18 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
         holder.tourName.setText(currentItem.getTourName());  // Display the tour name
         holder.listDestination.setText(""); // Clear destination text initially
 
+        holder.viewBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context,TravelsActivity.class);
+            intent.putExtra("tour_name",currentItem.getTourName());
+            intent.putExtra("access", "agency");
+            context.startActivity(intent);
+        });
+
+        Glide.with(context)
+                .load(currentItem.getImage_link_1())
+                .placeholder(R.drawable.default_picture)
+                .error(R.drawable.error_icon)
+                .into(holder.tourImage);
         // Call fetchDestinationList with holder and tourName
         fetchDestinationList(holder, currentItem.getTourName());
     }
@@ -140,6 +156,7 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
 
     public static class TourViewHolder extends RecyclerView.ViewHolder {
         TextView tourName, listDestination;
+        ImageView tourImage;
         Button removeBtn, viewBtn;
 
         public TourViewHolder(View itemView){
@@ -147,6 +164,8 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
             // Correct view binding
             tourName = itemView.findViewById(R.id.tour_name);
             listDestination = itemView.findViewById(R.id.list_destination);
+            tourImage = itemView.findViewById(R.id.tourImageView);
+            viewBtn = itemView.findViewById(R.id.view_btn);
         }
     }
 }

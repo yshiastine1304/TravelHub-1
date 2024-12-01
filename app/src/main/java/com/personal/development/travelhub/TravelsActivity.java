@@ -39,7 +39,7 @@ public class TravelsActivity extends AppCompatActivity {
     private TextView tourName_txtV, description_txtV,goBack,duration_txtV,otherDetails,
             inclusion_details_txtV,price_txtV,minimumAge_txtV,pricePer,location_txtV;
     private Button viewItinerary,saveTripBtn;
-    String tourName_,destination_name_,tourUID;
+    String tourName_,destination_name_,tourUID,accountAccess;
     String imgLink;
     private ImageView tourImg;
     @Override
@@ -51,6 +51,7 @@ public class TravelsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tourName_ = intent.getStringExtra("tour_name");
         destination_name_ = intent.getStringExtra("destination_name");
+        accountAccess = intent.getStringExtra("access");
 
 
         db = FirebaseFirestore.getInstance();
@@ -97,13 +98,19 @@ public class TravelsActivity extends AppCompatActivity {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TravelsActivity.this, TravelPlanActivity.class);
-                // Add extra data to the intent
-                intent.putExtra("destination_name", destination_name_); // Example of a string
-                intent.putExtra("formType", "0");
-                // Start the activity
-                startActivity(intent);
-
+                if ("agency".equals(accountAccess)){
+                    Intent intent = new Intent(TravelsActivity.this, ToursList.class);
+                    intent.putExtra("access", "agency");
+                    intent.putExtra("tour_name", tourName_);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(TravelsActivity.this, TravelPlanActivity.class);
+                    // Add extra data to the intent
+                    intent.putExtra("destination_name", destination_name_); // Example of a string
+                    intent.putExtra("formType", "0");
+                    // Start the activity
+                    startActivity(intent);
+                }
             }
         });
 
@@ -164,6 +171,7 @@ public class TravelsActivity extends AppCompatActivity {
 
     public void saveDataIntDB(String dateRange) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String destinationName = getIntent().getStringExtra("destinationName"); // Get the destination name from Intent
 
         // Reference to the "saved_tour" collection
         CollectionReference saveTourRef = db.collection("users")
@@ -173,18 +181,52 @@ public class TravelsActivity extends AppCompatActivity {
         // Create a new document with an auto-generated ID
         DocumentReference newTripRef = saveTourRef.document(); // This generates a new document ID
 
+        // Data for the trip
         Map<String, Object> tourData = new HashMap<>();
         tourData.put("tourName", tourName_txtV.getText().toString());
         tourData.put("dateRange", dateRange);
         tourData.put("image_link_1", imgLink);
 
+        // Save the trip data
         newTripRef.set(tourData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Trip saved successfully!", Toast.LENGTH_SHORT).show();
+
+                    // Handle trip count
+                    incrementTripCount(uid, destination_name_);
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error saving trip: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void incrementTripCount(String uid, String destinationName) {
+        // Reference to the "saved_tripCount" collection and the specific document
+        DocumentReference tripCountDocRef = db.collection("saved_tripCount").document(destinationName);
+
+        // Transaction to handle the counter increment
+        db.runTransaction(transaction -> {
+            DocumentSnapshot snapshot = transaction.get(tripCountDocRef);
+
+            long currentCount = 0;
+            if (snapshot.exists() && snapshot.contains("count")) {
+                currentCount = snapshot.getLong("count");
+            }
+
+            long newCount = currentCount + 1;
+
+            // Update the count
+            Map<String, Object> countData = new HashMap<>();
+            countData.put("destinationName", destinationName);
+            countData.put("count", newCount);
+            transaction.set(tripCountDocRef, countData);
+
+            return newCount;
+        }).addOnSuccessListener(newCount -> {
+            Toast.makeText(this, "Trip count updated successfully!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Error updating trip count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
 

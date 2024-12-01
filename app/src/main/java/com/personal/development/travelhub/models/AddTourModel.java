@@ -13,10 +13,11 @@ public class AddTourModel {
     private String minimumAge;
     private String pricePer;
     private String otherDetails;
+    private String image_link_1;
 
     public AddTourModel(){}
 
-    public AddTourModel(String tourName, String description, String location, String inclusionDetails, String destinationDetails, String activityDetails, String duration, String price, String minimumAge, String pricePer, String otherDetails) {
+    public AddTourModel(String tourName, String description, String location, String inclusionDetails, String destinationDetails, String activityDetails, String duration, String price, String minimumAge, String pricePer, String otherDetails, String image_link_1) {
         this.tourName = tourName;
         this.description = description;
         this.location = location;
@@ -28,6 +29,15 @@ public class AddTourModel {
         this.minimumAge = minimumAge;
         this.pricePer = pricePer;
         this.otherDetails = otherDetails;
+        this.image_link_1 = image_link_1;
+    }
+
+    public String getImage_link_1() {
+        return image_link_1;
+    }
+
+    public void setImage_link_1(String image_link_1) {
+        this.image_link_1 = image_link_1;
     }
 
     public String getTourName() {

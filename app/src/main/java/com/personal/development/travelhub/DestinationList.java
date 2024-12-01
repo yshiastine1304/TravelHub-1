@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +27,10 @@ public class DestinationList extends AppCompatActivity {
     private DestinationListAdapter adapter;
     private List<DestinationModels> destinationModelsList;
     private FirebaseFirestore firestore;
+    private TextView back_btn;
     private Button addDestination;
+    private Intent intent,intentBeta,intentCharlie;
+    String accessVal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,16 +44,36 @@ public class DestinationList extends AppCompatActivity {
         adapter = new DestinationListAdapter(this, destinationModelsList);
         destinationRecyclerView.setAdapter(adapter);
         addDestination = findViewById(R.id.add_btn_destination);
+        back_btn = findViewById(R.id.back_btn_destination);
+
 
         firestore = FirebaseFirestore.getInstance();
+
+        intent = getIntent();
+        accessVal = intent.getStringExtra("access");
+
+        if (accessVal.equals("agency")){
+            addDestination.setVisibility(View.GONE);
+            intentCharlie = new Intent(DestinationList.this, AgencyDashboard.class);
+            intentCharlie.putExtra("agency_name",intent.getStringExtra("name"));
+        }else {
+            intentBeta = new Intent(DestinationList.this, activity_admin.class);
+        }
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(intentCharlie);
+            }
+        });
 
         addDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DestinationList.this, activity_admin.class));
+                startActivity(intentBeta);
             }
         });
-
         loadDestinations();
     }
 

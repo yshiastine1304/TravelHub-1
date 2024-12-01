@@ -44,7 +44,7 @@ public class Dashboard extends AppCompatActivity {
     private List<AttractionsModel> dataList2;
     private BottomNavigationView bottomNavigationView;
     private String user_interest;
-    private TextView addNewTrip;
+    private TextView addNewTrip,saveTripCount;
     private TextView add_btn_;
 
     @Override
@@ -59,6 +59,7 @@ public class Dashboard extends AppCompatActivity {
         reco_recyclerView = findViewById(R.id.attractions_recyclerView);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         addNewTrip = findViewById(R.id.add_new_trip);
+
 
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 

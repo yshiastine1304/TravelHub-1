@@ -2,6 +2,7 @@ package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
 
         // Set OnClickListener for CardView
         holder.cardView.setOnClickListener(v -> {
+//            SharedPreferences sharedPreferences = context.getSharedPreferences("TripPreferences", Context.MODE_PRIVATE);
+//            String destinationName = sharedPreferences.getString("destinationName","Unknown Destination");
             Intent intent = new Intent(context, TravelsActivity.class);
             intent.putExtra("tour_name", tour.getTourName());
             intent.putExtra("destination_name", tour.getDestinationName());

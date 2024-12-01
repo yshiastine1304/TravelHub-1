@@ -21,6 +21,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.personal.development.travelhub.models.Destination;
@@ -36,7 +37,8 @@ import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
     // Declare UI elements
-    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, tripCount, bus_fare, whatToExpect, location_txtView, OtherDetails, entranceFee_txtView;
+    TextView backBtn, placeName, highlight, time_open, btnAllDatePicker, tripCount, bus_fare, whatToExpect,
+            location_txtView, OtherDetails, entranceFee_txtView;
     Button saveTripBtn;
     ImageView placeImage;
     FirebaseFirestore db;
@@ -66,6 +68,7 @@ public class DetailsActivity extends AppCompatActivity {
         OtherDetails = findViewById(R.id.other_details);
         entranceFee_txtView = findViewById(R.id.entrance_fee_details);
         saveTripBtn = findViewById(R.id.save_trip_btn);
+
 
         // Initialize Firestore instance
         db = FirebaseFirestore.getInstance();
@@ -115,6 +118,34 @@ public class DetailsActivity extends AppCompatActivity {
         // Open the date picker on button click
 //        btnAllDatePicker.setOnClickListener(v -> openDateRangePicker());
     }
+
+    private void getTripCount(String destinationName) {
+        // Reference to the specific document in "saved_tripCount"
+        DocumentReference tripCountDocRef = db.collection("saved_tripCount").document(destinationName);
+
+        tripCountDocRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String destination = documentSnapshot.getString("destinationName");
+                long count = documentSnapshot.getLong("count");
+
+                // Save data into SharedPreferences
+//                SharedPreferences sharedPreferences = getSharedPreferences("TripPreferences", MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("destinationName", destination);
+//                editor.putLong("count", count);
+//                editor.apply();
+
+                // Navigate to the next activity
+                tripCount.setText(String.valueOf(count));
+            } else {
+                Toast.makeText(this, "No data found for this destination.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Error retrieving trip count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+
 
     private void createTripList(String tripDate, String reviews, String tripCounts, String userId, List<Destination> destinations) {
         Map<String, Object> dataMap = new HashMap<>();
@@ -185,6 +216,7 @@ public class DetailsActivity extends AppCompatActivity {
                             OtherDetails.setText("Other Details: "+ other_details);
                             entranceFee_txtView.setText("Entrance Fee: "+ entranceFee);
 
+                            getTripCount(name);
 
                             Glide.with(DetailsActivity.this)
                                     .load(imageUrl)
