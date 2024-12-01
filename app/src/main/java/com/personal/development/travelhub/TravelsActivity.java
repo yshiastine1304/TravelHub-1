@@ -133,7 +133,7 @@ public class TravelsActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setView(dialogView);
-        builder.setTitle("Select Date");
+        builder.setTitle("Selected Date");
         builder.setPositiveButton("Save", (dialog, which) -> {
             saveDataIntDB(dateRange);
         });
