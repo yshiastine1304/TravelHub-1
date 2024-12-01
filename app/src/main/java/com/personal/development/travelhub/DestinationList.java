@@ -1,7 +1,5 @@
+// DestinationList.java
 package com.personal.development.travelhub;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,18 +21,19 @@ import com.personal.development.travelhub.models.DestinationModels;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DestinationList extends AppCompatActivity {
+public class DestinationList extends AppCompatActivity implements DestinationListAdapter.OnItemClickListener {
+
     private RecyclerView destinationRecyclerView;
     private DestinationListAdapter adapter;
     private List<DestinationModels> destinationModelsList;
     private FirebaseFirestore firestore;
     private TextView back_btn;
     private Button addDestination;
-    private Intent intent,intentBeta,intentCharlie;
-    String accessVal;
+    private Intent intent;
+    private String accessVal;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_destination_list);
 
@@ -41,42 +41,48 @@ public class DestinationList extends AppCompatActivity {
         destinationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         destinationModelsList = new ArrayList<>();
-        adapter = new DestinationListAdapter(this, destinationModelsList);
+        adapter = new DestinationListAdapter(this, destinationModelsList, this); // Pass 'this' as OnItemClickListener
         destinationRecyclerView.setAdapter(adapter);
+
         addDestination = findViewById(R.id.add_btn_destination);
         back_btn = findViewById(R.id.back_btn_destination);
 
-
         firestore = FirebaseFirestore.getInstance();
 
+        // Retrieve access value from the Intent
         intent = getIntent();
         accessVal = intent.getStringExtra("access");
 
-        if (accessVal.equals("agency")){
-            addDestination.setVisibility(View.GONE);
-            intentCharlie = new Intent(DestinationList.this, AgencyDashboard.class);
-            intentCharlie.putExtra("agency_name",intent.getStringExtra("name"));
-        }else {
-            intentBeta = new Intent(DestinationList.this, activity_admin.class);
+        // Check access value and set up the corresponding behavior
+        if ("agency".equals(accessVal)) {
+            addDestination.setVisibility(View.GONE); // Hide the "Add Destination" button for agency
+            back_btn.setOnClickListener(v -> {
+                Intent intentCharlie = new Intent(DestinationList.this, AgencyDashboard.class);
+                intentCharlie.putExtra("agency_name", intent.getStringExtra("name"));
+                startActivity(intentCharlie);
+            });
+        } else {
+            back_btn.setOnClickListener(v -> {
+                Intent intentBeta = new Intent(DestinationList.this, activity_admin.class);
+                startActivity(intentBeta);
+            });
         }
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(intentCharlie);
-            }
-        });
-
-        addDestination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Handle the add destination button click
+        addDestination.setOnClickListener(v -> {
+            if ("agency".equals(accessVal)) {
+                // No action for agency when the add button is clicked
+                return;
+            } else {
+                Intent intentBeta = new Intent(DestinationList.this, activity_admin.class);
                 startActivity(intentBeta);
             }
         });
+
         loadDestinations();
     }
 
+    // Fetch the list of destinations from Firestore
     private void loadDestinations() {
         CollectionReference attractionsRef = firestore.collection("attractions");
 
@@ -101,4 +107,31 @@ public class DestinationList extends AppCompatActivity {
             }
         });
     }
+
+    // Handle item click based on the access value
+    @Override
+    public void onItemClick(int position) {
+        // Get the clicked item (DestinationModels object) at the position
+        DestinationModels destinationModel = destinationModelsList.get(position);
+
+        // Fetch the unique destination ID
+        String destinationId = destinationModel.getId();  // Fetch the ID of the clicked item
+
+        // Check the access value to determine which activity to open
+        if ("agency".equals(accessVal)) {
+            Intent intent = new Intent(DestinationList.this, DetailsActivity.class);
+            // Pass the destination ID to DetailsActivity
+            intent.putExtra("DOCUMENT_ID", destinationId);  // Pass the unique destination ID
+            intent.putExtra("IMAGE_URL", destinationModel.getImageUrl());  // Pass the image URL
+            intent.putExtra("access", "agency");  // Pass the access value
+            startActivity(intent);
+        } else {
+            // If access is not "agency", redirect to AdminUpdateDestinationActivity
+            Intent intent = new Intent(DestinationList.this, AdminUpdateDestinationActivity.class);
+            // Pass the destination ID to AdminUpdateDestinationActivity
+            intent.putExtra("destination_id", destinationId);  // Pass the unique destination ID
+            startActivity(intent);
+        }
+    }
+
 }

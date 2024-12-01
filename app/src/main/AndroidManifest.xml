@@ -27,6 +27,9 @@
             android:name=".TravelPlanActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminUpdateDestinationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ToursList"
             android:exported="false" />
         <activity

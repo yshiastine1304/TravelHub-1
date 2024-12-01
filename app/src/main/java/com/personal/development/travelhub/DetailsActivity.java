@@ -46,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private String userUid;
+    private String accessVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class DetailsActivity extends AppCompatActivity {
         // Get document ID passed from the previous activity
         String documentId = getIntent().getStringExtra("DOCUMENT_ID");
         String imageString = getIntent().getStringExtra("IMAGE_URL");
+        accessVal = getIntent().getStringExtra("access");
 
         // Fetch place details from Firestore if document ID exists
         if (documentId != null) {
@@ -86,8 +88,14 @@ public class DetailsActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(v.getContext(), Dashboard.class);
-                v.getContext().startActivity(intent);
+                if ("agency".equals(accessVal)) {
+                    // If access is "agency", go back to the AgencyDashboard
+                    intent = new Intent(DetailsActivity.this, AgencyDashboard.class);
+                } else {
+                    // If access is not "agency", go back to the Dashboard or Admin activity
+                    intent = new Intent(DetailsActivity.this, Dashboard.class);
+                }
+                startActivity(intent);
             }
         });
 
