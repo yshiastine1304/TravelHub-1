@@ -64,7 +64,7 @@ public class DestinationList extends AppCompatActivity implements DestinationLis
             });
         } else {
             back_btn.setOnClickListener(v -> {
-                Intent intentBeta = new Intent(DestinationList.this, activity_admin.class);
+                Intent intentBeta = new Intent(DestinationList.this, AdminDashboardActivity.class);
                 startActivity(intentBeta);
             });
         }
