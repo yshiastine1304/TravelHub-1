@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -114,24 +115,32 @@ public class DestinationList extends AppCompatActivity implements DestinationLis
         // Get the clicked item (DestinationModels object) at the position
         DestinationModels destinationModel = destinationModelsList.get(position);
 
-        // Fetch the unique destination ID
-        String destinationId = destinationModel.getId();  // Fetch the ID of the clicked item
 
-        // Check the access value to determine which activity to open
-        if ("agency".equals(accessVal)) {
-            Intent intent = new Intent(DestinationList.this, DetailsActivity.class);
-            // Pass the destination ID to DetailsActivity
-            intent.putExtra("DOCUMENT_ID", destinationId);  // Pass the unique destination ID
-            intent.putExtra("IMAGE_URL", destinationModel.getImageUrl());  // Pass the image URL
-            intent.putExtra("access", "agency");  // Pass the access value
-            startActivity(intent);
-        } else {
-            // If access is not "agency", redirect to AdminUpdateDestinationActivity
-            Intent intent = new Intent(DestinationList.this, AdminUpdateDestinationActivity.class);
-            // Pass the destination ID to AdminUpdateDestinationActivity
-            intent.putExtra("destination_id", destinationId);  // Pass the unique destination ID
-            startActivity(intent);
-        }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("attractions").whereEqualTo("destination_name", destinationModel.getDestination_name()).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                         for (QueryDocumentSnapshot document : task.getResult()){
+                             // Check the access value to determine which activity to open
+
+                             if ("agency".equals(accessVal)) {
+                                 Intent intent = new Intent(DestinationList.this, DetailsActivity.class);
+                                 // Pass the destination ID to DetailsActivity
+                                 intent.putExtra("DOCUMENT_ID", document.getId());  // Pass the unique destination ID
+                                 intent.putExtra("IMAGE_URL", destinationModel.getImageUrl());  // Pass the image URL
+                                 intent.putExtra("access", "agency");  // Pass the access value
+                                 startActivity(intent);
+                             } else {
+                                 // If access is not "agency", redirect to AdminUpdateDestinationActivity
+                                 Intent intent = new Intent(DestinationList.this, AdminUpdateDestinationActivity.class);
+                                 // Pass the destination ID to AdminUpdateDestinationActivity
+                                 intent.putExtra("destination_id", document.getId());  // Pass the unique destination ID
+                                 startActivity(intent);
+                             }
+                         }
+                    }
+                });
+
     }
 
 }
