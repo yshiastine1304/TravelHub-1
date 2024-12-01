@@ -1,12 +1,14 @@
 package com.personal.development.travelhub.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.personal.development.travelhub.R;
 import com.personal.development.travelhub.models.User;
@@ -35,14 +38,24 @@ public class AdminTotalListAdapter extends RecyclerView.Adapter<AdminTotalListAd
         retrieveUsers();
     }
 
-    public void retrieveUsers(){
-        CollectionReference usersRef = firestore.collection("users");
+    public void retrieveUsers() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("access_type", Context.MODE_PRIVATE);
+        String access = sharedPreferences.getString("getAcces", "Unknown");
+
+        Query usersRef; // Change the type to Query
+        if ("agency".equals(access)) {
+            usersRef = firestore.collection("users").whereEqualTo("access", "agency");
+        } else {
+            usersRef = firestore.collection("users").whereEqualTo("access", "user");
+        }
+
+        Toast.makeText(context, "user type: "+ access, Toast.LENGTH_SHORT).show();
 
         usersRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
+            if (task.isSuccessful()) {
                 QuerySnapshot snapshots = task.getResult();
                 if (snapshots != null) {
-                    for (DocumentSnapshot doc : snapshots.getDocuments()){
+                    for (DocumentSnapshot doc : snapshots.getDocuments()) {
                         User user = doc.toObject(User.class);
                         userList.add(user);
                         userListFull.add(user);
@@ -52,6 +65,7 @@ public class AdminTotalListAdapter extends RecyclerView.Adapter<AdminTotalListAd
             }
         });
     }
+
     @NonNull
     @Override
     public AdminViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
