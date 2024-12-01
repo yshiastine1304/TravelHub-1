@@ -61,6 +61,46 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
             context.startActivity(intent);
         });
 
+        holder.removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String tourName = currentItem.getTourName(); // Assuming currentItem has a method to get the tour name
+
+                // Query Firestore for the document with the matching tour name
+                db.collection("tour_package")
+                        .whereEqualTo("tourName", tourName)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Get the document ID
+                                    String documentId = document.getId();
+
+                                    // Delete the document
+                                    db.collection("tour_package").document(documentId)
+                                            .delete()
+                                            .addOnSuccessListener(aVoid -> {
+                                                // Remove the item from the list
+                                                int index = holder.getAdapterPosition();
+                                                if (index != RecyclerView.NO_POSITION) {
+                                                    tourList.remove(index);
+                                                    notifyItemRemoved(index); // Notify the adapter
+                                                }
+                                                Toast.makeText(v.getContext(), "Tour package removed successfully!", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(v.getContext(), "Failed to remove tour package.", Toast.LENGTH_SHORT).show();
+                                            });
+                                }
+                            } else {
+                                Toast.makeText(v.getContext(), "No matching tour package found.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
+
         Glide.with(context)
                 .load(currentItem.getImage_link_1())
                 .placeholder(R.drawable.default_picture)
@@ -157,7 +197,7 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
     public static class TourViewHolder extends RecyclerView.ViewHolder {
         TextView tourName, listDestination;
         ImageView tourImage;
-        Button removeBtn, viewBtn;
+        Button viewBtn, removeBtn;
 
         public TourViewHolder(View itemView){
             super(itemView);
@@ -166,6 +206,7 @@ public class AdminTourListAdapter extends RecyclerView.Adapter<AdminTourListAdap
             listDestination = itemView.findViewById(R.id.list_destination);
             tourImage = itemView.findViewById(R.id.tourImageView);
             viewBtn = itemView.findViewById(R.id.view_btn);
+            removeBtn = itemView.findViewById(R.id.remove_btn);
         }
     }
 }

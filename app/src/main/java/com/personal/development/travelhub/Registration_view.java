@@ -30,7 +30,7 @@ public class Registration_view extends AppCompatActivity {
     private EditText fullName, email, password, contactNumber; // declaring edittexts
     private Spinner interestSpinner;
     private Button register; // declaring button
-    private TextView gotoLogin; // declaring TextViews
+    private TextView gotoLogin,lbl_1; // declaring TextViews
     private String selectedInterest;
     String accessType;
 
@@ -52,16 +52,20 @@ public class Registration_view extends AppCompatActivity {
         password = findViewById(R.id.password_edittext);
         contactNumber = findViewById(R.id.contactNumber_edittext);
         interestSpinner = findViewById(R.id.travelInterest_spinner);
-
-        if (accessType.equals("agency")){
-            fullName.setHint("Enter agency name");
-            interestSpinner.setVisibility(View.GONE);
-        }
-
+        lbl_1 = findViewById(R.id.Labeled1);
         // Button for Registration
         register = findViewById(R.id.Register_button);
         // TextView for Registration
         gotoLogin = findViewById(R.id.goToLogIn);
+
+        if (accessType.equals("agency")){
+            fullName.setHint("Enter agency name");
+            interestSpinner.setVisibility(View.GONE);
+            lbl_1.setVisibility(View.GONE);
+            gotoLogin.setVisibility(View.GONE);
+        }
+
+
 
         // Set up the spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

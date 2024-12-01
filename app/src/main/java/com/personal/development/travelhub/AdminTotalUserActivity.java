@@ -21,7 +21,7 @@ public class AdminTotalUserActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminTotalListAdapter adapter;
     private EditText searchEditext;
-    private TextView addNewAgency;
+    private TextView addNewAgency, backBtnUser;
     String Indicator,access;
     private Intent intent;
 
@@ -34,6 +34,7 @@ public class AdminTotalUserActivity extends AppCompatActivity {
         searchEditext = findViewById(R.id.search_places);
         recyclerView = findViewById(R.id.RecyclerViewUsers);
         addNewAgency = findViewById(R.id.add_new_agency);
+        backBtnUser = findViewById(R.id.back_btn_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         intent = getIntent();
@@ -45,6 +46,12 @@ public class AdminTotalUserActivity extends AppCompatActivity {
 
         // Initialize adapter
         adapter = new AdminTotalListAdapter(this);
+        backBtnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminTotalUserActivity.this, AdminDashboardActivity.class));
+            }
+        });
 
        // Retrieve the intent and extras
         intent = getIntent();

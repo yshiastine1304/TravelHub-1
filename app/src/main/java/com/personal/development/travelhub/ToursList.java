@@ -37,7 +37,8 @@ public class ToursList extends AppCompatActivity {
 
 
         if ("admin".equals(accessType)) {
-            addTour.setVisibility(View.GONE);
+//            addTour.setVisibility(View.GONE);
+
         }else if ("agency".equals(accessType)){
 //            addTour.setVisibility(View.GONE);
             itineraryIntent = new Intent(ToursList.this, TravelsActivity.class);
@@ -46,9 +47,13 @@ public class ToursList extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if ("admin".equals(accessType)){
+                    startActivity(new Intent(ToursList.this, AdminDashboardActivity.class));
+                }else if ("agency".equals(accessType)){
                     intent = new Intent(ToursList.this, AgencyDashboard.class);
                     intent.putExtra("agency_name",name);
                     startActivity(intent);
+                }
             }
         });
 

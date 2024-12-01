@@ -43,7 +43,12 @@ public class AgencyDashboard extends AppCompatActivity {
 
         intent = getIntent();
         agencyName = intent.getStringExtra("agency_name");
-        welcomeText.setText("Welcome "+agencyName);
+        if (agencyName.isEmpty()){
+            welcomeText.setVisibility(View.GONE);
+        }else {
+            welcomeText.setText("Welcome "+agencyName);
+        }
+
 
         getCount();
 
