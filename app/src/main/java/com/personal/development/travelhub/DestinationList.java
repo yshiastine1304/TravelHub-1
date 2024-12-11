@@ -127,7 +127,7 @@ public class DestinationList extends AppCompatActivity implements DestinationLis
                                  Intent intent = new Intent(DestinationList.this, DetailsActivity.class);
                                  // Pass the destination ID to DetailsActivity
                                  intent.putExtra("DOCUMENT_ID", document.getId());  // Pass the unique destination ID
-                                 intent.putExtra("IMAGE_URL", destinationModel.getImageUrl());  // Pass the image URL
+                                 intent.putExtra("IMAGE_URL", destinationModel.getImage_link_1());  // Pass the image URL
                                  intent.putExtra("access", "agency");  // Pass the access value
                                  startActivity(intent);
                              } else {

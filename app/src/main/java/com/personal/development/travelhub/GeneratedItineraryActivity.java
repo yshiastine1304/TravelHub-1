@@ -33,7 +33,7 @@ public class GeneratedItineraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.generated_itinerary);
+        setContentView(R.layout.itinerary_layout);
 
         Intent intent = getIntent();
         tourUID = intent.getStringExtra("tour_uid");
