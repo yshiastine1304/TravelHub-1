@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +36,7 @@ public class Profile extends AppCompatActivity implements ProfileAdapter.OnItemC
     private ProfileAdapter adapter;
     private List<User> users;
     private String currentUID;
-    private BottomNavigationView buttonNavigation;
+    private BottomNavigationView bottomNavigationView;
     private FirebaseFirestore firestore;
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -57,25 +56,8 @@ public class Profile extends AppCompatActivity implements ProfileAdapter.OnItemC
         storageRef = storage.getReference();
 
         // Set up Bottom Navigation
-        buttonNavigation = findViewById(R.id.bottom_navigation_view);
-        buttonNavigation.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                startActivity(new Intent(this, Dashboard.class));
-                return true;
-            } else if (itemId == R.id.nav_wishlist) {
-                startActivity(new Intent(this, Wishlist.class));
-                return true;
-            } else if (itemId == R.id.nav_trip) {
-                startActivity(new Intent(this, TripsActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_account) {
-                startActivity(new Intent(this, Profile.class));
-                return true;
-            } else {
-                return false;
-            }
-        });
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        setupBottomNavigation();
 
         // Set up RecyclerView
         profile_recycler = findViewById(R.id.profile_recycler);
@@ -83,6 +65,51 @@ public class Profile extends AppCompatActivity implements ProfileAdapter.OnItemC
         users = new ArrayList<>();
 
         // Fetch user data from Firestore
+        fetchUserData();
+    }
+
+    private void setupBottomNavigation() {
+        bottomNavigationView.setSelectedItemId(R.id.nav_account);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                navigateToActivity(Dashboard.class);
+                return true;
+            } else if (itemId == R.id.nav_wishlist) {
+                navigateToActivity(Wishlist.class);
+                return true;
+            } else if (itemId == R.id.nav_trip) {
+                navigateToActivity(TripsActivity.class);
+                return true;
+            }
+            else if (itemId == R.id.nav_account) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    private void navigateToActivity(Class<?> activityClass) {
+        Intent intent = new Intent(this, activityClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.nav_account);
+    }
+
+    private void fetchUserData() {
         firestore.collection("users").document(currentUID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

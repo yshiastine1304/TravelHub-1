@@ -22,7 +22,6 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
     private List<AttractionsModel> dataList;
     private Context context;
 
-    // Constructor that takes the list
     public AttractionAdapter(Context context, List<AttractionsModel> dataList) {
         this.context = context;
         this.dataList = dataList;
@@ -33,7 +32,6 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
     public AttractionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.attraction_item, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -46,8 +44,9 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
                 .placeholder(R.drawable.default_picture)
                 .into(holder.picture_location_1);
         holder.title_caption_1.setText(attractionsModel.getCaption_1());
+        holder.category.setText(attractionsModel.getRecommendInterest());
 
-        holder.picture_location_1.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
@@ -56,7 +55,6 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -67,14 +65,14 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView picture_location_1;
         TextView title_caption_1;
-
-        ImageView picture_location_2;
-        TextView title_caption_2;
+        TextView category;
 
         public ViewHolder(View itemView){
             super(itemView);
             picture_location_1 = itemView.findViewById(R.id.titleImageView_1);
             title_caption_1 = itemView.findViewById(R.id.descriptionTextView_1);
+            category = itemView.findViewById(R.id.categoryTextView);
         }
     }
 }
+

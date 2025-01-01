@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ public class LogInActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();  // Ensure Firestore is initialized here
+        db = FirebaseFirestore.getInstance();
 
         // EditTexts
         email = findViewById(R.id.email_edittext_login);
@@ -64,42 +65,13 @@ public class LogInActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Login success
                         FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null && user.isEmailVerified()) {
+                        if (user != null) {
                             // Retrieve user data from Firestore
-                            DocumentReference docRef = db.collection("users").document(user.getUid());
-                            docRef.get().addOnSuccessListener(documentSnapshot -> {
-                                if (documentSnapshot.exists()) {
-                                    String access = documentSnapshot.getString("access");
-                                    String agencyName = documentSnapshot.getString("fullName");
-                                    access_type = access;
-                                    if (access != null) {
-                                        if (access.equals("admin")) {
-                                            startActivity(new Intent(this, AdminDashboardActivity.class));
-                                            finish();
-                                        } else if (access.equals("user")) {
-                                            startActivity(new Intent(this, Dashboard.class));
-                                            finish();
-                                        } else if (access.equals("agency")) {
-                                            Intent intent = new Intent(this, AgencyDashboard.class);
-                                            intent.putExtra("agency_name", agencyName);
-                                            startActivity(intent);
-
-                                            finish();
-                                        }
-                                    }
-                                } else {
-                                    Toast.makeText(LogInActivity.this, "User data not found", Toast.LENGTH_LONG).show();
-                                }
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            });
-                        } else {
-                            // Email not verified
-                            Toast.makeText(LogInActivity.this, "Please verify your email address", Toast.LENGTH_LONG).show();
-                            mAuth.signOut();
+                            checkUserAccessAndRedirect(user.getUid());
                         }
                     } else {
                         // Login failed
+                        Log.e("LogInActivity", "Authentication failed", task.getException());
                         Toast.makeText(LogInActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -108,38 +80,57 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("LogInActivity", "onStart called");
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             userUid = user.getUid();
-            db.collection("users").document(userUid)
-                    .get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            access_type = documentSnapshot.getString("access");
-                            String name = documentSnapshot.getString("fullName");
-                            if (user.isEmailVerified()) {
-                                if ("admin".equals(access_type)) {
-                                    startActivity(new Intent(LogInActivity.this, AdminDashboardActivity.class));
-                                } else if ("user".equals(access_type)) {
-                                    startActivity(new Intent(LogInActivity.this, Dashboard.class));
-                                } else if ("agency".equals(access_type)) {
-                                    Intent intent = new Intent(LogInActivity.this, AgencyDashboard.class);
-                                    intent.putExtra("agency_name", name);
-                                    startActivity(intent);
-                                }
-                                finish();
-                            } else {
-                                Toast.makeText(LogInActivity.this, "Please verify your email address", Toast.LENGTH_LONG).show();
-                                mAuth.signOut();
-                            }
-                        } else {
-                            Toast.makeText(LogInActivity.this, "Cannot identify user", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(e ->
-                            Toast.makeText(LogInActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                    );
+            checkUserAccessAndRedirect(userUid);
         }
     }
+
+    private void checkUserAccessAndRedirect(String userUid) {
+        db.collection("users").document(userUid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        access_type = documentSnapshot.getString("access");
+                        String name = documentSnapshot.getString("fullName");
+                        redirectUserBasedOnAccess(access_type, name);
+                    } else {
+                        Log.w("LogInActivity", "User document does not exist");
+                        Toast.makeText(LogInActivity.this, "User data not found. Please log in again.", Toast.LENGTH_LONG).show();
+                        mAuth.signOut();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("LogInActivity", "Error fetching user data", e);
+                    Toast.makeText(LogInActivity.this, "Error fetching user data. Please try again.", Toast.LENGTH_LONG).show();
+                    mAuth.signOut();
+                });
+    }
+
+    private void redirectUserBasedOnAccess(String accessType, String name) {
+        Intent intent;
+        switch (accessType) {
+            case "admin":
+                intent = new Intent(LogInActivity.this, AdminDashboardActivity.class);
+                break;
+            case "users":
+                intent = new Intent(LogInActivity.this, Dashboard.class);
+                break;
+            case "agency":
+                intent = new Intent(LogInActivity.this, AgencyDashboard.class);
+                intent.putExtra("agency_name", name);
+                break;
+            default:
+                Log.w("LogInActivity", "Unknown access type: " + accessType);
+                Toast.makeText(LogInActivity.this, "Invalid user type. Please contact support.", Toast.LENGTH_LONG).show();
+                mAuth.signOut();
+                return;
+        }
+        startActivity(intent);
+        finish();
+    }
 }
+

@@ -1,61 +1,75 @@
 package com.personal.development.travelhub;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.CollectionReference;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.personal.development.travelhub.adapters.ItineraryAdapter;
 import com.personal.development.travelhub.models.ItineraryDestinationModel;
-import com.personal.development.travelhub.models.Tour;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItineraryActivity extends AppCompatActivity {
+public class ItineraryActivity extends AppCompatActivity implements ItineraryAdapter.OnItemClickListener {
 
     private static final String TAG = "ItineraryActivity";
     private RecyclerView itineraryRecyclerView;
     private ItineraryAdapter adapter;
     private List<ItineraryDestinationModel> itineraryList;
     private FirebaseFirestore db;
-    String tourUID,destinationName,formStatus;
+    private String tourUID, destinationName, formStatus;
+
+    private MaterialButton departureCommuteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.itinerary_layout);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Itinerary");
+
         Intent intent = getIntent();
         tourUID = intent.getStringExtra("tour_uid");
         destinationName = intent.getStringExtra("destination_name");
         formStatus = intent.getStringExtra("form_status");
-        // Initialize RecyclerView
+
         itineraryRecyclerView = findViewById(R.id.day1_recycler);
         itineraryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
-        // Initialize data list and adapter
         itineraryList = new ArrayList<>();
         adapter = new ItineraryAdapter(itineraryList);
+        adapter.setOnItemClickListener(this);
         itineraryRecyclerView.setAdapter(adapter);
 
-        if (formStatus.equals("0")){
-            // Fetch data from Firestore
+        departureCommuteButton = findViewById(R.id.departure_commute_button);
+
+        departureCommuteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!itineraryList.isEmpty()) {
+                    String firstDestination = itineraryList.get(0).getDestinationName();
+                    startCommuteActivity("Current Location", firstDestination);
+                }
+            }
+        });
+
+        if (formStatus.equals("0")) {
             fetchItineraryData();
         }
-
     }
 
     private void fetchItineraryData() {
@@ -63,30 +77,26 @@ public class ItineraryActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        // Fetch the document ID and tourName
                         String documentUID = documentSnapshot.getId();
                         String tourName = documentSnapshot.getString("tourName");
                         String imgLink1 = documentSnapshot.getString("image_link_1");
 
-                        // Now, fetch the 'destination_list' subcollection of the specific tour_package
                         db.collection("tour_package").document(documentUID)
                                 .collection("destination_list")
                                 .get()
                                 .addOnSuccessListener(queryDocumentSnapshots -> {
                                     if (!queryDocumentSnapshots.isEmpty()) {
                                         for (QueryDocumentSnapshot destinationDocument : queryDocumentSnapshots) {
-                                            // Convert the destination document to the model
                                             String activity = destinationDocument.getString("activity");
                                             String day = destinationDocument.getString("day");
                                             String destinationCounter = destinationDocument.getString("destination_counter");
                                             String destinationName = destinationDocument.getString("destination_name");
                                             String startTime = destinationDocument.getString("start_time");
 
-                                            ItineraryDestinationModel tour = new ItineraryDestinationModel(activity, day, destinationCounter, destinationName, startTime,imgLink1);
+                                            ItineraryDestinationModel tour = new ItineraryDestinationModel(activity, day, destinationCounter, destinationName, startTime, imgLink1);
                                             itineraryList.add(tour);
-
                                         }
-                                        adapter.notifyDataSetChanged(); // Refresh RecyclerView after data is added
+                                        adapter.notifyDataSetChanged();
                                     }
                                 })
                                 .addOnFailureListener(e -> {
@@ -99,4 +109,17 @@ public class ItineraryActivity extends AppCompatActivity {
                 });
     }
 
+    private void startCommuteActivity(String origin, String destination) {
+        Intent intent = new Intent(ItineraryActivity.this, CommuteActivity.class);
+        intent.putExtra("origin", origin);
+        intent.putExtra("destination", destination);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        ItineraryDestinationModel selectedDestination = itineraryList.get(position);
+        startCommuteActivity("Current Location", selectedDestination.getDestinationName());
+    }
 }
+

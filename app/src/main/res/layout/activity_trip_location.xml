@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/background_color"
+    tools:context=".TripLocationActivity">
+
+    <TextView
+        android:id="@+id/trip_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trip Location"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_color"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/home_city_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/trip_location_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/my_location_button"
+        app:startIconDrawable="@drawable/baseline_home_24"
+        app:startIconTint="@color/primary_color"
+        app:hintTextColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/home_city_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Home City (Origin)"
+            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/text_primary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/my_location_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/baseline_my_location_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="24dp"
+        android:backgroundTint="@color/primary_color"
+        app:layout_constraintTop_toTopOf="@id/home_city_layout"
+        app:layout_constraintBottom_toBottomOf="@id/home_city_layout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/moalboal_place_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/home_city_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/map_button"
+        app:startIconDrawable="@drawable/baseline_place_24"
+        app:startIconTint="@color/primary_color"
+        app:hintTextColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/moalboal_place_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Place to visit in Moalboal"
+            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/text_primary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/map_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/baseline_map_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="24dp"
+        android:backgroundTint="@color/primary_color"
+        app:layout_constraintTop_toTopOf="@id/moalboal_place_layout"
+        app:layout_constraintBottom_toBottomOf="@id/moalboal_place_layout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dont_know_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't know where to go yet?"
+        android:textSize="12sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/moalboal_place_layout"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/browse_attractions_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/dont_know_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:startIconDrawable="@drawable/baseline_work_24"
+        app:startIconTint="@color/primary_color"
+        app:hintTextColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        app:boxBackgroundColor="@android:color/white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/browse_attractions_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Browse popular attractions in Moalboal"
+            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/text_primary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/done_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textSize="16sp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_marginTop="32dp"
+        app:cornerRadius="8dp"
+        android:backgroundTint="@color/primary_color"
+        app:layout_constraintTop_toBottomOf="@id/browse_attractions_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

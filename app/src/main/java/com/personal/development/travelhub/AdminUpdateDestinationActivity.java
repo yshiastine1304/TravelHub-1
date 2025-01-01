@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -32,17 +33,17 @@ import com.personal.development.travelhub.models.DestinationModels;
 
 import java.util.Locale;
 
-public class AdminUpdateDestinationActivity extends AppCompatActivity {
+public class    AdminUpdateDestinationActivity extends AppCompatActivity {
 
     // UI components
     private EditText destinationName_txt, location, highlight, busFare, entranceFee, whatToExpect, otherDetails;
     private TextView btnOpenTimePicker;
     private ImageView destinationImage;
-    private Button updateButton, backBtn;
+    private Button updateButton, backBtn, deleteButton;
     private Spinner recommendedSpinner;
     private String selectedRecommended;
     private String selectedTimeRange;
-    private String selectedStartTime; // Add this line
+    private String selectedStartTime;
     private String selectedEndTime;
 
     // Firestore instance
@@ -71,11 +72,12 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
         destinationImage = findViewById(R.id.upload_img_btn_tour);
         updateButton = findViewById(R.id.save_admin_btn);
         backBtn = findViewById(R.id.back_admin_btn);
+        deleteButton = findViewById(R.id.delete_admin_btn);
         recommendedSpinner = findViewById(R.id.recommended_spinner);
 
         // Get the destination_id passed from the adapter
         Intent intent = getIntent();
-        String destinationName = intent.getStringExtra("destination_name"); // Get the destination_id
+        String destinationName = intent.getStringExtra("destination_name");
 
         // Fetch the destination data using destination_id
         fetchDestinationData(destinationName);
@@ -86,7 +88,7 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
         recommendedSpinner.setAdapter(adapter);
 
-        btnOpenTimePicker.setOnClickListener(v -> {openStartTimePicker();});
+        btnOpenTimePicker.setOnClickListener(v -> openStartTimePicker());
 
         recommendedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,9 +98,9 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,12 +110,19 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
             }
         });
 
-
         // Update button listener
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDestination(destinationName);
+            }
+        });
+
+        // Delete button listener
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteConfirmationDialog(destinationName);
             }
         });
     }
@@ -126,10 +135,10 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         if (!task.getResult().isEmpty()) {
                             DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                            destination = document.toObject(DestinationModels.class); // Map document to model
+                            destination = document.toObject(DestinationModels.class);
                             Log.d("AdminUpdate", "Data fetched successfully: " + destination);
                             if (destination != null) {
-                                populateFields(destination); // Populate the fields with the destination data
+                                populateFields(destination);
                             } else {
                                 Log.d("AdminUpdate", "Destination object is null.");
                             }
@@ -152,19 +161,18 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
             whatToExpect.setText(destination.getWhat_to_expect());
             otherDetails.setText(destination.getOther_details());
 
-
-            // Load the image into the ImageView using Glide
             Glide.with(this)
-                    .load(destination.getImage_link_1()) // Assuming the image URL is in the model
-                    .placeholder(R.drawable.default_picture) // Optional placeholder image
+                    .load(destination.getImage_link_1())
+                    .placeholder(R.drawable.default_picture)
                     .into(destinationImage);
         } else {
             Log.d("AdminUpdate", "Destination data is null, can't populate fields.");
         }
     }
+
     private void openStartTimePicker() {
         MaterialTimePicker startTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H) // or TimeFormat.CLOCK_12H
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setTitleText("Select Start Time")
                 .build();
 
@@ -172,14 +180,13 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
         startTimePicker.addOnPositiveButtonClickListener(v -> {
             selectedStartTime = String.format(Locale.getDefault(), "%02d:%02d", startTimePicker.getHour(), startTimePicker.getMinute());
-            // Open end time picker after selecting start time
             openEndTimePicker();
         });
     }
 
     private void openEndTimePicker() {
         MaterialTimePicker endTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H) // or TimeFormat.CLOCK_12H
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setTitleText("Select End Time")
                 .build();
 
@@ -187,14 +194,11 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
         endTimePicker.addOnPositiveButtonClickListener(v -> {
             selectedEndTime = String.format(Locale.getDefault(), "%02d:%02d", endTimePicker.getHour(), endTimePicker.getMinute());
-            // Set the selected time range in the TextView
-            btnOpenTimePicker.setText("daily " + selectedStartTime + " am to " + selectedEndTime+ " pm " );
+            btnOpenTimePicker.setText("daily " + selectedStartTime + " am to " + selectedEndTime + " pm ");
         });
     }
 
-
     private void updateDestination(String destination_) {
-        // Get updated data from fields
         String updatedDestinationName = destinationName_txt.getText().toString();
         String updatedLocation = location.getText().toString();
         String updatedHighlight = highlight.getText().toString();
@@ -204,7 +208,6 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
         String updatedOtherDetails = otherDetails.getText().toString();
         selectedTimeRange = btnOpenTimePicker.getText().toString();
 
-        // Validate fields
         if (updatedDestinationName.isEmpty() || updatedLocation.isEmpty() || updatedHighlight.isEmpty() ||
                 updatedBusFare.isEmpty() || updatedEntranceFee.isEmpty() ||
                 updatedWhatToExpect.isEmpty() || updatedOtherDetails.isEmpty()) {
@@ -212,7 +215,6 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
             return;
         }
 
-        // Update destination object
         destination.setDestination_name(updatedDestinationName);
         destination.setLocation(updatedLocation);
         destination.setHighlight(updatedHighlight);
@@ -225,13 +227,11 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
 
         firestore.collection("attractions")
                 .whereEqualTo("destination_name", destination_)
-                .get() // Fetch documents matching the query
+                .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                        // Get the document ID of the first matching document
                         String documentId = task.getResult().getDocuments().get(0).getId();
 
-                        // Update the document using the document ID
                         firestore.collection("attractions").document(documentId)
                                 .set(destination)
                                 .addOnSuccessListener(aVoid -> {
@@ -245,7 +245,41 @@ public class AdminUpdateDestinationActivity extends AppCompatActivity {
                         Toast.makeText(this, "Error finding destination to update", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
+    private void showDeleteConfirmationDialog(String destinationName) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Destination")
+                .setMessage("Are you sure you want to delete this destination?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteDestination(destinationName))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void deleteDestination(String destinationName) {
+        firestore.collection("attractions")
+                .whereEqualTo("destination_name", destinationName)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                        String documentId = task.getResult().getDocuments().get(0).getId();
+
+                        firestore.collection("attractions").document(documentId)
+                                .delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Destination deleted successfully!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(AdminUpdateDestinationActivity.this, DestinationList.class);
+                                    intent.putExtra("access", "admin");
+                                    startActivity(intent);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Failed to delete destination.", Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        Toast.makeText(this, "Error finding destination to delete", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
+

@@ -4,6 +4,7 @@ public class AttractionsModel {
     private String imageUrl_1;
     private String Caption_1;
     private String documentUID;
+    private String recommendInterest;
 
     public String getImageUrl_1() {
         return imageUrl_1;
@@ -29,9 +30,19 @@ public class AttractionsModel {
         this.documentUID = documentUID;
     }
 
-    public AttractionsModel(String imageUrl_1, String caption_1, String documentUID) {
+    public String getRecommendInterest() {
+        return recommendInterest;
+    }
+
+    public void setRecommendInterest(String recommendInterest) {
+        this.recommendInterest = recommendInterest;
+    }
+
+    public AttractionsModel(String imageUrl_1, String caption_1, String documentUID, String recommendInterest) {
         this.imageUrl_1 = imageUrl_1;
         Caption_1 = caption_1;
         this.documentUID = documentUID;
+        this.recommendInterest = recommendInterest;
     }
 }
+

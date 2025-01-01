@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background_color">#DEEEF8</color>
+
+    <color name="gray">#808080</color>
+
     <color name="wishlist_background_color">#B5D1E2</color>
     <color name="button_color">#715675</color>
     <color name="forgotPass_color">#816e84</color>
     <color name="textview_lbl">#745474</color>
     <color name="font_color_bold">#D0EDFF</color>
     <color name="background_textview_details">#4D8CB2</color>
-    <color name="bottom_navigation_color">#216088</color>
+    <color name="bottom_navigation_color">#B5D1E2</color>
     <color name="review_text_color">#36a2df</color>
     <color name="admin_btn_color">#B5D1E2</color>
     <color name="add_trip_btn_color">#3F6A85</color>
     <color name="float_btn">#133287</color>
+    <color name="highlighted_step">#E0F7FA</color>
+    <color name="primary_color">#3498db</color>
+    <color name="primary_dark_color">#2980b9</color>
+    <color name="accent_color">#e74c3c</color>
+    <color name="background_color">#f5f5f5</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+    <color name="bottom_nav_background">#ffffff</color>
+    <color name="bottom_nav_item_color">#3498db</color>
+    <color name="fab_background">#e74c3c</color>
+    <color name="fab_icon_color">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="primary_text_color">#212121</color>
+    <color name="secondary_text_color">#757575</color>
+    <color name="stroke_color">#E0E0E0</color>
+    <color name="error_color">#D32F2F</color>
+    <color name="black">#000000</color>
+
 </resources>

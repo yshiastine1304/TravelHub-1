@@ -6,6 +6,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -42,9 +44,6 @@
             android:name=".DestinationList"
             android:exported="false" />
         <activity
-            android:name=".ViewTrip"
-            android:exported="false" />
-        <activity
             android:name=".AdminTotalUserActivity"
             android:exported="false" />
         <activity
@@ -78,6 +77,27 @@
             android:name=".Registration_view"
             android:exported="false" />
         <activity
+            android:name=".AddTripActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TripLocationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PopularAttractionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttractionDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommuteActivity"
+            android:exported="false" />
+        <activity
             android:name=".LogInActivity"
             android:exported="true">
             <intent-filter>
@@ -86,6 +106,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyALQFZx1xGo1yEeGobE0DzGh88XC3LpqN4"/>
+
     </application>
 
 </manifest>
+

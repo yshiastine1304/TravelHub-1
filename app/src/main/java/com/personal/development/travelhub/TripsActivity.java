@@ -64,26 +64,49 @@ public class TripsActivity extends AppCompatActivity {
         // Fetch trips data from Firestore
         fetchTripsData();
 
-        // Set up bottom navigation actions
-        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
+        setupBottomNavigation();
+    }
 
+    private void setupBottomNavigation() {
+        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                startActivity(new Intent(TripsActivity.this, Dashboard.class));
+                navigateToActivity(Dashboard.class);
                 return true;
             } else if (itemId == R.id.nav_wishlist) {
-                startActivity(new Intent(TripsActivity.this, Wishlist.class));
+                navigateToActivity(Wishlist.class);
                 return true;
             } else if (itemId == R.id.nav_trip) {
                 return true;
-            } else if (itemId == R.id.nav_account) {
-                startActivity(new Intent(TripsActivity.this, Profile.class));
-                return true;
-            } else {
-                return false;
             }
+
+            else if (itemId == R.id.nav_account) {
+                navigateToActivity(Profile.class);
+                return true;
+            }
+
+            return false;
         });
+    }
+
+    private void navigateToActivity(Class<?> activityClass) {
+        Intent intent = new Intent(this, activityClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
     }
 
     private void fetchTripsData() {
@@ -144,10 +167,6 @@ public class TripsActivity extends AppCompatActivity {
             toggleEmptyState(true);
         });
     }
-
-
-
-
 
     // Method to show or hide the empty state
     public void toggleEmptyState(boolean isEmpty) {
